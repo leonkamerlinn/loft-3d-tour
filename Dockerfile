@@ -11,6 +11,9 @@ COPY assets ./assets
 ENV NODE_ENV=production
 ENV PORT=8080
 
+# Run as the unprivileged user that ships with the official Node image
+USER node
+
 EXPOSE 8080
 
 CMD ["node", "server.js"]
