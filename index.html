@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0d0c0b" />
   <meta name="description" content="Interaktivna 1:1 3D šetnja dvoetažnim loftom rekonstruiranim iz Apple LiDAR RoomPlan skena." />
-  <title>Dvoetažni Loft 1:1 — Interaktivna 3D Šetnja Prostorom</title>
+  <title>Dvoetažni Loft 1:1 — 3D šetnja: postojeći interijer i redizajn Japandi</title>
+  <script>
+    document.documentElement.dataset.interior =
+      new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
+  </script>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
@@ -44,6 +48,12 @@
       </div>
     </div>
 
+
+    <div class="interior-switch" role="group" aria-label="Odabir interijera">
+      <button type="button" class="isw-btn" data-interior="current" aria-pressed="true"><span class="isw-long">Postojeće</span><span class="isw-short">Sada</span></button>
+      <button type="button" class="isw-btn" data-interior="redesign" aria-pressed="false"><span aria-hidden="true">✦</span> <span class="isw-long">Redizajn</span><span class="isw-short">Novo</span></button>
+    </div>
+
     <nav id="room-nav" class="room-nav" aria-label="Prostorije">
       <button type="button" class="nav-pill active" data-stop="0" aria-current="step"><span>01</span>Atrij</button>
       <button type="button" class="nav-pill" data-stop="1"><span>02</span>Kuhinja</button>
@@ -66,6 +76,8 @@
       </button>
     </div>
   </header>
+
+  <div id="interior-toast" class="interior-toast hidden" role="status" aria-live="polite"></div>
 
   <!-- Free Orbit Mode Banner -->
   <div id="free-banner" class="free-banner hidden" role="status">
@@ -102,6 +114,7 @@
     <!-- 01 Atrij -->
     <section class="story-section" data-index="0">
       <article class="room-card side-left">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">01 / 08</span>
           <span class="elev-tag">PRIZEMLJE • +0.00 m</span>
@@ -120,12 +133,27 @@
           <span class="hint-desktop">Scrollaj za šetnju kroz prostorije</span>
           <span class="hint-touch">Povuci prstom prema gore za šetnju</span>
         </div>
+        <button type="button" class="compare-btn cta-redesign" data-switch-interior="redesign">✦ Nova ideja: pogledaj redizajn interijera</button>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">01 / 08</span><span class="elev-tag">NOVA IDEJA ✦ REDIZAJN</span></div>
+        <h2>Japandi Calm — novi interijer</h2>
+        <p>Isti prostor u mjerilu 1:1, potpuno nov karakter: spoj japanskog minimalizma i skandinavske topline. Topli vapneni štuk, svijetli parket riblja kost, crno močene grede, izbijeljena opeka i prirodni materijali umjesto rustikalno-industrijskog stila.</p>
+        <div class="palette" aria-label="Paleta boja"><span style="--c:#e9e1d3" title="Vapneni štuk"></span><span style="--c:#b98b5e" title="Hrast"></span><span style="--c:#7d8a6a" title="Kadulja"></span><span style="--c:#a8826a" title="Travertin"></span><span style="--c:#8a4a2f" title="Terakota"></span><span style="--c:#1d1a17" title="Ebonizirani hrast"></span></div>
+        <div class="spec-grid">
+          <div><span>Stil</span><strong>Japandi</strong></div>
+          <div><span>Arhitektura</span><strong>Zadržana 1:1</strong></div>
+          <div><span>Novo</span><strong>Materijali, namještaj, svjetlo</strong></div>
+        </div>
+        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Blagovaonica — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
       </article>
     </section>
 
     <!-- 02 Kuhinja -->
     <section class="story-section" data-index="1">
       <article class="room-card side-right">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">02 / 08</span>
           <span class="elev-tag">ZAPADNA ZONA • KUHINJA</span>
@@ -141,12 +169,24 @@
         <button type="button" class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/render_dining.jpg" data-title="Kuhinja i blagovaonica — stvarna fotografija vs. 3D">
           Pogledaj referentnu fotografiju
         </button>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">02 / 08</span><span class="elev-tag">REDIZAJN • KUHINJA</span></div>
+        <h2>Kuhinja u kadulji, hrastu i travertinu</h2>
+        <p>Donje fronte u mat kadulja-zelenoj, visoki ormar i gornji elementi u svijetlom hrastu, radna ploča i obloga od travertina, slavina od brušenog mjedi i topla LED traka ispod gornjih elemenata.</p>
+        <div class="spec-grid">
+          <div><span>Fronte</span><strong>Kadulja mat &amp; hrast</strong></div>
+          <div><span>Radna ploča</span><strong>Travertin</strong></div>
+        </div>
+        <button type="button" class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/redesign_kitchen.jpg" data-cap-a="Postojeća kuhinja (fotografija)" data-cap-b="Redizajn Japandi (Cycles render)" data-title="Kuhinja — postojeće vs. redizajn">Usporedi s postojećom kuhinjom</button>
+        </div>
       </article>
     </section>
 
     <!-- 03 Blagovaonica -->
     <section class="story-section" data-index="2">
       <article class="room-card side-right">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">03 / 08</span>
           <span class="elev-tag">JUGOZAPAD • BLAGOVAONICA</span>
@@ -162,12 +202,24 @@
         <button type="button" class="compare-btn" data-photo="./assets/photo_dining.jpg" data-render="./assets/render_dining.jpg" data-title="Blagovaonica i kamin (IMG_6449) — stvarna fotografija vs. Cycles render">
           Usporedi fotografiju i Cycles render
         </button>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">03 / 08</span><span class="elev-tag">REDIZAJN • BLAGOVAONICA</span></div>
+        <h2>Okrugli stol od travertina</h2>
+        <p>Monolitni okrugli stol Ø 136 cm na stožastom postolju, šest hrastovih stolica s bouclé sjedalima i velika papirnata lampa Ø 76 cm u stilu Akari koja daje meko, raspršeno svjetlo.</p>
+        <div class="spec-grid">
+          <div><span>Stol</span><strong>Travertin Ø 136 cm</strong></div>
+          <div><span>Rasvjeta</span><strong>Papirnata lampa</strong></div>
+        </div>
+        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Blagovaonica — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
       </article>
     </section>
 
     <!-- 04 Kamin -->
     <section class="story-section" data-index="3">
       <article class="room-card side-left">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">04 / 08</span>
           <span class="elev-tag">JUŽNI ZID • SREDIŠTE</span>
@@ -180,12 +232,23 @@
           <div><span>Obloga</span><strong>PBR crvena opeka</strong></div>
           <div><span>Stolarija</span><strong>Kosi krovni prozori</strong></div>
         </div>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">04 / 08</span><span class="elev-tag">REDIZAJN • JUŽNI ZID</span></div>
+        <h2>Izbijeljena opeka i mat crna peć</h2>
+        <p>Dimnjak dobiva oblogu od izbijeljene opeke, peć na pelete i zidne lampe postaju mat crne, a uz staklenu stijenu blagovaonice stoji velika biljka u terakota posudi. Tamne žaluzine zamijenjene su svijetlim lanenim roletama.</p>
+        <div class="spec-grid">
+          <div><span>Obloga</span><strong>Izbijeljena opeka</strong></div>
+          <div><span>Detalji</span><strong>Mat crna</strong></div>
+        </div>
+        </div>
       </article>
     </section>
 
     <!-- 05 Dnevni boravak -->
     <section class="story-section" data-index="4">
       <article class="room-card side-left">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">05 / 08</span>
           <span class="elev-tag">JUGOISTOK • DNEVNI BORAVAK</span>
@@ -201,12 +264,24 @@
         <button type="button" class="compare-btn" data-photo="./assets/photo_tv.jpg" data-render="./assets/render_living.jpg" data-title="Dnevni boravak i TV zid — stvarna fotografija vs. Cycles render">
           Usporedi fotografiju i Cycles render
         </button>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">05 / 08</span><span class="elev-tag">REDIZAJN • DNEVNI BORAVAK</span></div>
+        <h2>Bouclé garnitura i zid od letvica</h2>
+        <p>Niska modularna L-garnitura u krem bouclé tkanini na crnom postolju, okrugli hrastov stolić, travertinski pomoćni stolić, vuneni tepih i mid-century kožna fotelja. Istočni zid čine vertikalne hrastove letvice na crnom akustičnom filcu, uz lebdeću TV komodu s LED rasvjetom.</p>
+        <div class="spec-grid">
+          <div><span>Istočni zid</span><strong>Hrastove letvice</strong></div>
+          <div><span>Sjedenje</span><strong>Bouclé + kožna fotelja</strong></div>
+        </div>
+        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_living.jpg" data-after="./assets/redesign_living.jpg" data-title="Dnevni boravak — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
       </article>
     </section>
 
     <!-- 06 Stepenište i vinoteka -->
     <section class="story-section" data-index="5">
       <article class="room-card side-left">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">06 / 08</span>
           <span class="elev-tag">SJEVEROISTOK • USPON</span>
@@ -222,12 +297,24 @@
         <button type="button" class="compare-btn" data-photo="./assets/photo_living.jpg" data-render="./assets/render_living.jpg" data-title="Stepenište i komoda (IMG_6452) — stvarna fotografija vs. Cycles render">
           Usporedi fotografiju i Cycles render
         </button>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">06 / 08</span><span class="elev-tag">REDIZAJN • STEPENIŠTE</span></div>
+        <h2>Stepenište kao skulptura</h2>
+        <p>Lebdeća hrastova gazišta i crna čelična konstrukcija ostaju. Uz zid od letvica i svijetle vapnene zidove stepenište postaje grafička skulptura prostora.</p>
+        <div class="spec-grid">
+          <div><span>Zidovi</span><strong>Vapneni štuk</strong></div>
+          <div><span>Pod</span><strong>Parket riblja kost</strong></div>
+        </div>
+        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_living.jpg" data-after="./assets/redesign_living.jpg" data-title="Stepenište i boravak — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
       </article>
     </section>
 
     <!-- 07 Uspon i krovne grede -->
     <section class="story-section" data-index="6">
       <article class="room-card side-right">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">07 / 08</span>
           <span class="elev-tag">USPON NA KAT</span>
@@ -240,12 +327,23 @@
           <div><span>Krovna građa</span><strong>3× hrastove rešetke</strong></div>
           <div><span>Spojnice</span><strong>Crni mat čelik</strong></div>
         </div>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">07 / 08</span><span class="elev-tag">REDIZAJN • KROVIŠTE</span></div>
+        <h2>Crno močene krovne grede</h2>
+        <p>Hrastove rešetke i okviri prozora močeni su u gotovo crnu nijansu, kao grafički crtež na toplom bijelom stropu. Ispod njih vise tri papirnate lampe različitih veličina.</p>
+        <div class="spec-grid">
+          <div><span>Grede</span><strong>Ebonizirani hrast</strong></div>
+          <div><span>Lampe</span><strong>3× papir, 2700 K</strong></div>
+        </div>
+        </div>
       </article>
     </section>
 
     <!-- 08 Gornja galerija i radni kutak -->
     <section class="story-section" data-index="7">
       <article class="room-card side-right">
+        <div class="variant v-current">
         <div class="card-meta">
           <span class="step-num">08 / 08</span>
           <span class="elev-tag">GALERIJA • +2.74 m</span>
@@ -258,6 +356,18 @@
           <div><span>Razina kata</span><strong>+2.74 m</strong></div>
           <div><span>Namjena</span><strong>Radna galerija &amp; ured</strong></div>
         </div>
+        </div>
+        <div class="variant v-redesign">
+        <div class="card-meta"><span class="step-num">08 / 08</span><span class="elev-tag">REDIZAJN • GALERIJA</span></div>
+        <h2>Mirna radna galerija</h2>
+        <p>Galerija zadržava radni kutak s hrastovim stolom i ogradu s biljkama penjačicama, a nova paleta zidova, podova i greda povezuje je s prizemljem u jednu smirenu cjelinu.</p>
+        <div class="spec-grid">
+          <div><span>Razina kata</span><strong>+2.74 m</strong></div>
+          <div><span>Ugođaj</span><strong>Topao, smiren</strong></div>
+        </div>
+        <button type="button" class="compare-btn outline" data-switch-interior="current">Pogledaj postojeći interijer</button>
+        </div>
+
         <button type="button" id="btn-back-top" class="compare-btn outline">
           ↑ Povratak na početak šetnje
         </button>
@@ -276,13 +386,33 @@
       <div class="modal-grid">
         <figure>
           <img id="modal-photo" src="data:," alt="Referentna fotografija" loading="lazy" decoding="async" />
-          <figcaption>Stvarna referentna fotografija (.JPG)</figcaption>
+          <figcaption id="modal-cap-a">Stvarna referentna fotografija (.JPG)</figcaption>
         </figure>
         <figure>
           <img id="modal-render" src="data:," alt="3D Cycles rekonstrukcija" loading="lazy" decoding="async" />
-          <figcaption>Blender Cycles 1:1 3D rekonstrukcija</figcaption>
+          <figcaption id="modal-cap-b">Blender Cycles 1:1 3D rekonstrukcija</figcaption>
         </figure>
       </div>
+    </div>
+  </div>
+
+  <!-- Before / After Slider Modal -->
+  <div id="ba-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="ba-title">
+    <div class="modal-backdrop" id="ba-backdrop"></div>
+    <div class="modal-content ba-content">
+      <div class="modal-header">
+        <h3 id="ba-title">Prije / poslije</h3>
+        <button type="button" id="ba-close" class="modal-close" aria-label="Zatvori">✕</button>
+      </div>
+      <div class="ba-stage" id="ba-stage" style="--split: 50%">
+        <img id="ba-before" src="data:," alt="Postojeći interijer" decoding="async" />
+        <img id="ba-after" class="ba-after" src="data:," alt="Redizajn interijera" decoding="async" />
+        <div class="ba-handle" aria-hidden="true"><span>⇆</span></div>
+        <span class="ba-label ba-label-left">Postojeće</span>
+        <span class="ba-label ba-label-right">Redizajn ✦</span>
+        <input id="ba-range" class="ba-range" type="range" min="0" max="100" value="50" aria-label="Pomakni granicu prije / poslije" />
+      </div>
+      <p class="ba-note">Oba prikaza renderirana su u Blender Cyclesu iz identične kamere (visina očiju 1.60 m, 15 mm).</p>
     </div>
   </div>
 

@@ -24,14 +24,15 @@ const STOP_COUNT = 8;
 
 // 8 room stops (even indices) + 7 corridor midpoints (odd indices).
 // CatmullRomCurve3.getPoint(t) is parameterised by control-point index, so t = k / 7 lands exactly
-// on stop k. Every node was ray-cast checked in Blender for wall/beam clearance.
+// on stop k. The whole curve (not just the nodes) was ray-cast sampled in Blender in both interiors:
+// minimum clearance 0.10 m, above the 0.06 m near plane.
 const TOUR_NODES = [
   { cam: [0.12, 0.36, -1.36], look: [-0.35, -4.2, -0.95] }, // 01 Atrij
   { cam: [-1.55, -0.42, -1.4], look: [-3.35, -2.35, -1.48] },
   { cam: [-2.82, -1.72, -1.4], look: [-4.05, -3.75, -1.55] }, // 02 Kuhinja
-  { cam: [-1.75, -1.58, -1.4], look: [-1.85, -3.45, -1.62] },
+  { cam: [-0.4, -2.55, -1.4], look: [-1.5, -4.2, -1.55] }, // passes SOUTH of the mezzanine corner pillar
   { cam: [-0.08, -2.02, -1.4], look: [-1.45, -4.55, -1.48] }, // 03 Blagovaonica (IMG_6449)
-  { cam: [-0.22, -2.25, -1.4], look: [-0.55, -4.75, -1.05] },
+  { cam: [-0.05, -2.3, -1.4], look: [-0.45, -4.75, -1.05] },
   { cam: [0.05, -2.5, -1.4], look: [0.0, -4.85, -1.15] }, // 04 Kamin
   { cam: [0.45, -3.75, -1.4], look: [2.2, -2.9, -1.42] },
   { cam: [0.68, -4.28, -1.4], look: [2.65, -1.95, -1.32] }, // 05 Boravak (IMG_6452 / 6453)
@@ -129,14 +130,32 @@ controls.maxDistance = 7.5;
 controls.maxPolarAngle = Math.PI * 0.92;
 
 // ---------------------------------------------------------------------------
-// Lighting
+// Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
-const eveningLights = [];
+const INTERIORS = {
+  current: { url: './assets/room_3d.glb', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb', exposure: 1.16, name: 'redizajn Japandi' }
+};
+let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
+
+// ---------------------------------------------------------------------------
+// Lighting — every light belongs to 'common', 'current' or 'redesign'
+// ---------------------------------------------------------------------------
+const managedLights = [];
 
 const hemiLight = new THREE.HemisphereLight(0xffe9cf, 0x2c241d, 0.42);
 scene.add(hemiLight);
 
-function addPoint(xb, yb, zb, color, intensity, distance = 9, castShadow = false) {
+function registerLight(light, base, group) {
+  light.userData.base = base;
+  light.userData.group = group;
+  managedLights.push(light);
+  scene.add(light);
+  if (light.target) scene.add(light.target);
+  return light;
+}
+
+function addPoint(xb, yb, zb, color, intensity, distance = 9, castShadow = false, group = 'common') {
   const l = new THREE.PointLight(color, intensity, distance, 1.7);
   l.position.copy(b2t(xb, yb, zb));
   if (castShadow && QUALITY.shadows) {
@@ -145,46 +164,50 @@ function addPoint(xb, yb, zb, color, intensity, distance = 9, castShadow = false
     l.shadow.bias = -0.0008;
     l.shadow.radius = 3;
   }
-  scene.add(l);
-  eveningLights.push({ light: l, base: intensity });
-  return l;
+  return registerLight(l, intensity, group);
 }
 
-function addSpot(posB, targetB, color, intensity, angleDeg, penumbra = 0.45, dist = 8) {
+function addSpot(posB, targetB, color, intensity, angleDeg, penumbra = 0.45, dist = 8, group = 'common') {
   const s = new THREE.SpotLight(color, intensity, dist, THREE.MathUtils.degToRad(angleDeg), penumbra, 1.6);
   s.position.copy(b2t(...posB));
   s.target.position.copy(b2t(...targetB));
-  scene.add(s, s.target);
-  eveningLights.push({ light: s, base: intensity });
-  return s;
+  return registerLight(s, intensity, group);
 }
 
-// Dining pendant domes
-addPoint(-1.86, -3.55, -1.36, 0xffd29e, 5.2, 8.5, true);
-addPoint(-1.86, -2.88, -1.36, 0xffd29e, 5.2, 8.5, false);
-// Brick chimney up/down sconces
+// Common: brick chimney up/down sconces (kept in both designs), kitchen ceiling, gallery
 addSpot([-0.44, -4.64, -1.32], [-0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5);
 addSpot([-0.44, -4.64, -1.43], [-0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5);
 addSpot([0.44, -4.64, -1.32], [0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5);
 addSpot([0.44, -4.64, -1.43], [0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5);
-// Living room opal globes
-addPoint(1.35, -3.45, -0.55, 0xffdcb4, 4.4, 9.5, true);
-addPoint(2.25, -2.35, -0.35, 0xffdcb4, 3.8, 9.5, false);
-addPoint(1.15, -1.55, -0.75, 0xffdcb4, 3.4, 9.0, false);
-// East wall 4-way X sconce
-addSpot([4.11, -1.79, -0.89], [4.16, -2.85, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2);
-addSpot([4.11, -1.79, -0.81], [4.16, -2.85, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2);
-addSpot([4.11, -1.71, -0.89], [4.16, -0.65, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2);
-addSpot([4.11, -1.71, -0.81], [4.16, -0.65, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2);
-// Kitchen + gallery (always on)
-addPoint(-3.1, -2.55, -0.65, 0xffe0ba, 3.6, 7.5, false);
-addPoint(-2.35, -0.6, 1.45, 0xffe2be, 4.8, 9.0, false);
+addPoint(-3.1, -2.55, -0.65, 0xffe0ba, 3.6, 7.5);
+addPoint(-2.35, -0.6, 1.45, 0xffe2be, 4.8, 9.0);
+
+// Current interior: dining domes, opal globes, 4-way X sconce on the dark wood wall
+addPoint(-1.86, -3.55, -1.36, 0xffd29e, 5.2, 8.5, true, 'current');
+addPoint(-1.86, -2.88, -1.36, 0xffd29e, 5.2, 8.5, false, 'current');
+addPoint(1.35, -3.45, -0.55, 0xffdcb4, 4.4, 9.5, true, 'current');
+addPoint(2.25, -2.35, -0.35, 0xffdcb4, 3.8, 9.5, false, 'current');
+addPoint(1.15, -1.55, -0.75, 0xffdcb4, 3.4, 9.0, false, 'current');
+addSpot([4.11, -1.79, -0.89], [4.16, -2.85, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
+addSpot([4.11, -1.79, -0.81], [4.16, -2.85, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
+addSpot([4.11, -1.71, -0.89], [4.16, -0.65, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
+addSpot([4.11, -1.71, -0.81], [4.16, -0.65, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
+
+// Redesign: Akari-style paper lanterns (warmer 2700 K), TV-bench LED wash, under-cabinet kitchen LED
+addPoint(-1.86, -3.23, -1.02, 0xffc790, 7.0, 9.0, true, 'redesign');
+addPoint(1.35, -3.45, -0.12, 0xffc790, 4.2, 9.5, true, 'redesign');
+addPoint(2.25, -2.35, 0.05, 0xffc790, 3.4, 9.5, false, 'redesign');
+addPoint(1.15, -1.55, -0.4, 0xffc790, 3.0, 9.0, false, 'redesign');
+addSpot([3.92, -3.0, -2.74], [3.7, -3.0, -3.0], 0xffc78a, 3.0, 70, 0.8, 1.6, 'redesign');
+addSpot([3.92, -4.0, -2.74], [3.7, -4.0, -3.0], 0xffc78a, 3.0, 70, 0.8, 1.6, 'redesign');
+addSpot([-3.95, -3.43, -1.48], [-3.95, -3.43, -2.02], 0xffd2a0, 4.0, 62, 0.7, 2.0, 'redesign');
+
 // Secondary fills: skipped on phones to keep fragment shaders cheap
 if (QUALITY.extraFillLights) {
-  addPoint(-2.2, -1.05, -0.65, 0xffe0ba, 2.8, 7.0, false);
-  addPoint(0.12, 1.85, -1.15, 0xffe4c4, 3.2, 6.5, false);
-  addPoint(2.2, 0.1, -1.25, 0xffd9ad, 2.6, 6.5, false);
-  addPoint(0.25, 2.1, 1.55, 0xffe2be, 2.5, 7.0, false);
+  addPoint(-2.2, -1.05, -0.65, 0xffe0ba, 2.8, 7.0);
+  addPoint(0.12, 1.85, -1.15, 0xffe4c4, 3.2, 6.5);
+  addPoint(2.2, 0.1, -1.25, 0xffd9ad, 2.6, 6.5);
+  addPoint(0.25, 2.1, 1.55, 0xffe2be, 2.5, 7.0);
 } else {
   hemiLight.intensity = 0.55; // compensate for the missing fills
 }
@@ -210,8 +233,10 @@ function applyLightingMode(day) {
   hemiLight.groundColor.setHex(day ? 0x8a7968 : 0x2c241d);
   hemiLight.intensity = day ? 1.15 : baseHemi;
   sunLight.intensity = day ? 2.8 : 0.0;
-  renderer.toneMappingExposure = day ? 1.02 : 1.08;
-  eveningLights.forEach(({ light, base }) => {
+  renderer.toneMappingExposure = day ? 1.02 : INTERIORS[activeInterior].exposure;
+  managedLights.forEach((light) => {
+    const { base, group } = light.userData;
+    light.visible = group === 'common' || group === activeInterior;
     light.intensity = day ? base * 0.25 : base;
   });
   lightingIcon.textContent = day ? '☀' : '☾';
@@ -223,11 +248,11 @@ function applyLightingMode(day) {
 btnLighting.addEventListener('click', () => applyLightingMode(!isDaylight));
 
 // ---------------------------------------------------------------------------
-// Model
+// Materials (per-interior colour grading lost in GLB export)
 // ---------------------------------------------------------------------------
 const GLASS_MATERIALS = ['Mat_Arch_Glass', 'Mat_Glass_Shelf', 'Mat_Frosted_Glass'];
 
-function tuneMaterial(mesh, m) {
+function tuneMaterial(mesh, m, interior) {
   const name = m.name || '';
   if (GLASS_MATERIALS.some((g) => name.includes(g))) {
     m.transparent = true;
@@ -238,27 +263,10 @@ function tuneMaterial(mesh, m) {
     mesh.castShadow = false; // glass must not block the sun / lamps
     return;
   }
-  if (name.includes('Mat_Sofa_GreyFabric')) {
-    m.color.setRGB(0.28, 0.28, 0.3);
-    m.roughness = 0.85;
-  } else if (name.includes('Mat_OliveWood_Sculpt') || name.includes('Golden_Oak') || name.includes('oak_veneer')) {
-    // The GLB optimiser deduplicated all three identical oak materials into one; give it a single warm
-    // honey-oak grade (previously only the sculpture was darkened, which would now darken all oak).
-    m.color.setRGB(1.03, 0.9, 0.74);
-    m.roughness = 0.38;
-  } else if (name.includes('red_bricks_04')) {
-    m.color.setRGB(1.08, 0.94, 0.88);
-  } else if (name.includes('dark_wooden_planks')) {
-    m.color.setRGB(0.86, 0.73, 0.62);
-    m.roughness = 0.46;
-  } else if (name.includes('potted_plant_02_leaves')) {
+  if (name.includes('_leaves')) {
     m.alphaTest = 0.42;
     m.transparent = false;
     m.side = THREE.DoubleSide;
-  } else if (name.includes('Mat_Lamp_Dome_White') || name.includes('Mat_Opal_Globe')) {
-    m.emissive = new THREE.Color(0xffe6c2);
-    m.emissiveIntensity = name.includes('Dome') ? 0.55 : 0.38;
-    mesh.castShadow = false; // lamp shades must not shadow their own light
   } else if (name.includes('Mat_Blue_LED')) {
     m.emissive = new THREE.Color(0x2ea8ff);
     m.emissiveIntensity = 2.4;
@@ -266,42 +274,178 @@ function tuneMaterial(mesh, m) {
     m.color.setRGB(0.02, 0.02, 0.025);
     m.roughness = 0.08;
     m.metalness = 0.35;
+  } else if (interior === 'current') {
+    if (name.includes('Mat_Sofa_GreyFabric')) {
+      m.color.setRGB(0.28, 0.28, 0.3);
+      m.roughness = 0.85;
+    } else if (name.includes('Mat_OliveWood_Sculpt') || name.includes('Golden_Oak') || name.includes('oak_veneer')) {
+      // The GLB optimiser deduplicated the identical oak materials into one; one warm honey-oak grade
+      m.color.setRGB(1.03, 0.9, 0.74);
+      m.roughness = 0.38;
+    } else if (name.includes('red_bricks_04')) {
+      m.color.setRGB(1.08, 0.94, 0.88);
+    } else if (name.includes('dark_wooden_planks')) {
+      m.color.setRGB(0.86, 0.73, 0.62);
+      m.roughness = 0.46;
+    } else if (name.includes('Mat_Lamp_Dome_White') || name.includes('Mat_Opal_Globe')) {
+      m.emissive = new THREE.Color(0xffe6c2);
+      m.emissiveIntensity = name.includes('Dome') ? 0.55 : 0.38;
+      mesh.castShadow = false;
+    }
+  } else {
+    // Redesign: the Blender Hue/Sat lift on limewash + whitewash is re-applied as a colour factor
+    if (name.includes('beige_wall_001')) {
+      m.color.setRGB(1.5, 1.43, 1.33);
+      m.roughness = 0.95;
+    } else if (name.includes('whitewashed_brick')) {
+      m.color.setRGB(1.28, 1.24, 1.2);
+    } else if (name.includes('oak_veneer')) {
+      m.color.setRGB(1.05, 0.95, 0.82);
+      m.roughness = 0.45;
+    } else if (name.includes('Mat_Paper_Lantern') || name.includes('Mat_Paper_Rib')) {
+      m.emissiveIntensity = name.includes('Rib') ? 0.35 : 0.85;
+      mesh.castShadow = false; // lantern shells must not shadow their own bulb
+    } else if (name.includes('Mat_LED_Warm')) {
+      m.emissiveIntensity = 1.6;
+      mesh.castShadow = false;
+    }
   }
   m.needsUpdate = true;
 }
 
+// ---------------------------------------------------------------------------
+// Model loading / switching
+// ---------------------------------------------------------------------------
 const gltfLoader = new GLTFLoader();
 gltfLoader.setMeshoptDecoder(MeshoptDecoder);
-gltfLoader.load(
-  './assets/room_3d.glb',
-  (gltf) => {
-    gltf.scene.traverse((obj) => {
-      if (!obj.isMesh) return;
-      obj.castShadow = QUALITY.shadows;
-      obj.receiveShadow = QUALITY.shadows;
-      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-      mats.forEach((m) => m && tuneMaterial(obj, m));
+
+const models = { current: null, redesign: null };
+const modelPromises = { current: null, redesign: null };
+
+function loadInterior(key, onProgress) {
+  if (models[key]) return Promise.resolve(models[key]);
+  if (modelPromises[key]) return modelPromises[key];
+  modelPromises[key] = new Promise((resolve, reject) => {
+    gltfLoader.load(
+      INTERIORS[key].url,
+      (gltf) => {
+        const root = gltf.scene;
+        root.name = `interior-${key}`;
+        root.traverse((obj) => {
+          if (!obj.isMesh) return;
+          obj.castShadow = QUALITY.shadows;
+          obj.receiveShadow = QUALITY.shadows;
+          const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+          mats.forEach((m) => m && tuneMaterial(obj, m, key));
+        });
+        root.visible = false;
+        scene.add(root);
+        models[key] = root;
+        resolve(root);
+      },
+      (xhr) => {
+        if (onProgress && xhr.total > 0) onProgress(Math.min(99, Math.round((xhr.loaded / xhr.total) * 100)));
+      },
+      (err) => {
+        modelPromises[key] = null;
+        reject(err);
+      }
+    );
+  });
+  return modelPromises[key];
+}
+
+// Phones keep only one interior in GPU memory (two full texture sets can trigger iOS context loss)
+function disposeInterior(key) {
+  const root = models[key];
+  if (!root) return;
+  root.traverse((obj) => {
+    if (!obj.isMesh) return;
+    obj.geometry.dispose();
+    const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+    mats.forEach((m) => {
+      if (!m) return;
+      Object.values(m).forEach((v) => v && v.isTexture && v.dispose());
+      m.dispose();
     });
-    scene.add(gltf.scene);
-    renderer.shadowMap.needsUpdate = true;
+  });
+  scene.remove(root);
+  models[key] = null;
+  modelPromises[key] = null;
+}
+
+const interiorToast = $('interior-toast');
+const interiorButtons = Array.from(document.querySelectorAll('.isw-btn'));
+let firstLoadDone = false;
+
+function reflectInteriorInUi(key) {
+  document.documentElement.dataset.interior = key;
+  interiorButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.interior === key)));
+  const url = new URL(location.href);
+  if (key === 'redesign') url.searchParams.set('interijer', 'redizajn');
+  else url.searchParams.delete('interijer');
+  history.replaceState(null, '', url);
+}
+
+async function setInterior(key) {
+  activeInterior = key;
+  reflectInteriorInUi(key);
+  applyLightingMode(isDaylight);
+
+  if (!models[key]) {
+    const onProgress = (pct) => {
+      if (!firstLoadDone) {
+        loaderBar.style.width = `${pct}%`;
+        loaderStatus.textContent = `Učitavanje 3D modela i PBR tekstura… ${pct}%`;
+      } else {
+        interiorToast.textContent = `Učitavam ${INTERIORS[key].name}… ${pct}%`;
+      }
+    };
+    if (firstLoadDone) {
+      interiorToast.textContent = `Učitavam ${INTERIORS[key].name}…`;
+      interiorToast.classList.remove('hidden');
+    }
+    try {
+      await loadInterior(key, onProgress);
+    } catch (err) {
+      console.error('GLB load error:', err);
+      const msg = 'Greška pri učitavanju 3D modela. Osvježite stranicu.';
+      if (!firstLoadDone) loaderStatus.textContent = msg;
+      else interiorToast.textContent = msg;
+      return;
+    }
+    interiorToast.classList.add('hidden');
+  }
+  if (activeInterior !== key) return; // user switched again while this one was loading
+
+  Object.entries(models).forEach(([k, root]) => {
+    if (root) root.visible = k === key;
+  });
+  if (IS_MOBILE) Object.keys(models).forEach((k) => k !== key && disposeInterior(k));
+  renderer.shadowMap.needsUpdate = true;
+  requestRender();
+
+  if (!firstLoadDone) {
+    firstLoadDone = true;
     loaderBar.style.width = '100%';
     loaderStatus.textContent = 'Prostor spreman!';
     computeScrollAnchors();
-    requestRender();
     setTimeout(() => loaderEl.classList.add('fade-out'), 260);
-  },
-  (xhr) => {
-    if (xhr.total > 0) {
-      const pct = Math.min(99, Math.round((xhr.loaded / xhr.total) * 100));
-      loaderBar.style.width = `${pct}%`;
-      loaderStatus.textContent = `Učitavanje 3D modela i PBR tekstura… ${pct}%`;
+    // Desktop: warm up the other interior in the background so switching is instant
+    if (!IS_MOBILE) {
+      const other = key === 'current' ? 'redesign' : 'current';
+      const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
+      idle(() => loadInterior(other).catch(() => {}));
     }
-  },
-  (err) => {
-    console.error('GLB load error:', err);
-    loaderStatus.textContent = 'Greška pri učitavanju 3D modela. Osvježite stranicu.';
   }
-);
+}
+
+interiorButtons.forEach((b) => b.addEventListener('click', () => {
+  if (b.dataset.interior !== activeInterior) setInterior(b.dataset.interior);
+}));
+document.querySelectorAll('[data-switch-interior]').forEach((b) => b.addEventListener('click', () => {
+  setInterior(b.dataset.switchInterior);
+}));
 
 canvas.addEventListener('webglcontextlost', (e) => {
   e.preventDefault();
@@ -423,11 +567,48 @@ document.querySelectorAll('.compare-btn[data-photo]').forEach((btn) => {
     modalTitle.textContent = btn.dataset.title || 'Usporedba';
     modalPhoto.src = btn.dataset.photo;
     modalRender.src = btn.dataset.render;
+    $('modal-cap-a').textContent = btn.dataset.capA || 'Stvarna referentna fotografija (.JPG)';
+    $('modal-cap-b').textContent = btn.dataset.capB || 'Blender Cycles 1:1 3D rekonstrukcija';
     modal.classList.remove('hidden');
     document.body.classList.add('modal-open');
     modalClose.focus();
   });
 });
+
+// Before / after slider (current vs redesign renders from the identical camera)
+const baModal = $('ba-modal');
+const baRange = $('ba-range');
+const baStage = $('ba-stage');
+let baLastFocused = null;
+
+function setBaSplit(pct) {
+  baStage.style.setProperty('--split', `${pct}%`);
+  baRange.value = String(pct);
+}
+
+document.querySelectorAll('.ba-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    baLastFocused = btn;
+    $('ba-title').textContent = btn.dataset.title || 'Prije / poslije';
+    $('ba-before').src = btn.dataset.before;
+    $('ba-after').src = btn.dataset.after;
+    setBaSplit(50);
+    baModal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    $('ba-close').focus();
+  });
+});
+baRange.addEventListener('input', () => setBaSplit(Number(baRange.value)));
+
+function closeBaModal() {
+  if (baModal.classList.contains('hidden')) return false;
+  baModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  baLastFocused?.focus();
+  return true;
+}
+$('ba-close').addEventListener('click', closeBaModal);
+$('ba-backdrop').addEventListener('click', closeBaModal);
 
 function closeModal() {
   if (modal.classList.contains('hidden')) return;
@@ -439,6 +620,7 @@ modalClose.addEventListener('click', closeModal);
 $('modal-backdrop').addEventListener('click', closeModal);
 window.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
+  if (closeBaModal()) return;
   if (!modal.classList.contains('hidden')) closeModal();
   else if (isFreeMode) setFreeMode(false);
 });
@@ -487,7 +669,16 @@ function renderMinimap(camPos, lookPos, activeStop) {
 
   const a = isUpper ? 0.12 : 0.26;
   drawRectPlan(-4.34, -5.0, -3.65, -1.16, `rgba(224,169,109,${a})`); // kitchen
-  drawRectPlan(-2.38, -4.2, -1.34, -2.27, `rgba(224,169,109,${a + 0.08})`); // dining table
+  if (activeInterior === 'redesign') {
+    const [tcx, tcy] = worldToMinimap(-1.86, -3.23);
+    const [tex] = worldToMinimap(-1.86 + 0.68, -3.23);
+    mctx.beginPath();
+    mctx.arc(tcx, tcy, tex - tcx, 0, Math.PI * 2);
+    mctx.fillStyle = `rgba(224,169,109,${a + 0.08})`;
+    mctx.fill(); // round travertine table
+  } else {
+    drawRectPlan(-2.38, -4.2, -1.34, -2.27, `rgba(224,169,109,${a + 0.08})`); // dining table
+  }
   drawRectPlan(-0.68, -5.0, 0.68, -4.7, 'rgba(201,123,80,0.55)'); // chimney
   drawRectPlan(0.0, -2.2, 2.7, -1.2, `rgba(200,200,210,${a})`); // sofa N
   drawRectPlan(-0.1, -3.6, 0.95, -1.9, `rgba(200,200,210,${a})`); // sofa W
@@ -664,6 +855,6 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-applyLightingMode(false);
 computeScrollAnchors();
+setInterior(activeInterior);
 animate();

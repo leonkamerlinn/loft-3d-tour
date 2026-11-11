@@ -660,6 +660,196 @@ body.free-mode-active .room-card {
   text-align: center;
 }
 
+
+/* ---------------------------------------------------------------- Interior switch (current / redesign) */
+.interior-switch {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 3px;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  border-radius: 99px;
+}
+
+.isw-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  min-height: 30px;
+  border-radius: 99px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.isw-btn[aria-pressed="true"] {
+  background: var(--text-main);
+  color: #16120e;
+}
+
+.isw-btn[data-interior="redesign"][aria-pressed="true"] {
+  background: linear-gradient(135deg, #a8b394, #7d8a6a);
+  color: #10140c;
+}
+
+.isw-short {
+  display: none;
+}
+
+/* Card text variants: only the active interior's text is shown */
+html[data-interior="redesign"] .v-current,
+html:not([data-interior="redesign"]) .v-redesign {
+  display: none;
+}
+
+html[data-interior="redesign"] .step-num {
+  color: #a8b394;
+}
+
+.cta-redesign {
+  margin-top: 10px;
+  background: linear-gradient(135deg, rgba(168, 179, 148, 0.28), rgba(125, 138, 106, 0.22));
+  border-color: rgba(168, 179, 148, 0.55);
+  color: #cfd8bd;
+}
+
+.palette {
+  display: flex;
+  gap: 6px;
+  margin: -4px 0 14px;
+}
+
+.palette span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--c);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.interior-toast {
+  position: fixed;
+  left: 50%;
+  top: calc(84px + var(--safe-top));
+  transform: translateX(-50%);
+  z-index: 40;
+  background: rgba(22, 18, 15, 0.9);
+  border: 1px solid rgba(168, 179, 148, 0.5);
+  color: var(--text-main);
+  border-radius: 99px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.25s ease;
+}
+
+.interior-toast.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- Before / after slider */
+.ba-content {
+  width: min(1180px, 100%);
+}
+
+.ba-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 72vh;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d0c0b;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.ba-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.ba-after {
+  clip-path: inset(0 0 0 var(--split));
+}
+
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--split);
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.ba-handle span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  color: #16120e;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.ba-label {
+  position: absolute;
+  top: 12px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: rgba(14, 13, 12, 0.72);
+  pointer-events: none;
+}
+
+.ba-label-left {
+  left: 12px;
+}
+
+.ba-label-right {
+  right: 12px;
+  color: #cfd8bd;
+}
+
+/* The range input covers the whole stage: drag anywhere (mouse or finger) to move the split */
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.ba-note {
+  margin-top: 10px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
 /* ---------------------------------------------------------------- Tablet */
 @media (max-width: 1100px) {
   .brand-sub {
@@ -681,10 +871,10 @@ body.free-mode-active .room-card {
     left: calc(8px + var(--safe-left));
     right: calc(8px + var(--safe-right));
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
     grid-template-areas:
-      "brand actions"
-      "nav nav";
+      "brand switch actions"
+      "nav nav nav";
     gap: 8px 10px;
     padding: 8px 10px;
     border-radius: 14px;
@@ -692,6 +882,16 @@ body.free-mode-active .room-card {
 
   .brand {
     grid-area: brand;
+  }
+
+  .interior-switch {
+    grid-area: switch;
+    justify-self: center;
+  }
+
+  .isw-btn {
+    min-height: 34px;
+    padding: 6px 11px;
   }
 
   .hud-actions {
@@ -840,6 +1040,16 @@ body.free-mode-active .room-card {
     padding: 14px 14px 16px;
   }
 
+  .interior-toast {
+    top: calc(150px + var(--safe-top));
+    max-width: calc(100% - 24px);
+    text-align: center;
+  }
+
+  .ba-stage {
+    max-height: 60svh;
+  }
+
   .modal-grid {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -852,8 +1062,20 @@ body.free-mode-active .room-card {
 }
 
 /* Very narrow phones: icon-only action buttons */
+@media (max-width: 520px) {
+  .isw-long {
+    display: none;
+  }
+  .isw-short {
+    display: inline;
+  }
+}
+
 @media (max-width: 420px) {
   .action-label {
+    display: none;
+  }
+  .brand-title {
     display: none;
   }
   .brand-title {
