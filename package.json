@@ -1,0 +1,16 @@
+{
+  "name": "loft-3d-tour",
+  "version": "1.0.0",
+  "description": "Interaktivna 1:1 3D WebGL šetnja dvoetažnim prostorom (Apple LiDAR RoomPlan + Blender + Three.js)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "three": "^0.187.0"
+  }
+}

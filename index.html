@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dvoetažni Loft 1:1 — Interaktivna 3D Šetnja Prostorom</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/addons/": "./node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <div class="loader-kicker">APPLE LIDAR ROOMPLAN • 1:1 REKONSTRUKCIJA</div>
+      <h1 class="loader-title">Učitavanje 3D prostora</h1>
+      <div class="loader-bar-track">
+        <div id="loader-bar" class="loader-bar-fill"></div>
+      </div>
+      <div id="loader-status" class="loader-status">Inicijalizacija WebGL scene… 0%</div>
+    </div>
+  </div>
+
+  <!-- Fixed 3D WebGL Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Fixed Top Navigation HUD -->
+  <header class="top-hud">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <div>
+        <div class="brand-title">LOFT REKONSTRUKCIJA 1:1</div>
+        <div class="brand-sub">8.89 × 10.23 × 6.19 m • LiDAR + PBR</div>
+      </div>
+    </div>
+
+    <nav id="room-nav" class="room-nav" aria-label="Prostorije">
+      <button class="nav-pill active" data-stop="0"><span>01</span>Atrij</button>
+      <button class="nav-pill" data-stop="1"><span>02</span>Kuhinja</button>
+      <button class="nav-pill" data-stop="2"><span>03</span>Blagovaonica</button>
+      <button class="nav-pill" data-stop="3"><span>04</span>Kamin</button>
+      <button class="nav-pill" data-stop="4"><span>05</span>Boravak</button>
+      <button class="nav-pill" data-stop="5"><span>06</span>Stepenište</button>
+      <button class="nav-pill" data-stop="6"><span>07</span>Krovište</button>
+      <button class="nav-pill" data-stop="7"><span>08</span>Galerija</button>
+    </nav>
+
+    <div class="hud-actions">
+      <button id="btn-lighting" class="action-btn" title="Promijeni rasvjetu (Večer / Dan)">
+        <span id="lighting-icon">☾</span>
+        <span id="lighting-label">Večer</span>
+      </button>
+      <button id="btn-free-mode" class="action-btn primary" title="Uključi/isključi slobodno 360° okretanje mišem">
+        <span id="mode-label">360° Slobodni pogled</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Free Orbit Mode Banner -->
+  <div id="free-banner" class="free-banner hidden">
+    <span><strong>360° Slobodni način:</strong> Povuci lijevom tipkom za rotaciju, kotačićem zumiraj, desnom pomiči.</span>
+    <button id="btn-resume-scroll" class="resume-btn">Nastavi scroll šetnju</button>
+  </div>
+
+  <!-- Right Progress & Elevation Telemetry -->
+  <aside class="telemetry-rail">
+    <div class="telemetry-val" id="elev-readout">+1.60 m</div>
+    <div class="rail-track">
+      <div id="rail-fill" class="rail-fill"></div>
+    </div>
+    <div class="telemetry-pct" id="scroll-pct">0%</div>
+  </aside>
+
+  <!-- Bottom-Right Interactive Floorplan Radar -->
+  <div class="minimap-card" id="minimap-card">
+    <div class="minimap-header">
+      <span id="floor-badge" class="floor-badge">PRIZEMLJE (0.00 m)</span>
+      <span class="minimap-hint">Klikni točku za skok</span>
+    </div>
+    <canvas id="minimap-canvas" width="210" height="240"></canvas>
+  </div>
+
+  <!-- Scrollable Story Sections (Drives 3D Camera Path) -->
+  <main id="scroll-container" class="scroll-container">
+    <!-- 01 Atrij -->
+    <section class="story-section" data-index="0">
+      <article class="room-card side-left">
+        <div class="card-meta">
+          <span class="step-num">01 / 08</span>
+          <span class="elev-tag">PRIZEMLJE • +0.00 m</span>
+        </div>
+        <h2>Ulazni pogled &amp; dvoetažni atrij</h2>
+        <p>
+          Dobrodošli u interaktivnu <strong>1:1 3D rekonstrukciju</strong> izrađenu izravno iz Apple LiDAR RoomPlan skena i referentnih fotografija. Scrollanjem prema dolje prolazite kroz sve zone prizemlja i penjete se lebdećim stepeništem na gornju galeriju.
+        </p>
+        <div class="spec-grid">
+          <div><span>Tlocrt</span><strong>8.89 × 10.23 m</strong></div>
+          <div><span>Visina sljemena</span><strong>6.19 m</strong></div>
+          <div><span>Žarišna duljina</span><strong>15 mm (oko)</strong></div>
+        </div>
+        <div class="scroll-cue">
+          <span class="mouse-icon"><span class="wheel-dot"></span></span>
+          <span>Scrollaj za šetnju kroz prostorije</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- 02 Kuhinja -->
+    <section class="story-section" data-index="1">
+      <article class="room-card side-right">
+        <div class="card-meta">
+          <span class="step-num">02 / 08</span>
+          <span class="elev-tag">ZAPADNA ZONA • KUHINJA</span>
+        </div>
+        <h2>Moderna kuhinja u antracitu i hrastu</h2>
+        <p>
+          Visoki mat-antracitni ormar s ugradbenom pećnicom uokviren toplim hrastom, donje betonsko-sive fronte bez ručkica, hrastova radna ploča s indukcijskom pločom, crni sudoper uz prozor te ugradbeni inox hladnjak.
+        </p>
+        <div class="spec-grid">
+          <div><span>Fronte</span><strong>Beton siva &amp; Antracit</strong></div>
+          <div><span>Radna ploča</span><strong>Prirodni hrast</strong></div>
+        </div>
+        <button class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/render_dining.jpg" data-title="Kuhinja i blagovaonica — Stvarna fotografija vs. 3D">
+          Pogledaj referentnu fotografiju
+        </button>
+      </article>
+    </section>
+
+    <!-- 03 Blagovaonica -->
+    <section class="story-section" data-index="2">
+      <article class="room-card side-right">
+        <div class="card-meta">
+          <span class="step-num">03 / 08</span>
+          <span class="elev-tag">JUGOZAPAD • BLAGOVAONICA</span>
+        </div>
+        <h2>Blagovaonica uz staklenu stijenu</h2>
+        <p>
+          Masivni blagovaonski stol od zlatnog hrasta na crnim čeličnim X-nogama, okružen dvjema ružičastim baršunastim i četirima bijelim prošivenim stolicama pod toplim svjetlom dviju visećih bijelih kupola.
+        </p>
+        <div class="spec-grid">
+          <div><span>Rasvjeta</span><strong>2× viseće kupole</strong></div>
+          <div><span>Stolice</span><strong>Baršun &amp; eko-koža</strong></div>
+        </div>
+        <button class="compare-btn" data-photo="./assets/photo_dining.jpg" data-render="./assets/render_dining.jpg" data-title="Blagovaonica i kamin (IMG_6449) — Stvarna fotografija vs. Cycles Render">
+          Usporedi fotografiju i Cycles render
+        </button>
+      </article>
+    </section>
+
+    <!-- 04 Kamin -->
+    <section class="story-section" data-index="3">
+      <article class="room-card side-left">
+        <div class="card-meta">
+          <span class="step-num">04 / 08</span>
+          <span class="elev-tag">JUŽNI ZID • SREDIŠTE</span>
+        </div>
+        <h2>Dimnjak od crvene opeke &amp; peć na pelete</h2>
+        <p>
+          Puni šestmetarski stup od terakota opeke sa skulpturom od maslinova/hrastova drva i dvjema dvosmjernim zidnim lampama koje naglašavaju teksturu fuge, uz bordo peć na pelete s crnom dimovodnom cijevi i plavim LED kontrolerom.
+        </p>
+        <div class="spec-grid">
+          <div><span>Obloga</span><strong>PBR crvena opeka</strong></div>
+          <div><span>Stolarija</span><strong>Kosi krovni prozori</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 05 Dnevni boravak -->
+    <section class="story-section" data-index="4">
+      <article class="room-card side-left">
+        <div class="card-meta">
+          <span class="step-num">05 / 08</span>
+          <span class="elev-tag">JUGOISTOK • DNEVNI BORAVAK</span>
+        </div>
+        <h2>Dnevni boravak &amp; rustikalni TV zid</h2>
+        <p>
+          Prostrana siva L-garnitura s ukrasnim jastucima okrenuta prema hrastovom stoliću i asimetričnoj bijelo-hrastovoj TV komodi sa staklenom policom, tirkiznom vazom i 65" ekranom na zidu od tamnih drvenih dasaka s karakterističnim <strong>X-snopom</strong> svjetla.
+        </p>
+        <div class="spec-grid">
+          <div><span>Istočni zid</span><strong>Tamne drvene daske</strong></div>
+          <div><span>Zidna lampa</span><strong>4-smjerni X-snop</strong></div>
+        </div>
+        <button class="compare-btn" data-photo="./assets/photo_tv.jpg" data-render="./assets/render_living.jpg" data-title="Dnevni boravak i TV zid — Stvarna fotografija vs. Cycles Render">
+          Usporedi fotografiju i Cycles render
+        </button>
+      </article>
+    </section>
+
+    <!-- 06 Stepenište i vinoteka -->
+    <section class="story-section" data-index="5">
+      <article class="room-card side-left">
+        <div class="card-meta">
+          <span class="step-num">06 / 08</span>
+          <span class="elev-tag">SJEVEROISTOK • +0.00 m → +1.15 m</span>
+        </div>
+        <h2>Lebdeće stepenište &amp; komoda s vinotekom</h2>
+        <p>
+          Konzolna hrastova gazišta na crnoj cik-cak čeličnoj konstrukciji s četirima paralelnim čeličnim sajlama i hrastovim rukohvatom. Ispod gornjeg kraka smještena je drvena komoda s ugradbenim hladnjakom za vino uz prolaz prema bijelom predsoblju.
+        </p>
+        <div class="spec-grid">
+          <div><span>Konstrukcija</span><strong>Čelik + hrast gazišta</strong></div>
+          <div><span>Podgled</span><strong>Komoda &amp; vinoteka</strong></div>
+        </div>
+        <button class="compare-btn" data-photo="./assets/photo_living.jpg" data-render="./assets/render_living.jpg" data-title="Stepenište i komoda (IMG_6452) — Stvarna fotografija vs. Cycles Render">
+          Usporedi fotografiju i Cycles render
+        </button>
+      </article>
+    </section>
+
+    <!-- 07 Uspon i krovne grede -->
+    <section class="story-section" data-index="6">
+      <article class="room-card side-right">
+        <div class="card-meta">
+          <span class="step-num">07 / 08</span>
+          <span class="elev-tag">USPON NA KAT • +2.10 m</span>
+        </div>
+        <h2>Pogled sa stepeništa kroz krovne rešetke</h2>
+        <p>
+          Penjući se prema gornjoj etaži otvara se pogled kroz tri masivne hrastove krovne vezne grede s crnim čeličnim spojnicama, tri viseće opalne kugle iznad boravka i kose staklene stijene u potkrovlju.
+        </p>
+        <div class="spec-grid">
+          <div><span>Krovna građa</span><strong>3× hrastove rešetke</strong></div>
+          <div><span>Spojnice</span><strong>Crni mat čelik</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 08 Gornja galerija i radni kutak -->
+    <section class="story-section" data-index="7">
+      <article class="room-card side-right">
+        <div class="card-meta">
+          <span class="step-num">08 / 08</span>
+          <span class="elev-tag">MEZANIN / GALERIJA • +2.74 m</span>
+        </div>
+        <h2>Gornja galerija &amp; kućni ured</h2>
+        <p>
+          Na katu (`+2.74 m` iznad prizemlja), zaštićen crnom čeličnom ogradom sa sajlama i visećim zelenim biljkama, nalazi se mirni radni kutak s hrastovim L-radnim stolom i ergonomskom uredskom stolicom s pogledom na cijeli dnevni prostor.
+        </p>
+        <div class="spec-grid">
+          <div><span>Razina kata</span><strong>+2.74 m</strong></div>
+          <div><span>Namjena</span><strong>Radna galerija &amp; ured</strong></div>
+        </div>
+        <button id="btn-back-top" class="compare-btn outline">
+          ↑ Povratak na početak šetnje
+        </button>
+      </article>
+    </section>
+  </main>
+
+  <!-- Photo vs Render Comparison Modal -->
+  <div id="compare-modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Usporedba</h3>
+        <button id="modal-close" class="modal-close" aria-label="Zatvori">✕</button>
+      </div>
+      <div class="modal-grid">
+        <figure>
+          <img id="modal-photo" src="" alt="Referentna fotografija" />
+          <figcaption>Stvarna referentna fotografija (.JPG)</figcaption>
+        </figure>
+        <figure>
+          <img id="modal-render" src="" alt="3D Cycles rekonstrukcija" />
+          <figcaption>Blender Cycles 1:1 3D rekonstrukcija</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
