@@ -4,7 +4,7 @@
 **Izravno na redizajn:** https://loft-3d-tour-370434332956.europe-west1.run.app/?interijer=redizajn
 **Tehnička mapa za majstore:** https://loft-3d-tour-370434332956.europe-west1.run.app/majstor.html
 
-Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.18 × 6.19 m`) u mjerilu **1:1**, rekonstruiran spajanjem dvaju Apple LiDAR RoomPlan skenova (`room.usdz` + `Room 2/room.usdz`) i referentnih fotografija u Blenderu te prikazan u stvarnom vremenu pomoću **Three.js (WebGL)**.
+Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.18 × 6.19 m`) u mjerilu **1:1**, rekonstruiran spajanjem triju Apple LiDAR RoomPlan skenova (`01_loft_glavni_dio.usdz`, `02_sjeverno_krilo_kat.usdz` i `03_gornja_galerija_i_most.usdz`) i referentnih fotografija u Blenderu te prikazan u stvarnom vremenu pomoću **Three.js (WebGL)**.
 
 ## Dva interijera, ista arhitektura (11 povezanih zona)
 
@@ -18,6 +18,7 @@ Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.
 | Kuhinja | beton siva + antracit | kadulja mat + hrast + travertin |
 | Blagovaonica | hrastov stol, baršunaste stolice | okrugli travertinski stol Ø 136 cm, hrast + bouclé |
 | Boravak | siva chesterfield L-garnitura | krem bouclé modularna garnitura, mid-century fotelja |
+| Galerija, most & stubište (Room 3) | uvučeni krovni prozor, kutni stol s monitorom i biljkom uz ogradu, sjeverni most s rukohvatima, stubište sa zidnim okvirima i ZZ biljkom | japandi obrada galerije, mosta, stubišnih gazišta i rasvjete |
 | Garderoba & ured (Room 2) | 5-krilni bijeli sjajni ormar + hrast letvice, kožna *Butterfly* fotelja, bačva-stolić *LEGENDS 1872*, crni radni stol | hrastove fronte s LED rasvjetom, bouclé & travertin |
 | Kupaonica (Room 2) | pješčano-bež i sive pločice, polukružna kutna kada, rustik-hrast ormarić, okruglo ogledalo Ø 94 cm | mat travertin, brušena mjed, halo LED ogledalo |
 | Glavna spavaća soba (Room 2) | smeđe-sivi krevet s bijelom ladicom i oker prekrivačem, otvorena hrastova konzola (2.31 m), solna lampa | lebdeći hrastov krevet, bouclé, lan i papirnate lampe |

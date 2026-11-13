@@ -8,7 +8,7 @@ export const PROJECT = {
   version: '1.0',
   date: '13. 11. 2026.',
   units: 'm / cm / m²',
-  accuracy: 'Apple LiDAR RoomPlan 1:1 skenovi (Room 1 + Room 2) + fotogrametrijska kalibracija (±1–2 cm)',
+  accuracy: 'Apple LiDAR RoomPlan 1:1 skenovi (Room 1 + Room 2 + Room 3) + fotogrametrijska kalibracija (±1–2 cm)',
   disclaimer: 'Sve mjere izvedene su iz 1:1 LiDAR 3D modela. Izvođač (stolar, keramičar, električar, vodoinstalater) dužan je prije narudžbe materijala i izrade namještaja po mjeri izvršiti kontrolnu izmjeru na gradilištu.',
   overall: {
     footprint: '10.09 × 10.18 m',
@@ -324,17 +324,17 @@ export const ZONES = [
       kneeWall_m: null,
       floorArea_m2: 4.3,
       wallArea_m2: 11.8,
-      note: 'L-stepenište s 15 konzolnih hrastovih gazišta (visina stube ≈18.2 cm), podestom 109 × 100 cm i komodom ispod kraka.'
+      note: 'Otvoreno L-stepenište sa 14 lebdećih hrastovih gazišta bez čela (bez zatvorene visine), otvorenim kutnim ukosom na podestu 109 × 100 cm i komodom ispod kraka.'
     },
     existing: [
-      '15 hrastovih gazišta d = 55 mm na crnom čeličnom cik-cak nosaču; sajle Ø 4 mm i hrastovi rukohvati.',
-      'Hrastova komoda s vinotekom (176 × 58 × 91 cm) ispod gornjeg kraka stepenica (X ∈ [1.16, 2.92 m]).',
-      'Tamne zidne daske uz istočni krak stepenica oko prozora 70 × 185 cm.'
+      'Otvorena lebdeća hrastova gazišta bez čela (d = 50 mm, bez zatvorene visine) na središnjem i bočnom crnom čeličnom nosaču s otvorenim dijagonalnim ukosom na podestu; 5 paralelnih crnih sajli i 2 hrastova zidna rukohvata na sjevernom zidu.',
+      'Hrastova komoda s vinotekom (176 × 58 × 91 cm) ispod gornjeg kraka stepenica (X ∈ [1.16, 2.92 m]), 2 uokvirene slike na sjevernom zidu i ZZ biljka u SI kutu podesta.',
+      'Crna mat cilindrična zidna X-svjetiljka na istočnom zidu (umjesto kroma) i tamne zidne daske uz donji krak oko prozora 70 × 185 cm.'
     ],
     redesign: {
-      summary: 'Čelična konstrukcija i lebdeća gazišta ostaju kao grafička skulptura, istočni zid uz stepenište prelazi u hrastove letvice s filcom, a gazišta i komoda dobivaju jedinstvenu mat uljnu završnicu.',
+      summary: 'Otvorena lebdeća hrastova gazišta bez čela i crna čelična ograda ostaju kao čista prozračna skulptura; istočni zid uz stepenište prelazi u hrastove letvice s filcom, a gazišta, zidni rukohvati i komoda dobivaju mat uljnu završnicu.',
       finishes: [
-        { element: 'Gazišta i rukohvati (15 kom + podest)', material: 'Masivni hrast — brušenje i mat uljenje', spec: 'Bezbojni mat 2K lak ili tvrdo ulje za visoko opterećenje (protukliznost R10)', qty: 6.2, unit: 'm²', note: 'Gazišta širine 98 cm, dubine 28 cm' },
+        { element: 'Gazišta i rukohvati (14 lebdećih gazišta + podest i otvoreni ukos)', material: 'Masivni hrast — brušenje i mat uljenje', spec: 'Bezbojni mat 2K lak ili tvrdo ulje za visoko opterećenje (protukliznost R10)', qty: 6.2, unit: 'm²', note: 'Lebdeća gazišta širine 98 cm bez čela (otvorena visina) + 2× zidna hrastova rukohvata' },
         { element: 'Sjeverni i istočni zid stepeništa', material: 'Vapneni štuk + nastavak hrastovih letvica na istoku', spec: 'Usklađeno sa zonom 05', qty: 11.8, unit: 'm²', note: 'Obrada spoja oko prozora 70 × 185 cm' }
       ],
       furniture: [
@@ -374,9 +374,9 @@ export const ZONES = [
       note: 'Zračni prostor i vidljiva drvena krovna građa iznad prizemlja i galerije (površina poda već je iskazana u zonama 01–05 i 08).'
     },
     existing: [
-      'Tri masivne hrastove rešetke (Truss_0, Truss_1, Truss_2 na Y = -3.55, -1.85 i -0.15 m) u boji medenog hrasta s crnim čeličnim čvornim limovima.',
-      'Dvije uzdužne podrožnice (587 × 14 × 14 cm) na koti +5.85 m i bijeli kosi strop.',
-      'Unutarnja jedinica klima uređaja na sjevernom zabatu (X = 0.05, Y = 0.78 m, h = +4.52 m od poda prizemlja).'
+      'Masivne hrastove rešetke: Truss_0 (Y = -3.55 m), Truss_1 iznad južne ograde galerije (Y = -1.97 m) te visoki sjeverni okvir bez niske vezne grede na zidu Y = +0.66 m.',
+      'Dvije uzdužne podrožnice (587 × 14 × 14 cm) na koti +5.85 m, bijeli kosi strop sa špaletom krovnog prozora na zapadnoj kosini i kompaktni crni cilindrični stropni spot.',
+      'Unutarnja jedinica klima uređaja na sjevernom zabatu centrirana iznad dvokrilnih vrata galerije (h = +4.92 m od poda prizemlja).'
     ],
     redesign: {
       summary: 'Dramatičan Japandi kontrast: sve tri rešetke, podrožnice i gornji prozorski okviri boje se u duboki ebonizirani (gotovo crni) ton, dok kosi strop dobiva toplu čistu bijelu nijansu.',
@@ -404,7 +404,7 @@ export const ZONES = [
       ]
     },
     checks: [
-      'PAŽNJA: Vezna greda rešetke Truss_2 (Y = -0.15 m) nalazi se na samo +1.03 m iznad poda galerije — na prolazu iznad stepenica zaštititi i jasno označiti radni koridor.',
+      'Sjeverna krovna rešetka na Y = +0.66 m izvedena s visokim ovratnikom iznad klime — prolaz s vrha stepeništa na most i kroz vrata R2_D1 potpuno je slobodan (> 2.05 m svijetle visine).',
       'Sve visinske električne izvode završiti i testirati prije uklanjanja skele.'
     ]
   },
@@ -415,18 +415,18 @@ export const ZONES = [
     floor: 'Kat (+2.74 m)',
     openPlan: true,
     dims: {
-      length_m: 4.04,
+      length_m: 4.47,
       width_m: 2.95,
       clearHeight_m: 2.95,
       kneeWall_m: 1.48,
-      floorArea_m2: 12.1,
+      floorArea_m2: 12.6,
       wallArea_m2: 15.2,
-      note: 'Zapadna galerija (X ∈ [-4.32, -0.28], Y ∈ [-2.10, 0.85 m]), s čeličnom ogradom h = 98 cm i prolazom 90 × 205 cm u Room 2.'
+      note: 'Zapadna galerija (X ∈ [-4.32, -0.28], Y ∈ [-2.10, 0.85 m]) s otvorenim mostom (X ∈ [-0.28, +0.15], Y ∈ [-0.22, 0.76 m]), uvučenim krovnim prozorom 90 × 80 cm i dvokrilnim prolazom u Room 2.'
     },
     existing: [
-      'Pod obložen hrastovim laminatom; crna čelična ograda visine 98 cm s drvenim gornjim rukohvatom i sajlama.',
-      'Hrastov L-radni stol (179 × 63 × 81 cm + krak 89 × 79 × 81 cm) s crnom kožnom/mrežastom foteljom.',
-      '4 lončanice uz istočnu ogradu; otvorena drvena vrata s hrastovim dovratnikom prema sjevernom krilu.'
+      'Pod od hrastovog laminata s otvorenim mostom galerije na vrhu stepeništa; crna čelična ograda h = 98 cm s 5 horizontalnih sajli i neprekinutim hrastovim rukohvatom koji skreće na istok.',
+      'Zaobljeni hrastov L-radni stol sa srebrnom zglobnom rukom za monitor, Mac jedinicom, mehaničkom tipkovnicom i ergonomskom foteljom ispod uvučenog krovnog prozora (špaleta dubine 28 cm).',
+      'Dvije drvene žardinjere obješene s unutarnje strane ograde sa slapovima biljke pothos te dvokrilna staklena vrata (R2_D1) prema sjevernom krilu.'
     ],
     redesign: {
       summary: 'Smireni radni kutak u kontinuitetu s donjim prostorom: parket riblja kost, ebonizirani rukohvat ograde i okviri dovratnika prema sjevernom krilu, uz toplo vapneno ličenje zidova.',
@@ -690,7 +690,7 @@ export const PLANS = [
     floor: 'Prizemlje',
     interior: 'redesign',
     title: 'Prizemlje (kota 0.00 m) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_prizemlje_redizajn.png',
+    image: './assets/plan_prizemlje_redizajn.png?v=7',
     widthPx: 1600,
     heightPx: 1432,
     world: { xMin: -4.75, xMax: 4.75, yMin: -5.4512, yMax: 3.0512 },
@@ -716,7 +716,7 @@ export const PLANS = [
     floor: 'Kat & sjeverno krilo',
     interior: 'redesign',
     title: 'Kat (+2.74 m) & Sjeverno krilo (+2.73 m) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_kat_redizajn.png',
+    image: './assets/plan_kat_redizajn.png?v=7',
     widthPx: 1600,
     heightPx: 1615,
     world: { xMin: -4.75, xMax: 5.95, yMin: -5.4502, yMax: 5.3502 },
@@ -733,6 +733,7 @@ export const PLANS = [
       { x1: 5.44, y1: 1.16, x2: 5.44, y2: 4.88, text: '3.72 m', offset: -0.28 },
       { x1: -4.32, y1: -2.1, x2: -0.28, y2: -2.1, text: '4.04 m (galerija)', offset: -0.28 },
       { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 },
+      { x1: -0.28, y1: -0.22, x2: 0.15, y2: -0.22, text: '0.43 m most', offset: -0.26 },
       { x1: 1.55, y1: 2.17, x2: 1.55, y2: 4.84, text: '2.67 m ormar', offset: 0.55 }
     ]
   },
@@ -741,7 +742,7 @@ export const PLANS = [
     floor: 'Prizemlje',
     interior: 'current',
     title: 'Prizemlje (kota 0.00 m) — Postojeće stanje (LiDAR 1:1)',
-    image: './assets/plan_prizemlje_postojece.png',
+    image: './assets/plan_prizemlje_postojece.png?v=7',
     widthPx: 1600,
     heightPx: 1432,
     world: { xMin: -4.75, xMax: 4.75, yMin: -5.4512, yMax: 3.0512 },
@@ -766,7 +767,7 @@ export const PLANS = [
     floor: 'Kat & sjeverno krilo',
     interior: 'current',
     title: 'Kat (+2.74 m) & Sjeverno krilo (+2.73 m) — Postojeće stanje (LiDAR 1:1)',
-    image: './assets/plan_kat_postojece.png',
+    image: './assets/plan_kat_postojece.png?v=7',
     widthPx: 1600,
     heightPx: 1615,
     world: { xMin: -4.75, xMax: 5.95, yMin: -5.4502, yMax: 5.3502 },
@@ -782,7 +783,8 @@ export const PLANS = [
       { x1: 2.01, y1: 4.88, x2: 5.44, y2: 4.88, text: '3.43 m', offset: 0.26 },
       { x1: 5.44, y1: 1.16, x2: 5.44, y2: 4.88, text: '3.72 m', offset: -0.28 },
       { x1: -4.32, y1: -2.1, x2: -0.28, y2: -2.1, text: '4.04 m', offset: -0.28 },
-      { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 }
+      { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 },
+      { x1: -0.28, y1: -0.22, x2: 0.15, y2: -0.22, text: '0.43 m most', offset: -0.26 }
     ]
   }
 ];

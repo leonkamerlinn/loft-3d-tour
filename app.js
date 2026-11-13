@@ -2,9 +2,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { WalkController, buildCollider, disposeCollider } from './walk.js?v=5';
-import { MeasureTool } from './measure.js?v=5';
-import { PROJECT, ZONES } from './spec-data.js?v=5';
+import { WalkController, buildCollider, disposeCollider } from './walk.js?v=7';
+import { MeasureTool } from './measure.js?v=7';
+import { PROJECT, ZONES } from './spec-data.js?v=7';
 
 // ---------------------------------------------------------------------------
 // Device profile
@@ -42,9 +42,9 @@ const TOUR_NODES = [
   { cam: [2.85, -2.38, -1.35], look: [2.08, 0.38, -1.08] },     // 10: 06 Stepenište
   { cam: [3.48, -0.35, -0.38], look: [0.85, -1.55, -0.15] },    // 11
   { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 1.3] },       // 12: 07 Krovište (level gaze up into the trusses)
-  { cam: [0.35, -0.55, 0.62], look: [-2.6, -1.2, 0.5] },        // 13: ducks 18 cm under the tie beam…
-  { cam: [-0.05, -0.85, 0.98], look: [-2.9, -1.0, 0.45] },      // 14: …then rises over the gallery railing
-  { cam: [-0.75, -1.0, 1.12], look: [-3.4, -0.95, 0.15] },      // 15: 08 Galerija
+  { cam: [0.22, 0.25, 1.08], look: [-2.85, -0.75, 0.62] },      // 13: top step -> open catwalk bridge & sunlit skylight
+  { cam: [-0.55, 0.24, 1.15], look: [-3.25, -0.95, 0.52] },     // 14: across Most galerije past North collar truss
+  { cam: [-1.05, -0.95, 1.14], look: [-3.35, -0.95, 0.45] },    // 15: 08 Galerija (L-desk, skylight & planters)
   { cam: [-0.94, 0.95, 1.15], look: [0.15, 3.35, 0.95] },       // 16: through Gallery -> Room 2 doorway
   { cam: [-0.85, 1.6, 1.16], look: [0.6, 3.95, 0.8] },          // 17: 09 Garderoba (chair, barrel, window, wardrobe)
   { cam: [-0.95, 2.3, 1.16], look: [-2.3, 2.55, 0.95] },        // 18: turning to the bathroom door
@@ -224,8 +224,8 @@ updateCameraFov();
 // Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
 const INTERIORS = {
-  current: { url: './assets/room_3d.glb?v=4', exposure: 1.08, name: 'postojeći interijer' },
-  redesign: { url: './assets/room_redesign.glb?v=4', exposure: 1.16, name: 'redizajn Japandi' }
+  current: { url: './assets/room_3d.glb?v=6', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb?v=6', exposure: 1.16, name: 'redizajn Japandi' }
 };
 let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
 
@@ -272,6 +272,8 @@ addSpot([0.44, -4.64, -1.32], [0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5)
 addSpot([0.44, -4.64, -1.43], [0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5);
 addPoint(-3.1, -2.55, -0.65, 0xffe0ba, 3.6, 7.5);
 addPoint(-2.35, -0.6, 1.45, 0xffe2be, 4.8, 9.0);
+addPoint(-3.15, -0.9, 1.65, 0xedf6ff, 3.6, 7.5);
+addPoint(-0.08, 0.25, 1.35, 0xfff0dd, 2.2, 5.5);
 // Merged Room 2 (Upper North Wing): Garderoba/Study, Bathroom & Master Bedroom ceiling lights
 addPoint(0.15, 3.0, 1.72, 0xffe2be, 4.4, 7.5);
 addPoint(-2.15, 2.85, 1.95, 0xfff0da, 4.5, 7.0);
@@ -1159,13 +1161,21 @@ function renderMinimap(camPos, lookPos, activeStop) {
   drawRectPlan(3.1, -2.1, 4.15, 0.72, 'rgba(224,169,109,0.24)'); // stairs lower
   drawRectPlan(0.1, -0.25, 3.1, 0.72, 'rgba(224,169,109,0.24)'); // stairs upper
 
-  // Upper Gallery (Room 1)
+  // Upper Gallery (Room 1 + Catwalk Bridge from Room 3)
   drawRectPlan(
     -4.32, -2.1, -0.28, 0.85,
     isUpper ? 'rgba(224,169,109,0.18)' : 'rgba(255,255,255,0.02)',
     isUpper ? 'rgba(224,169,109,0.68)' : 'rgba(255,255,255,0.12)'
   );
-  if (isUpper) drawRectPlan(-3.95, -1.65, -2.38, 0.14, 'rgba(224,169,109,0.42)'); // gallery desk
+  drawRectPlan(
+    -0.28, -0.24, 0.15, 0.76,
+    isUpper ? 'rgba(224,169,109,0.18)' : 'rgba(255,255,255,0.02)',
+    isUpper ? 'rgba(224,169,109,0.68)' : 'rgba(255,255,255,0.12)'
+  );
+  if (isUpper) {
+    drawRectPlan(-3.95, -1.53, -3.07, -0.74, 'rgba(224,169,109,0.42)');
+    drawRectPlan(-3.00, -1.65, -2.38, 0.14, 'rgba(224,169,109,0.42)');
+  }
 
   // Merged Room 2 (Upper North Wing: Kupaonica + Garderoba/Ured + Glavna spavaća soba)
   const r2Fill = isUpper ? 'rgba(224,169,109,0.14)' : 'rgba(255,244,228,0.04)';

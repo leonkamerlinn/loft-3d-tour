@@ -10,7 +10,7 @@
     document.documentElement.dataset.interior =
       new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
   </script>
-  <link rel="stylesheet" href="./styles.css?v=5" />
+  <link rel="stylesheet" href="./styles.css?v=7" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
     {
@@ -45,7 +45,7 @@
       <span class="brand-dot" aria-hidden="true"></span>
       <div>
         <div class="brand-title">LOFT 1:1</div>
-        <div class="brand-sub">10.09 × 10.18 × 6.19 m • 2× LiDAR + PBR</div>
+        <div class="brand-sub">10.09 × 10.18 × 6.19 m • 3× LiDAR + PBR</div>
       </div>
     </div>
 
@@ -142,7 +142,7 @@
         <div class="spec-grid">
           <div><span>Tlocrt</span><strong>10.09 × 10.18 m</strong></div>
           <div><span>Visina sljemena</span><strong>6.19 m</strong></div>
-          <div><span>Skenovi</span><strong>Room 1 + Room 2</strong></div>
+          <div><span>Skenovi</span><strong>Room 1 + Room 2 + Room 3</strong></div>
         </div>
         <div class="scroll-cue">
           <span class="mouse-icon" aria-hidden="true"><span class="wheel-dot"></span></span>
@@ -302,12 +302,12 @@
           <span class="step-num">06 / 11</span>
           <span class="elev-tag">SJEVEROISTOK • USPON</span>
         </div>
-        <h2>Lebdeće stepenište &amp; komoda s vinotekom</h2>
+        <h2>Otvoreno hrastovo stepenište &amp; vinoteka</h2>
         <p>
-          Konzolna hrastova gazišta na crnoj cik-cak čeličnoj konstrukciji s četirima paralelnim čeličnim sajlama i hrastovim rukohvatom. Ispod gornjeg kraka smještena je drvena komoda s ugradbenim hladnjakom za vino uz prolaz prema bijelom predsoblju.
+          Otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela i bez zatvorene visine (d = 50 mm) na središnjem i bočnom nosaču od crnog čelika, otvorenim dijagonalnim ukosom na podestu, dvama zidnim rukohvatima od hrasta, crnim X-svjetlom i komodom s vinotekom ispod kraka.
         </p>
         <div class="spec-grid">
-          <div><span>Konstrukcija</span><strong>Čelik + hrast gazišta</strong></div>
+          <div><span>Konstrukcija</span><strong>Lebdeći hrast + crni čelik</strong></div>
           <div><span>Podgled</span><strong>Komoda &amp; vinoteka</strong></div>
         </div>
         <button type="button" class="compare-btn" data-photo="./assets/photo_living.jpg" data-render="./assets/render_living.jpg" data-title="Stepenište i komoda (IMG_6452) — stvarna fotografija vs. Cycles render">
@@ -317,7 +317,7 @@
         <div class="variant v-redesign">
         <div class="card-meta"><span class="step-num">06 / 11</span><span class="elev-tag">REDIZAJN • STEPENIŠTE</span></div>
         <h2>Stepenište kao skulptura</h2>
-        <p>Lebdeća hrastova gazišta i crna čelična konstrukcija ostaju. Uz zid od letvica i svijetle vapnene zidove stepenište postaje grafička skulptura prostora.</p>
+        <p>Otvorena lebdeća hrastova gazišta bez čela i crna čelična ograda ostaju. Uz zid od letvica i svijetle vapnene zidove prozračno stepenište postaje čista grafička skulptura prostora.</p>
         <div class="spec-grid">
           <div><span>Zidovi</span><strong>Vapneni štuk</strong></div>
           <div><span>Pod</span><strong>Parket riblja kost</strong></div>
@@ -364,23 +364,27 @@
           <span class="step-num">08 / 11</span>
           <span class="elev-tag">GALERIJA • +2.74 m</span>
         </div>
-        <h2>Gornja galerija &amp; prolaz u sjeverno krilo</h2>
+        <h2>Gornja galerija, most &amp; krovni prozor</h2>
         <p>
-          Na katu (<strong>+2.74 m</strong> iznad prizemlja), između krovnih rešetki i iza crne čelične ograde sa sajlama, nalazi se radni kutak s hrastovim L-stolom — a kroz otvoreni hrastov dovratnik na sjevernom zidu šetnja se nastavlja u novo spojeno krilo (<strong>Room 2</strong>).
+          Na katu (<strong>+2.74 m</strong>) uz otvoreni <strong>most galerije</strong> s vrha stepeništa nastavlja se radni kutak sa zaobljenim hrastovim L-stolom ispod uvučenog krovnog prozora, visećih biljaka na ogradi i dvokrilnih staklenih vrata prema <strong>Room 2</strong>.
         </p>
         <div class="spec-grid">
-          <div><span>Razina kata</span><strong>+2.74 m</strong></div>
-          <div><span>Spoj skenova</span><strong>Vrata u Room 2</strong></div>
+          <div><span>Razina &amp; most</span><strong>+2.74 m • otvoreni spoj</strong></div>
+          <div><span>Osvjetljenje</span><strong>Krovni prozor 90×80 cm</strong></div>
         </div>
+        <button type="button" class="compare-btn" data-photo="./assets/photo_gallery.jpg" data-render="./assets/render_gallery.jpg" data-title="Gornja galerija i krovni prozor (IMG_6499) — stvarna fotografija vs. Cycles render">
+          Usporedi fotografiju i Cycles render
+        </button>
         </div>
         <div class="variant v-redesign">
         <div class="card-meta"><span class="step-num">08 / 11</span><span class="elev-tag">REDIZAJN • GALERIJA</span></div>
         <h2>Mirna radna galerija</h2>
-        <p>Galerija zadržava radni kutak i ogradu s biljkama penjačicama, a kroz otvoreni prolaz u toplom vapnenom zidu nastavljamo u tri novouređene prostorije sjevernog krila.</p>
+        <p>Galerija zadržava krovni prozor, zaobljeni L-stol i viseće biljke na ogradi, dok otvoreni most u toplom vapnenom zidu i parket riblja kost vode u tri prostorije sjevernog krila.</p>
         <div class="spec-grid">
-          <div><span>Razina kata</span><strong>+2.74 m</strong></div>
+          <div><span>Razina &amp; most</span><strong>+2.74 m • parket + ebonit</strong></div>
           <div><span>Nastavak</span><strong>Sjeverno krilo (3 sobe)</strong></div>
         </div>
+        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_gallery.jpg" data-after="./assets/redesign_gallery.jpg" data-title="Gornja galerija i krovni prozor — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
@@ -550,6 +554,6 @@
     </div>
   </aside>
 
-  <script type="module" src="./app.js?v=5"></script>
+  <script type="module" src="./app.js?v=7"></script>
 </body>
 </html>
