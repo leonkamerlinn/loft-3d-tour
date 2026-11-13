@@ -1,0 +1,611 @@
+/* Tehnička mapa za majstore — tamni toplo-zlatni ekran + oštar crno-bijeli A4 ispis */
+:root {
+  --bg: #0f0e0d;
+  --surface: #181614;
+  --surface-2: #211e1b;
+  --border: rgba(255, 238, 214, 0.14);
+  --text: #f6f3ee;
+  --muted: #b7afa4;
+  --gold: #e0a96d;
+  --sage: #a8b394;
+  --warn-bg: rgba(224, 169, 109, 0.12);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--gold);
+}
+
+/* Sticky top bar */
+.m-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(15, 14, 13, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.m-topbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.m-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.m-back {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 7px 12px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+}
+
+.m-badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--sage);
+}
+
+.m-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.m-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+}
+
+.m-toggle-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: 600 0.78rem/1 var(--font);
+  padding: 8px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.m-toggle-btn.active {
+  background: var(--sage);
+  color: #10140c;
+}
+
+.m-btn {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text);
+  font: 600 0.8rem/1 var(--font);
+  padding: 9px 14px;
+  border-radius: 99px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.m-btn.primary {
+  background: var(--gold);
+  color: #16120e;
+  border-color: var(--gold);
+}
+
+.m-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* Main layout */
+.m-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.m-hero,
+.m-toc,
+.m-section,
+.m-zone-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+
+.m-kicker {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.m-hero h1 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.m-sub {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.m-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.m-stat {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.m-stat span {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.m-stat strong {
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.m-disclaimer {
+  background: var(--warn-bg);
+  border: 1px solid rgba(224, 169, 109, 0.42);
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 0.86rem;
+}
+
+.m-floors-table {
+  margin-top: 14px;
+}
+
+/* TOC */
+.m-toc {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+}
+
+.m-toc h2 {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: var(--gold);
+}
+
+.m-toc ul {
+  list-style: none;
+}
+
+.m-toc li {
+  margin-bottom: 5px;
+}
+
+.m-toc a {
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.m-toc a:hover {
+  text-decoration: underline;
+}
+
+.m-toc-zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 6px 14px;
+}
+
+/* Section heads */
+.m-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.m-section h2 {
+  font-size: 1.32rem;
+}
+
+.m-hint,
+.m-boq-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.m-boq-note {
+  margin-bottom: 14px;
+}
+
+.m-boq-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.m-boq-tools select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 8px 14px;
+  font: 500 0.82rem/1 var(--font);
+}
+
+/* Floor plans with SVG overlay */
+.m-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+  gap: 18px;
+}
+
+.m-plan-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.m-plan-card h3 {
+  font-size: 0.96rem;
+  margin-bottom: 10px;
+  color: var(--gold);
+}
+
+.m-plan-wrap {
+  padding: 4.5% 5.5%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f5f2ed;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.m-plan-stage {
+  position: relative;
+}
+
+.m-plan-stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.m-plan-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+.m-plan-svg a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.m-plan-svg .dim-line {
+  stroke: #1b1917;
+  stroke-width: 2.2;
+}
+
+.m-plan-svg .dim-ext {
+  stroke: rgba(27, 25, 23, 0.45);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 3;
+}
+
+.m-plan-svg .dim-pill {
+  fill: rgba(255, 252, 246, 0.94);
+  stroke: #1b1917;
+  stroke-width: 1.3;
+}
+
+.m-plan-svg .dim-text {
+  fill: #141210;
+  font: 700 20px/1 var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.m-plan-svg .room-pill {
+  fill: rgba(20, 18, 15, 0.88);
+  stroke: #e0a96d;
+  stroke-width: 1.8;
+}
+
+.m-plan-svg .room-label {
+  fill: #fff8ee;
+  font: 700 21px/1 var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.m-plan-svg a:hover .room-pill {
+  fill: #c97b50;
+}
+
+/* Sequence & tables */
+.m-sequence {
+  padding-left: 22px;
+  display: grid;
+  gap: 8px;
+}
+
+.m-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+caption {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 6px 0 8px;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+td.num,
+th.num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.blank-col {
+  min-width: 96px;
+}
+
+/* Zone cards */
+.m-zone-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.m-zone-head h3 {
+  font-size: 1.28rem;
+}
+
+.m-zone-link {
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 99px;
+  border: 1px solid rgba(224, 169, 109, 0.48);
+  background: rgba(224, 169, 109, 0.14);
+}
+
+.m-zone-summary {
+  margin-bottom: 14px;
+  color: rgba(246, 243, 238, 0.9);
+}
+
+.m-zone-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.m-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.m-box h4 {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.m-box ul,
+.m-box ol {
+  padding-left: 18px;
+  display: grid;
+  gap: 5px;
+  font-size: 0.85rem;
+}
+
+.m-footer {
+  max-width: 1280px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+@media (max-width: 820px) {
+  .m-toc,
+  .m-zone-cols,
+  .m-plans-grid {
+    grid-template-columns: 1fr;
+  }
+  .m-hero,
+  .m-toc,
+  .m-section,
+  .m-zone-card {
+    padding: 16px;
+  }
+}
+
+/* ---------------------------------------------------------------- A4 Print stylesheet (crisp black on white) */
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm;
+}
+
+@media print {
+  html {
+    color-scheme: light;
+  }
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+  .m-topbar,
+  .m-boq-tools,
+  .m-zone-link,
+  .m-hint {
+    display: none !important;
+  }
+  .m-container {
+    max-width: 100%;
+    padding: 0;
+  }
+  .m-hero,
+  .m-toc,
+  .m-section,
+  .m-zone-card,
+  .m-plan-card,
+  .m-stat,
+  .m-box,
+  .m-disclaimer {
+    background: #fff !important;
+    color: #111 !important;
+    border: 1px solid #bbb !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+  }
+  .m-hero h1,
+  .m-section h2,
+  .m-zone-head h3,
+  .m-kicker,
+  .m-plan-card h3,
+  .m-box h4,
+  caption,
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+  .m-sub,
+  .m-stat span,
+  .m-boq-note,
+  .m-footer,
+  th {
+    color: #333 !important;
+  }
+  .m-zone-summary {
+    color: #111 !important;
+  }
+  th,
+  td {
+    border-bottom: 1px solid #ccc !important;
+    background: transparent !important;
+    padding: 4px 6px;
+  }
+  th {
+    background: #f2f2f2 !important;
+  }
+  .m-plans-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .m-plan-card,
+  .m-table-wrap,
+  .m-box {
+    break-inside: avoid;
+  }
+  #tlocrti,
+  #troskovnik,
+  .m-zone-card {
+    break-before: page;
+  }
+  .m-toc {
+    grid-template-columns: 1fr 2fr;
+  }
+  a[href^="http"]::after {
+    content: "";
+  }
+}

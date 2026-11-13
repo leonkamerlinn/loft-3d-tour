@@ -2,6 +2,7 @@
 
 **Live (Google Cloud Run):** https://loft-3d-tour-370434332956.europe-west1.run.app
 **Izravno na redizajn:** https://loft-3d-tour-370434332956.europe-west1.run.app/?interijer=redizajn
+**Tehnička mapa za majstore:** https://loft-3d-tour-370434332956.europe-west1.run.app/majstor.html
 
 Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.18 × 6.19 m`) u mjerilu **1:1**, rekonstruiran spajanjem dvaju Apple LiDAR RoomPlan skenova (`room.usdz` + `Room 2/room.usdz`) i referentnih fotografija u Blenderu te prikazan u stvarnom vremenu pomoću **Three.js (WebGL)**.
 
@@ -25,9 +26,11 @@ Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.
 Prekidač **Postojeće / Redizajn** nalazi se u gornjoj traci. Kartice se mijenjaju ovisno o interijeru, a gumb **⇆ Prije / poslije** otvara klizač s Cycles renderima iz identične kamere.
 
 ## Značajke
-- Scroll-vođena kamera kroz **11 zona** — prizemlje, uspon na galeriju i prolaz kroz vrata u 3 nove sobe sjevernog krila (**Room 2**: garderoba/ured, kupaonica i glavna spavaća soba; cijela putanja provjerena BVH raycastom u Blenderu)
-- 360° slobodni pogled, večernji / dnevni ambijent, interaktivni tlocrt
-- Prilagođeno mobitelima (na mobitelu je u GPU memoriji samo aktivni interijer)
+- Scroll-vođena kamera kroz **11 zona** s proširenim vidnim poljem (`96°–102° hFOV`), odvojenim kruženjem po malim sobama i asimetričnim kadriranjem uz rub kartica
+- **360° šetnja (`WASD`)** — rotacija oko vlastite očišne točke bez propadanja kroz zidove (`three-mesh-bvh` kolizijska kapsula, automatski hod po stubištu, tap-to-walk, mobilni joystick)
+- **📏 Mjeri (3D laser)** — dodirom bilo koje dvije točke na 3D modelu mjeri ukupnu, vodoravnu (`↔`) i visinsku (`↕`) udaljenost u metrima i centimetrima
+- **🛠 Za majstore** (`/majstor.html` + bočna ladica u turi) — 4 kotirana ortografska tlocrta, tehnički listovi za svih 11 zona, troškovnik radova s Excel `;` UTF-8 CSV izvozom i A4 ispisom / PDF-om
+- Večernji / dnevni ambijent, interaktivni tlocrt, **⇆ Prije / poslije** Cycles klizač i prilagodba mobitelima (u GPU memoriji ostaje samo aktivni interijer)
 
 ## Lokalno pokretanje
 

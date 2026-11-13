@@ -22,11 +22,12 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.csv': 'text/csv; charset=utf-8'
 };
 
 // .glb is included: meshopt-compressed geometry is designed to be gzipped on top (≈ -22 % here).
-const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.gltf', '.glb']);
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.csv', '.gltf', '.glb']);
 const LONG_CACHE = new Set(['.glb', '.jpg', '.jpeg', '.png', '.webp']);
 
 const SECURITY_HEADERS = {
@@ -40,14 +41,17 @@ const SECURITY_HEADERS = {
 // in memory instead of re-compressing on every request.
 const gzipCache = new Map();
 
-async function getGzipped(filePath) {
-  let entry = gzipCache.get(filePath);
-  if (!entry) {
-    entry = fsp.readFile(filePath).then((buf) => zlib.gzipSync(buf, { level: 9 }));
-    gzipCache.set(filePath, entry);
-    entry.catch(() => gzipCache.delete(filePath));
+async function getGzipped(filePath, stat) {
+  const cached = gzipCache.get(filePath);
+  if (cached && cached.mtimeMs === stat.mtimeMs && cached.size === stat.size) {
+    return cached.promise;
   }
-  return entry;
+  const promise = fsp.readFile(filePath).then((buf) => zlib.gzipSync(buf, { level: 9 }));
+  gzipCache.set(filePath, { mtimeMs: stat.mtimeMs, size: stat.size, promise });
+  promise.catch(() => {
+    if (gzipCache.get(filePath)?.promise === promise) gzipCache.delete(filePath);
+  });
+  return promise;
 }
 
 function send(res, status, body, headers = {}) {
@@ -109,9 +113,19 @@ const server = http.createServer(async (req, res) => {
       'Last-Modified': stat.mtime.toUTCString()
     };
 
+    const ims = req.headers['if-modified-since'];
+    if (ims) {
+      const imsMs = Date.parse(ims);
+      if (!Number.isNaN(imsMs) && Math.floor(stat.mtimeMs / 1000) * 1000 <= imsMs) {
+        res.writeHead(304, headers);
+        res.end();
+        return;
+      }
+    }
+
     const acceptsGzip = /\bgzip\b/.test(req.headers['accept-encoding'] || '');
     if (COMPRESSIBLE.has(ext) && acceptsGzip) {
-      const gz = await getGzipped(filePath);
+      const gz = await getGzipped(filePath, stat);
       Object.assign(headers, {
         'Content-Encoding': 'gzip',
         Vary: 'Accept-Encoding',

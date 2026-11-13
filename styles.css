@@ -298,6 +298,302 @@ button {
   white-space: nowrap;
 }
 
+/* ---------------------------------------------------------------- Walk mode UI */
+.free-banner {
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: min(980px, calc(100vw - 24px));
+  border-radius: 18px;
+  row-gap: 8px;
+}
+
+.walk-hints {
+  color: rgba(246, 243, 238, 0.86);
+  line-height: 1.7;
+}
+
+.measure-hint,
+body.measure-active .walk-hints.hint-desktop,
+body.measure-active .walk-hints.hint-touch {
+  display: none;
+}
+
+body.measure-active .measure-hint {
+  display: inline;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 5px;
+  margin: 0 1px;
+  border: 1px solid rgba(255, 238, 214, 0.35);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  font: 600 0.72rem/1.45 var(--font-sans);
+  text-align: center;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.walk-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.walk-tool {
+  border: 1px solid rgba(224, 169, 109, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  border-radius: 99px;
+  padding: 8px 14px;
+  min-height: 36px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.walk-tool.active {
+  background: var(--accent-gold);
+  color: #17130f;
+}
+
+.walk-tool.hidden,
+.walk-joystick.hidden,
+.hover-tip.hidden {
+  display: none;
+}
+
+body.measure-active #webgl-canvas {
+  cursor: crosshair !important;
+}
+
+.measure-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.measure-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgba(20, 16, 12, 0.88);
+  border: 1px solid rgba(255, 207, 138, 0.7);
+  color: #fff;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  will-change: transform;
+}
+
+.measure-label strong {
+  font-size: 0.95rem;
+  color: #ffcf8a;
+  font-variant-numeric: tabular-nums;
+}
+
+.measure-label span {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-variant-numeric: tabular-nums;
+}
+
+.measure-label.preview {
+  border-style: dashed;
+  opacity: 0.92;
+}
+
+.hover-tip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 31;
+  pointer-events: none;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: rgba(20, 16, 12, 0.85);
+  border: 1px solid var(--glass-border);
+  font-size: 0.72rem;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.walk-joystick {
+  position: fixed;
+  left: calc(22px + var(--safe-left));
+  bottom: calc(26px + var(--safe-bottom));
+  z-index: 40;
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04) 70%);
+  border: 1px solid rgba(255, 238, 214, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  touch-action: none;
+  display: grid;
+  place-items: center;
+}
+
+.walk-knob {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(224, 169, 109, 0.85);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- Contractor drawer */
+.spec-drawer {
+  position: fixed;
+  z-index: 60;
+  top: calc(84px + var(--safe-top));
+  right: calc(16px + var(--safe-right));
+  bottom: calc(16px + var(--safe-bottom));
+  width: min(440px, calc(100vw - 32px));
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 16, 14, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.spec-drawer[hidden] {
+  display: none;
+}
+
+.spec-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.spec-kicker {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.spec-head h3 {
+  font-size: 1.05rem;
+  margin-top: 3px;
+}
+
+.spec-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px 18px 16px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.spec-body h4 {
+  margin: 16px 0 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.spec-body .dims {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.spec-body .dims div {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 7px 9px;
+}
+
+.spec-body .dims span {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.spec-body .dims strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.spec-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+}
+
+.spec-body th,
+.spec-body td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.spec-body th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.spec-body td.num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.spec-body ul,
+.spec-body ol {
+  padding-left: 18px;
+}
+
+.spec-body .note {
+  margin-top: 12px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.spec-foot {
+  display: grid;
+  gap: 8px;
+  padding: 12px 18px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.spec-foot .compare-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin: 0;
+}
+
+#btn-spec[aria-expanded="true"] {
+  background: rgba(224, 169, 109, 0.25);
+  border-color: var(--accent-gold);
+}
+
 /* ---------------------------------------------------------------- Telemetry rail */
 .telemetry-rail {
   position: fixed;
@@ -394,7 +690,8 @@ button {
 }
 
 body.free-mode-active .scroll-container {
-  opacity: 0.12;
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* In 360° mode the faded cards must not swallow drag/pinch gestures meant for the 3D view */
@@ -1037,6 +1334,21 @@ html[data-interior="redesign"] .step-num {
     justify-content: space-between;
   }
 
+  .spec-drawer {
+    top: calc(104px + var(--safe-top));
+    left: calc(8px + var(--safe-left));
+    right: calc(8px + var(--safe-right));
+    bottom: calc(12px + var(--safe-bottom));
+    width: auto;
+  }
+
+  .walk-joystick {
+    left: calc(14px + var(--safe-left));
+    bottom: calc(116px + var(--safe-bottom));
+    width: 108px;
+    height: 108px;
+  }
+
   .free-banner.hidden {
     transform: translateY(8px);
   }
@@ -1078,9 +1390,6 @@ html[data-interior="redesign"] .step-num {
 
 @media (max-width: 420px) {
   .action-label {
-    display: none;
-  }
-  .brand-title {
     display: none;
   }
   .brand-title {

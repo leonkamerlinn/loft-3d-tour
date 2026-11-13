@@ -10,13 +10,14 @@
     document.documentElement.dataset.interior =
       new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
   </script>
-  <link rel="stylesheet" href="./styles.css?v=3" />
+  <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
     {
       "imports": {
         "three": "./node_modules/three/build/three.module.js",
-        "three/addons/": "./node_modules/three/examples/jsm/"
+        "three/addons/": "./node_modules/three/examples/jsm/",
+        "three-mesh-bvh": "./node_modules/three-mesh-bvh/build/index.module.js"
       }
     }
   </script>
@@ -73,21 +74,33 @@
         <span id="lighting-icon" aria-hidden="true">☾</span>
         <span id="lighting-label" class="action-label">Večer</span>
       </button>
-      <button type="button" id="btn-free-mode" class="action-btn primary" aria-pressed="false" aria-label="Slobodni 360° pogled">
+      <button type="button" id="btn-free-mode" class="action-btn primary" aria-pressed="false" aria-label="Slobodna 360° šetnja (WASD)">
         <span aria-hidden="true">⟲</span>
-        <span id="mode-label" class="action-label">360° pogled</span>
+        <span id="mode-label" class="action-label">360° šetnja</span>
+      </button>
+      <button type="button" id="btn-spec" class="action-btn" aria-expanded="false" aria-controls="spec-drawer" aria-label="Tehnički podaci za majstore">
+        <span aria-hidden="true">🛠</span>
+        <span class="action-label">Za majstore</span>
       </button>
     </div>
   </header>
 
   <div id="interior-toast" class="interior-toast hidden" role="status" aria-live="polite"></div>
 
-  <!-- Free Orbit Mode Banner -->
+  <!-- Free Walk Mode Banner -->
   <div id="free-banner" class="free-banner hidden" role="status">
-    <span class="hint-desktop"><strong>360°:</strong> povuci mišem za rotaciju, kotačićem zumiraj, desnom tipkom pomiči.</span>
-    <span class="hint-touch"><strong>360°:</strong> jednim prstom okreći, s dva prsta zumiraj i pomiči.</span>
-    <button type="button" id="btn-resume-scroll" class="resume-btn">Nastavi šetnju</button>
+    <span class="walk-hints hint-desktop"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> hodaj · <kbd>←</kbd><kbd>→</kbd> okreni · <kbd>Shift</kbd> brže · povuci mišem za pogled · klik na pod: idi tamo · kotačić: zoom</span>
+    <span class="walk-hints hint-touch">Joystick: hodaj · povuci prstom: pogled · dodirni pod: idi tamo</span>
+    <span class="walk-hints measure-hint">📏 Klikni dvije točke na zidu, podu ili namještaju · <kbd>Esc</kbd> odustani</span>
+    <div class="walk-tools">
+      <button type="button" id="btn-measure" class="walk-tool" aria-pressed="false" title="Mjerenje (tipka M)">📏 Mjeri</button>
+      <button type="button" id="btn-measure-clear" class="walk-tool hidden">Očisti mjere</button>
+      <button type="button" id="btn-resume-scroll" class="resume-btn">Vođena šetnja</button>
+    </div>
   </div>
+  <div id="measure-layer" class="measure-layer" hidden></div>
+  <div id="hover-tip" class="hover-tip hidden" aria-hidden="true"></div>
+  <div id="walk-joystick" class="walk-joystick hidden" aria-hidden="true"><span class="walk-knob"></span></div>
 
   <!-- Right Progress & Elevation Telemetry -->
   <aside class="telemetry-rail" aria-hidden="true">
@@ -521,6 +534,22 @@
     </div>
   </div>
 
-  <script type="module" src="./app.js?v=3"></script>
+  <!-- Contractor ("majstor") drawer: technical sheet of the room you are in -->
+  <aside id="spec-drawer" class="spec-drawer" hidden aria-labelledby="spec-title">
+    <div class="spec-head">
+      <div>
+        <span class="spec-kicker" id="spec-kicker">TEHNIČKI LIST</span>
+        <h3 id="spec-title">Učitavanje…</h3>
+      </div>
+      <button type="button" id="spec-close" class="modal-close" aria-label="Zatvori tehnički list">✕</button>
+    </div>
+    <div id="spec-body" class="spec-body"></div>
+    <div class="spec-foot">
+      <button type="button" id="spec-measure" class="compare-btn">📏 Izmjeri u 3D (slobodna šetnja)</button>
+      <a id="spec-full" href="./majstor.html" class="compare-btn outline" target="_blank" rel="noopener">Cijela tehnička mapa · PDF · troškovnik ↗</a>
+    </div>
+  </aside>
+
+  <script type="module" src="./app.js?v=5"></script>
 </body>
 </html>

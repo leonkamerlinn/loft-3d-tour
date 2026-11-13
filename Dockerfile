@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev --no-audit --no-fund
 
-COPY index.html styles.css app.js server.js ./
+COPY index.html styles.css app.js walk.js measure.js spec-data.js majstor.html majstor.css majstor.js server.js ./
 COPY assets ./assets
 
 ENV NODE_ENV=production
