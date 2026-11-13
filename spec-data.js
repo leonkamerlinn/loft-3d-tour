@@ -1,51 +1,57 @@
 // Tehnički podaci i troškovnik za izvođače radova ("majstore")
-// Svi brojevi potječu iz 1:1 LiDAR + Blender geometrije (01_loft_postojece_stanje.blend i 02_loft_redizajn_japandi.blend).
+// Svi brojevi potječu iz 1:1 LiDAR + građevinskih nacrta + Blender geometrije (01_loft_postojece_stanje.blend i 02_loft_redizajn_japandi.blend).
 // Čisti ES modul bez ovisnosti o DOM-u (zajednički za index.html #spec-drawer i majstor.html).
 
 export const PROJECT = {
-  title: 'Dvoetažni Loft 1:1 — Tehnička mapa i troškovnik za izvođače',
-  subtitle: 'Adaptacija postojećeg stanja u koncept „Japandi Calm” (prizemlje + galerija + sjeverno krilo)',
-  version: '1.0',
+  title: 'Kuća Banfi 201A (Po + Pr + Pk + 3D Vrt) — Tehnička mapa i troškovnik za izvođače',
+  subtitle: 'Cjelovita 1:1 arhitektonska rekonstrukcija i projekt uređenja „Japandi Calm” (k.č. 2480/3, k.o. Štrigova)',
+  version: '2.0',
   date: '13. 11. 2026.',
   units: 'm / cm / m²',
-  accuracy: 'Apple LiDAR RoomPlan 1:1 skenovi (Room 1 + Room 2 + Room 3) + fotogrametrijska kalibracija (±1–2 cm)',
-  disclaimer: 'Sve mjere izvedene su iz 1:1 LiDAR 3D modela. Izvođač (stolar, keramičar, električar, vodoinstalater) dužan je prije narudžbe materijala i izrade namještaja po mjeri izvršiti kontrolnu izmjeru na gradilištu.',
+  accuracy: 'Građevinski nacrti Po+Pr+Pk + 3× Apple LiDAR RoomPlan 1:1 skena + fotogrametrijska kalibracija (±1–2 cm)',
+  disclaimer: 'Sve mjere izvedene su iz 1:1 arhitektonskog i LiDAR 3D modela. Izvođač (stolar, keramičar, električar, vodoinstalater, vrtlar) dužan je prije narudžbe materijala i izrade opreme po mjeri izvršiti kontrolnu izmjeru na gradilištu.',
   overall: {
-    footprint: '10.09 × 10.18 m',
-    ridge: '6.19 m',
-    netFloorArea_m2: 103.6,
+    footprint: '10.09 × 10.18 m (parcela 34.4 × 30.1 m)',
+    ridge: '+6.19 m (ukupna visina Po → sljeme 8.92 m)',
+    netFloorArea_m2: 248.4,
     floors: [
       {
-        name: 'Prizemlje (0.00 m)',
-        zones: '01–06',
-        area_m2: 53.7,
-        height: '2.53 m pod galerijom / do 6.19 m u sljemenu'
+        name: 'Vrt, prilaz i vanjski ulaz (-2.73 → 0.00 m)',
+        zones: '01–03',
+        area_m2: 68.5,
+        height: 'Otvoreni okoliš • vanjsko stubište 16×17.1 cm • trijem +0.00 m'
       },
       {
-        name: 'Međukat / krovište (+2.74 m)',
-        zones: '07–08',
-        area_m2: 12.1,
-        height: '2.48 – 3.45 m pod kosinom'
+        name: 'Podrum — Po (-2.73 m)',
+        zones: '10–11',
+        area_m2: 75.9,
+        height: '2.43 m čista visina ispod ab ploče (-5.73 → -3.30 m)'
       },
       {
-        name: 'Sjeverno krilo — kat (+2.73 m, Room 2)',
-        zones: '09–11',
-        area_m2: 37.8,
-        height: '2.49 m ravni strop (nadozidi 1.21 m istok / 1.47 m zapad)'
+        name: 'Prizemlje — Pr (0.00 m)',
+        zones: '04–09',
+        area_m2: 101.5,
+        height: '2.53 m (galerija & sjeverno krilo) / do +6.19 m u sljemenu'
+      },
+      {
+        name: 'Potkrovlje & galerija — Pk (+2.73 / +2.74 m)',
+        zones: '12–15',
+        area_m2: 71.0,
+        height: '2.49 m ravni strop sjevera (nadozidi 1.16–1.48 m) / 3.45 m galerija'
       }
     ]
   },
   siteSequence: [
-    '1. Zaštita gradilišta, demontaža postojeće pokretne opreme, rasvjete, tamnih zidnih dasaka i starih fronti ormara/kuhinje.',
-    '2. Grubi elektroinstalaterski radovi (štemanje/kabliranje skrivenih LED napajanja 24 V DC, TV bužira Ø 50 mm, utičnica uz krevet i kuhinju, IP44 krugova u kupaonici).',
-    '3. Vodoinstalaterski grubi razvod i priprema podloge u kupaonici (zona 10) te kuhinji (zona 02).',
-    '4. Hidroizolacija kupaonice u dva sloja s brtvenim trakama, polaganje mat travertin porculana (pod, kada, zidni stup umivaonika i WC obzid).',
-    '5. Skela u atriju i krovištu: lagano brušenje i ebonizirano lazurno močenje triju krovnih rešetki i podrožnica, ličenje kosih stropova, bijela lazura dimnjaka.',
-    '6. Fina žbuka i toplo vapneno ličenje zidova (NCS S 1505-Y30R) u svim suhim prostorijama.',
-    '7. Niveliranje podloge i polaganje troslojnog hrastovog parketa riblja kost (prizemlje, galerija, garderoba i spavaća soba) te letvica.',
-    '8. Montaža akustičnog panel-zida od hrastovih letvica na istočnom zidu boravka, novih fronti ormara (zona 09), kuhinje (zona 02) i kamenih ploča travertina.',
-    '9. Fina montaža sanitarija u brušenoj mjedi, rasvjetnih tijela (2700 K), prekidača, utičnica i ispitivanje električnih/hidro instalacija.',
-    '10. Isporuka i montaža pokretnog namještaja, tepiha, lanenih sjenila i završno čišćenje.'
+    '1. Zaštita gradilišta, demontaža pokretne opreme, tamnih zidnih dasaka boravka, starih kuhinjskih i garderobnih fronti te stare rasvjete.',
+    '2. Vanjski građevinsko-vrtni radovi: priprema podloge prilaza i 2P parkinga, obrada vanjskog stubišta (-2.73 → 0.00 m), ugradnja ograde od kaljenog stakla i nosača cedrove pergole u zapadnom 3D vrtu.',
+    '3. Grubi elektroinstalaterski i strojarski radovi kroz Po+Pr+Pk: kabliranje LED napajanja 24 V DC, TV bužira Ø 50 mm, podnog/dizalica topline razvoda u kotlovnici (zona 10) i vrtnih rasvjetnih stupića 230 V / 24 V.',
+    '4. Hidroizolacija u dva sloja s brtvenim trakama i keramički radovi u kupaonici Pr (walk-in tuš, zona 09), spa kupaonici Pk (mat travertin, zona 14), podrumu (R10 tehnički porculan) i jugoistočnom balkonu (R11).',
+    '5. Skela u dvoetažnom atriju: brušenje i ebonizirano lazurno močenje triju krovnih rešetki, podignutih uzdužnih greda i zateznih sajli rasvjete, ličenje kosih stropova i bijela vapnena lazura dimnjaka.',
+    '6. Fina glet-obrada i toplo vapneno ličenje zidova (NCS S 1505-Y30R) u prizemlju, sjevernom krilu Pr, podrumskim hodnicima, galeriji i sobama potkrovlja.',
+    '7. Niveliranje podloga i polaganje troslojnog hrastovog parketa riblja kost (atriju, kuhinji, blagovaonici, boravku, sobama 1 i 2 Pr, galeriji, garderobi i glavnoj spavaćoj sobi Pk).',
+    '8. Montaža akustičnog zida od hrastovih letvica na istočnom zidu, kuhinje u kadulji i travertinu, fronti ormara, stolarije radne sobe i opreme vešeraja/garaže.',
+    '9. Fina montaža sanitarija u brušenoj mjedi, rasvjetnih tijela (Akari visilice, sajle spotovi, plafonjere, vrtni stupići 2700 K) i ispitivanje instalacija.',
+    '10. Montaža vanjskog lounge namještaja ispod pergole, sadnja ukrasnih trava i lavande, unos unutarnjeg pokretnog namještaja i završno čišćenje.'
   ]
 };
 
@@ -53,7 +59,158 @@ export const ZONES = [
   {
     stop: 0,
     code: '01',
-    name: 'Ulazni atrij i predsoblje',
+    name: 'Eksterijer, prilaz Banfi i 2P parkiralište',
+    floor: 'Okoliš / prilaz (-2.73 m)',
+    openPlan: true,
+    dims: {
+      length_m: 14.5,
+      width_m: 5.8,
+      clearHeight_m: 8.92,
+      kneeWall_m: null,
+      floorArea_m2: 42.0,
+      wallArea_m2: 96.0,
+      note: 'Asfaltni cestovni odvojak Banfi, betonsko-kockasti prilaz s istočne strane do južnog 2P parkirnog platoa (-2.73 m) i pristup garaži.'
+    },
+    existing: [
+      'Uređen istočni kolni prilaz širine 3.2 m od ceste Banfi uz sjeverni i istočni rub kuće prema donjem južnom platou (-2.73 m).',
+      'Južni parkirni prostor 2P ispred sekcijskih garažnih vrata (540 × 220 cm) i donjeg dijela vanjskog stubišta.',
+      'Dvostrešni krov s ugrađenim krovnim prozorima, tamni kameni sokl suterena i bijela žbukana fasada gornjih etaža.'
+    ],
+    redesign: {
+      summary: 'Arhitektonsko usklađenje pročelja i prilaza u Japandi duh: mineralna fasada u toplom pješčanom tonu, tamni kameni sokl podruma, opločnik velikog formata i nenametljiva vanjska rasvjeta prilaza.',
+      finishes: [
+        { element: 'Prilazni plato i 2P parking', material: 'Betonski opločnik velikog formata / drenirajući kamen', spec: 'Nosivost za osobna vozila (d = 8 cm na posteljici), pad 1.5 % od kuće', qty: 42.0, unit: 'm²', note: 'S ugrađenom linijskom kanalom rešetkom ispred garaže' },
+        { element: 'Sokl suterena / podruma', material: 'Fasadni tamni prirodni/dekorativni kamen', spec: 'Hidroizolirana obloga visine 2.85 m oko garaže i radne sobe', qty: 36.0, unit: 'm²', note: 'Zaštitna okapna aluminijska letva na prijelazu u žbuku' },
+        { element: 'Fasadna silikatno-silikonska žbuka', material: 'Topla mineralno-bijela žbuka (NCS S 0804-Y20R)', spec: 'Pranje, temeljni premaz i 2 sloja završne fasadne boje', qty: 96.0, unit: 'm²', note: 'Uključuje špalete južnih i sjevernih prozora' }
+      ],
+      furniture: [
+        { item: 'Poštanski sandučić i kućni broj „201A”', dims: '40 × 12 × 32 cm', material: 'Mat antracit prašno lakirani čelik + LED pozadina', position: 'Ulazni stupić uz istočni rub prilaza cesti Banfi', note: 'Otporno na UV i smrzavanje (IP54)' }
+      ],
+      lighting: [
+        { item: 'Fasadne zidne svjetiljke prilaza i garaže', spec: '2× 10 W LED gore/dolje, 2700 K, IP65, mat antracit', qty: 4, mount: 'Bočni stupovi garažnih vrata i jugoistočni ugao (h = 2.15 m)', circuit: 'Krug E1 — sumračni senzor + prekidač u hodniku garaže' }
+      ],
+      electrical: [
+        { item: 'Priprema punjača električnog vozila (Wallbox 11 kW)', qty: 1, height_cm: 135, position: 'Vanjski ili unutarnji zid uz istočni dovratnik garaže', note: 'Kabel 5×6 mm² direktno iz glavnog razvodnog ormara' },
+        { item: 'Kabel za motorni pogon sekcijskih garažnih vrata', qty: 1, height_cm: 245, position: 'Strop garaže po središnjoj osi vrata (Y = -2.80 m)', note: 'Postojeći dovod s utičnicom na stropu' }
+      ],
+      plumbing: [
+        { item: 'Oborinska linijska rešetka ispred praga garaže', spec: 'Pocink/lijevano željezo D400, l = 5.60 m, priključak na upojni zdenac', position: 'Uzduž garažnog praga (Y = -5.20 m)', height_cm: 0, note: 'Sprječava prodor oborinske vode u garažu' }
+      ],
+      sequence: [
+        'Pregledati nagib prilaza i očistiti/ugraditi linijsku oborinsku rešetku ispred garažnih vrata.',
+        'Sanirati i oprati kameni sokl suterena te izvesti fasadno bojenje toplom mineralno-bijelom bojom.',
+        'Položiti završni opločnik na 2P platou i montirati vanjsku rasvjetu te pripremu za punjač vozila.'
+      ]
+    },
+    checks: [
+      'Provjeriti čiste padove opločnika od fasade i praga garaže prema kanaliću odvodnje.',
+      'Uskladiti boju vanjske stolarije i aluminijskih okapnica s antracit garažnim vratima.'
+    ]
+  },
+  {
+    stop: 1,
+    code: '02',
+    name: '3D Vrt, pergola i vrtna staza',
+    floor: 'Vrtni plato (±0.00 m)',
+    openPlan: true,
+    dims: {
+      length_m: 6.4,
+      width_m: 4.8,
+      clearHeight_m: 2.65,
+      kneeWall_m: null,
+      floorArea_m2: 18.5,
+      wallArea_m2: 0.0,
+      note: 'Zapadni vrtni plato u ravnini s ulaznim trijemom (kotirano ±0.00 m), povezan travnatim koračnim pločama s trijemom.'
+    },
+    existing: [
+      'Zapadni dio parcele uz ulazni trijem uređen kao travnata terasa na razini prizemlja s drvenom pergolom (3.8 × 3.8 m), vrtnim lounge sjedenjem i pješačkim kamenim pločama prema ulazu.',
+      'Ukrasno bilje, niska grmolika vegetacija (lavanda, trave) i rubna stabla uz sjeverozapadnu među.'
+    ],
+    redesign: {
+      summary: 'Smireni Japandi vrt: toplo nauljena cedrova ili ariš pergola iznad podesta od mat travertin ploča, vanjski lounge s lanenim/bouclé jastucima otpornim na vlagu i niskopodni topli LED stupići duž staze.',
+      finishes: [
+        { element: 'Terasa pod pergolom i koračne ploče', material: 'Mat vanjski travertin / protuklizni porculan d = 20 mm (R11)', spec: 'Ploče 80 × 80 cm u suhoj/polusuhoj posteljici od drobljenca', qty: 18.5, unit: 'm²', note: 'Uključuje 5 koračnih ploča od pergole prema ulaznom trijemu' },
+        { element: 'Vrtna vegetacija i šljunčane gredice', material: 'Ukrasne trave (Pennisetum), lavanda, japanski javor i bijeli kulir', spec: 'Geotekstil ispod šljunka radi sprječavanja korova + rubnici', qty: 24.0, unit: 'm²', note: 'Priprema za navodnjavanje kap-po-kap' }
+      ],
+      furniture: [
+        { item: 'Drvena pergola s lamelama', dims: '380 × 380 × 265 cm', material: 'Lamelirani sibirski ariš / cedar na skrivenim čeličnim stopama', position: 'Zapadni vrt (X ∈ [-11.5, -7.7], Y ∈ [-4.4, -0.6 m])', note: 'Uljenje prirodnim UV vanjskim uljem svake 2 sezone' },
+        { item: 'Vanjska L-garnitura + niski vrtni stolić', dims: '240 × 180 × 72 cm + stol Ø 85 × 38 cm', material: 'Tikovina / termo-jasen + vodoodbojna lan/bouclé tkanina', position: 'Ispod pergole orijentirano prema kući i jugozapadu', note: 'Jastuci s navlakama na skidanje i brzosušećom spužvom' }
+      ],
+      lighting: [
+        { item: 'Vrtni niskopodni stupići (bollards)', spec: '5× 5 W LED, 2700 K, IP65, mat antracit visine 55 cm', qty: 5, mount: 'Duž koračnih ploča od pergole do trijema i rubova gredica', circuit: 'Krug E2 — sumračni/tajmer prekidač uz glavna ulazna vrata' },
+        { item: 'Ugradbena LED traka na gredama pergole', spec: '8 W/m, 2700 K, IP67, dimabilno', qty: 3.6, mount: 'Unutarnji utor gornje grede pergole', circuit: 'Krug E3 — daljinski ili zidni prekidač trijema' }
+      ],
+      electrical: [
+        { item: 'Vanjska IP55 dupla utičnica na stupu pergole', qty: 2, height_cm: 40, position: 'Sjeveroistočni drveni stup pergole', note: 'FID 30 mA zaštita s prekidačem unutar kuće' }
+      ],
+      plumbing: [
+        { item: 'Vrtna slavina i izvod za navodnjavanje kap-po-kap', spec: 'Mjerna/ispustna slavina s ispustom protiv smrzavanja', position: 'Zapadni fasadni sokl ispod kuhinjskog prozora', height_cm: 45, note: 'Ventil za zatvaranje zimi u podrumu' }
+      ],
+      sequence: [
+        'Iskolčiti terasu pergole i iskopati temeljne stope stupova te rov za vrtnu rasvjetu i navodnjavanje.',
+        'Montirati čelične ankere i drvenu konstrukciju pergole od cedra/ariša.',
+        'Položiti drenažnu posteljicu, rubnjake i travertin R11 ploče terase te koračne ploče do trijema.',
+        'Spojiti vanjske rasvjetne stupiće i dovršiti sadnju trajnica te šljunčane gredice.'
+      ]
+    },
+    checks: [
+      'Provjeriti nivelmanski priključak ploča na nivo ulaznog trijema (kotirano ±0.00 m bez praga spoticanja).',
+      'Sva vanjska rasvjeta mora biti spojena preko FID sklopke osjetljivosti 30 mA.'
+    ]
+  },
+  {
+    stop: 2,
+    code: '03',
+    name: 'Vanjsko stubište i natkriveni ulazni trijem',
+    floor: 'Ulazna sekvenca (-2.73 → 0.00 m)',
+    openPlan: true,
+    dims: {
+      length_m: 6.2,
+      width_m: 1.55,
+      clearHeight_m: 2.55,
+      kneeWall_m: null,
+      floorArea_m2: 8.0,
+      wallArea_m2: 14.0,
+      note: '16 gazišta vanjskog stubišta (-2.73 → 0.00 m) s južnim podestom, staklenom ogradom i natkrivenim drvenim ulaznim trijemom ispred otvorenih glavnih vrata (106 × 216 cm).'
+    },
+    existing: [
+      'Vanjsko armiranobetonsko stubište uz zapadnu fasadu (X ∈ [-5.90, -4.45 m]) sa 16 kamenih stuba od južnog platoa (-2.73 m) na podest trijema (0.00 m).',
+      'Natkrivena ulazna nadstrešnica s toplim cedrovim letvicama podgleda i čeličnom konstrukcijom, zaštitna staklena ograda i glavna hrastova ulazna vrata 106 × 216 cm.'
+    ],
+    redesign: {
+      summary: 'Reprezentativni ulaz: protuklizna gazišta od plamenog granita ili debelog travertina R11, staklena ograda bez gornjih profila s antracit stupićima, letvičasti cedrov podgled s integriranim ulaznim spotovima i čisto obrađen ulazni portal.',
+      finishes: [
+        { element: 'Gazišta vanjskog stubišta i podest trijema', material: 'Plameni kamen / gres ploče R11 (protukliznost za kišu i snijeg)', spec: '16 gazišta 135 × 30 × 3 cm s okapnim utorom + podest 3.4 m²', qty: 8.0, unit: 'm²', note: 'Pad 1 % prema vanjskom rubu radi otjecanja kišnice' },
+        { element: 'Podgled ulazne nadstrešnice', material: 'Cedrove letvice na crnom nosivom okviru', spec: 'Širina letvica 45 mm, razmak 15 mm, UV vanjsko mat ulje', qty: 3.8, unit: 'm²', note: 'Uključuje reviziju za ugradbene LED downlighte' }
+      ],
+      furniture: [
+        { item: 'Zaštitna ograda stubišta i trijema', dims: 'l = 6.8 m, h = 100 cm', material: 'Kaljeno laminirano staklo 8.8.2 + mat antracit stezaljke i rukohvat', position: 'Zapadni vanjski rub stubišta i podesta trijema', note: 'Otvoreni prolaz prema vrtnoj stazi na zapadu trijema' },
+        { item: 'Glavna ulazna vrata (servis i zaštita)', dims: '106 × 216 cm', material: 'Prirodni hrast (ili uljeni dekor) + inox rukohvat', position: 'Zapadni zid kuće Y ∈ [-0.38, +0.68 m], Z ∈ [-3.00, -0.84 m]', note: 'Zatečeno otvoreno krilo za nesmetan 1:1 ulaz' }
+      ],
+      lighting: [
+        { item: 'Ugradbeni stropni spotovi ulazne nadstrešnice', spec: '2× 7 W LED, 2700 K, IP65, crni prsten', qty: 2, mount: 'Ugrađeni u cedrov podgled točno ispred ulaznih vrata', circuit: 'Senzor pokreta + prekidač u hodniku' },
+        { item: 'Podstepenišna vanjska LED traka (opcija)', spec: '4.8 W/m, 2700 K, IP67 u aluminijskom profilu ispod nosa gazišta', qty: 16.0, mount: 'Donji okapni rub svakog gazišta', circuit: 'Sumračni senzor na 24 V DC napajanju' }
+      ],
+      electrical: [
+        { item: 'Video portafon / tipkalo zvona + čitač', qty: 1, height_cm: 135, position: 'Lijevi dovratnik ulaza (Y = -0.58 m)', note: 'Povezan mrežnim/PoE kabelom s unutarnjim monitorom u hodniku' }
+      ],
+      plumbing: [],
+      sequence: [
+        'Provjeriti hidroizolaciju armiranobetonske konstrukcije vanjskog stubišta i trijema.',
+        'Polaganje gazišta s okapnicama i ugradnja linijske podstepenišne LED rasvjete.',
+        'Montaža čeličnih sidara i laminiranih staklenih panela ograde.',
+        'Obrada cedrovog podgleda nadstrešnice, montaža LED spotova i video portafona.'
+      ]
+    },
+    checks: [
+      'Provjeriti čistoću praga glavnih ulaznih vrata prilikom spajanja s unutarnjim parketom riblja kost (zazor ≥ 18 mm).',
+      'Osigurati protukliznost gazišta klase min. R11 za vanjske zimske uvjete.'
+    ]
+  },
+  {
+    stop: 3,
+    code: '04',
+    name: 'Ulazni hodnik i dvoetažni atrij',
     floor: 'Prizemlje (0.00 m)',
     openPlan: true,
     dims: {
@@ -63,33 +220,33 @@ export const ZONES = [
       kneeWall_m: null,
       floorArea_m2: 13.6,
       wallArea_m2: 24.5,
-      note: 'Predsoblje (1.60 × 1.63 m, strop 2.14 m) + ulazna os otvorenog atrija do sljemena 6.19 m.'
+      note: 'Glavni ulazni portal s trostranim pogledom u dvoetažni loft (sljeme +6.19 m) i izravnom vezom na sjeverno krilo prizemlja.'
     },
     existing: [
-      'Predsoblje obloženo laminatom i bijelom žbukom; ulazni otvor s bijelim dovratnikom 102 × 203 cm i otvorenim bijelim krilom.',
-      'Sjeverna vrata prema pomoćnom krilu s hrastovim okvirom 90 × 208 cm i pjeskarenim staklom.',
-      'Centralni dvoetažni prostor s izravnim pogledom na južni dimnjak i međukatni stup.'
+      'Ulazna os obložena laminatom i bijelom žbukom; otvoreni hrastovi dovratnik glavnog ulaza (106 × 216 cm) na zapadnom zidu.',
+      'Sjeverna vrata prema predsoblju prizemlja s hrastovim okvirom 90 × 208 cm.',
+      'Centralni dvoetažni prostor s izravnim pogledom na južni dimnjak, kuhinju i međukatni stup.'
     ],
     redesign: {
       summary: 'Topla minimalistička ulazna zona: pod prelazi u hrastov parket riblja kost, zidovi dobivaju vapneni štuk, a dovratnik sjevernih vrata tamni ebonizirani ton.',
       finishes: [
         { element: 'Pod', material: 'Troslojni hrastov parket (riblja kost)', spec: 'Letvice 600 × 120 × 14 mm, prirodni uljeni hrast', qty: 15.0, unit: 'm²', note: 'Uključeno +10 % otpada za rezanje pod kutem' },
-        { element: 'Zidovi i predsoblje', material: 'Vapneni štuk (prijedlog)', spec: 'Fina mineralna glet-masa + vapnena boja NCS S 1505-Y30R (#e9e1d3)', qty: 24.5, unit: 'm²', note: 'Bez otpada; uračunata impregnacija' },
-        { element: 'Dovratnici ulaznog dijela', material: 'Ebonizirani hrast (lazura)', spec: 'Ton RAL 9005 mat lazura u 2 sloja na postojeći hrast', qty: 1, unit: 'kom', note: 'Svijetli otvor 90 × 205 cm' }
+        { element: 'Zidovi ulaznog dijela', material: 'Vapneni štuk (prijedlog)', spec: 'Fina mineralna glet-masa + vapnena boja NCS S 1505-Y30R (#e9e1d3)', qty: 24.5, unit: 'm²', note: 'Bez otpada; uračunata impregnacija' },
+        { element: 'Dovratnici ulaznog dijela', material: 'Ebonizirani hrast (lazura)', spec: 'Ton RAL 9005 mat lazura u 2 sloja na postojeći hrast', qty: 1, unit: 'kom', note: 'Svijetli otvor 90 × 208 cm' }
       ],
       furniture: [
-        { item: 'Zidno ogledalo / vješalica (prijedlog)', dims: '60 × 4 × 160 cm', material: 'Masivni hrast + kristalno ogledalo', position: 'Zapadni zid predsoblja (X ≈ -0.60 m)', note: 'Prijedlog za odlaganje kaputa u niši predsoblja' }
+        { item: 'Zidno ogledalo / vješalica (prijedlog)', dims: '60 × 4 × 160 cm', material: 'Masivni hrast + kristalno ogledalo', position: 'Sjeverozapadni zid uz ulaz (Y ≈ +0.75 m)', note: 'Prijedlog za odlaganje kaputa odmah pri ulasku' }
       ],
       lighting: [
-        { item: 'Ugradbena stropna svjetiljka predsoblja (prijedlog)', spec: '12 W LED, 2700 K, CRI > 90, IP20, mat bijela', qty: 1, mount: 'Središte stropa predsoblja (h = 2.14 m)', circuit: 'Krug 1 — senzor ili izmjenični prekidač uz ulaz' }
+        { item: 'Ugradbena stropna svjetiljka atrijskog prolaza', spec: '12 W LED, 2700 K, CRI > 90, IP20, mat bijela', qty: 1, mount: 'Podgled sjevernog mosta ispred vrata (h = 2.52 m)', circuit: 'Krug 1 — senzor ili izmjenični prekidač uz ulaz' }
       ],
       electrical: [
-        { item: 'Glavni blok prekidača atrija', qty: 2, height_cm: 105, position: 'Istočna strana međukatnog stupa (X = -0.27, Y = -1.95 m)', note: 'Postojeća pozicija; zamjena maski u mat antracit/crnu' },
-        { item: 'Utičnica opća 230 V', qty: 1, height_cm: 30, position: 'Sjeverni zid uz predsoblje', note: 'Za robotski usisavač / održavanje' }
+        { item: 'Glavni blok prekidača atrija + monitor portafona', qty: 2, height_cm: 120, position: 'Istočna strana međukatnog stupa i zid sjeverno od ulaznih vrata', note: 'Zamjena maski u mat antracit/crnu' },
+        { item: 'Utičnica opća 230 V', qty: 1, height_cm: 30, position: 'Sjeverni zid uz ulaz u predsoblje', note: 'Za usisavač / održavanje' }
       ],
       plumbing: [],
       sequence: [
-        'Zaštititi staklena vrata i demontirati stari laminat u predsoblju.',
+        'Zaštititi staklena vrata i demontirati stari laminat.',
         'Obnoviti/izravnati estrih, položiti impregnaciju i pripremiti podlogu za riblju kost u kontinuitetu s prizemljem.',
         'Izvesti gletanje i nanošenje toplog vapnenog štuka (NCS S 1505-Y30R).',
         'Pobrusiti i tonirati hrastov dovratnik u tamni ebonizirani hrast.'
@@ -97,12 +254,12 @@ export const ZONES = [
     },
     checks: [
       'Provjeriti smjer polaganja riblje kosti da prati glavnu sjever–jug os atrija.',
-      'Izmjeriti debljinu parketa + ljepila (≈16 mm) radi visine praga ulaznih vrata.'
+      'Izmjeriti debljinu parketa + ljepila (≈16 mm) radi visine praga glavnih ulaznih vrata.'
     ]
   },
   {
-    stop: 1,
-    code: '02',
+    stop: 4,
+    code: '05',
     name: 'Kuhinja',
     floor: 'Prizemlje — zapad (0.00 m)',
     openPlan: true,
@@ -159,107 +316,63 @@ export const ZONES = [
     ]
   },
   {
-    stop: 2,
-    code: '03',
-    name: 'Blagovaonica',
-    floor: 'Prizemlje — jugozapad (0.00 m)',
+    stop: 5,
+    code: '06',
+    name: 'Blagovaonica i kamin na pelete',
+    floor: 'Prizemlje — jugozapad i jug (0.00 m)',
     openPlan: true,
     dims: {
-      length_m: 3.6,
-      width_m: 3.1,
-      clearHeight_m: 5.95,
-      kneeWall_m: null,
-      floorArea_m2: 11.2,
-      wallArea_m2: 14.0,
-      note: 'Uz veliku južnu staklenu stijenu (224 × 228 cm) s pogledom u dvoetažno krovište.'
-    },
-    existing: [
-      'Pravokutni blagovaonski stol od zlatnog hrasta (193 × 105 × 78 cm) na crnim čeličnim X-nogama.',
-      '4 bijele prošivene stolice + 2 ružičaste baršunaste stolice.',
-      '2 viseće bijele kupole na visini h = 1.68 m iznad stola; tamne žaluzine na južnom prozoru.'
-    ],
-    redesign: {
-      summary: 'Organizacija oko monolitnog okruglog stola od travertina Ø 136 cm pod velikom papirnatom lampom (Akari), uz lanene rolete na južnoj stijeni.',
-      finishes: [
-        { element: 'Pod', material: 'Troslojni hrastov parket riblja kost', spec: 'Isti slog bez dilatacijskih lajsni prema boravku i kuhinji', qty: 12.3, unit: 'm²', note: '+10 % rezanje' },
-        { element: 'Zidne plohe oko južne stijene', material: 'Vapneni štuk NCS S 1505-Y30R', spec: 'Fina mineralna obrada do krovnih kosina', qty: 14.0, unit: 'm²', note: 'Obrada špaleta oko južnih stakala' }
-      ],
-      furniture: [
-        { item: 'Okrugli blagovaonski stol (prijedlog)', dims: 'Ø 136 × 79 cm', material: 'Impregnirani mat travertin (ploča + stožasto postolje)', position: 'Središte blagovaonice (X = -1.86, Y = -3.23 m)', note: 'Težina 120–150 kg — provjeriti unos kroz ulazna vrata' },
-        { item: 'Blagovaonske stolice', dims: '58 × 56 × 80 cm (6 kom)', material: 'Masivni hrast + tapecirano sjedalo u krem bouclé tkanini', position: 'Raspoređene radijalno oko okruglog stola', note: 'Slobodan prolaz min. 85 cm prema kuhinji i kaminu' },
-        { item: 'Rimske lanene rolete', dims: '224 × 228 cm', material: 'Prirodni poludrapirani lan u toplom tonu zobi', position: 'Južna staklena stijena (X ∈ [-2.98, -0.74])', note: 'Zamjena tamnih aluminijskih žaluzina' }
-      ],
-      lighting: [
-        { item: 'Viseća papirnata lampa (Akari stil)', spec: 'Ø 76 cm, rižin papir + bambus/crni čelik, 1× E27 LED 12 W, 2700 K, CRI 95', qty: 1, mount: 'Ovjes s visine stropa (+5.70 m) točno iznad X = -1.86, Y = -3.23 m; donji rub sjenila na h = 1.60 m od poda', circuit: 'Krug 4 — postojeći izvod (ukinuti drugi izvod ili ujediniti u centralnu rozetu)' }
-      ],
-      electrical: [
-        { item: 'Centralni stropni izvod rasvjete (spušteni ovjes 4.1 m)', qty: 1, height_cm: 570, position: 'Krovna kosina točno iznad središta stola (X = -1.86, Y = -3.23 m)', note: 'Potreban tekstilni kabel duljine min. 4.5 m s čeličnom sajlom ili čvrstim ovjesom' }
-      ],
-      plumbing: [],
-      sequence: [
-        'Demontirati dvije postojeće bijele kupole i pripremiti jedinstvenu rozetu iznad središta novog kružnog stola.',
-        'Skinuti tamne žaluzine s južne stijene, obojiti špalete i montirati lanene rolete.',
-        'Postaviti parket riblju kost, a nakon završnih ličilačkih radova unijeti i centrirati travertinski stol te montirati visilicu na visinu 160 cm od poda.'
-      ]
-    },
-    checks: [
-      'Zbog visine ovjesa (≈5.7 m) osigurati skelu u atriju zajedno s radovima na krovištu.',
-      'Kod postavljanja travertinskog stola provjeriti ravnost podloge ispod stožaste baze.'
-    ]
-  },
-  {
-    stop: 3,
-    code: '04',
-    name: 'Kamin i južni zid',
-    floor: 'Prizemlje — jug (0.00 m)',
-    openPlan: true,
-    dims: {
-      length_m: 2.2,
-      width_m: 1.8,
+      length_m: 4.1,
+      width_m: 3.4,
       clearHeight_m: 6.0,
       kneeWall_m: null,
-      floorArea_m2: 4.0,
-      wallArea_m2: 11.5,
-      note: 'Dimnjački stup od opeke (136 × 23 × 598 cm) na južnom zidu s peći na pelete.'
+      floorArea_m2: 15.2,
+      wallArea_m2: 25.5,
+      note: 'Blagovaonica uz južnu staklenu stijenu (224 × 228 cm) te 5.98 m visok dimnjački stup od opeke s peći na pelete.'
     },
     existing: [
-      'Vertikalni stup od crvene opeke visine 5.98 m s rustikalnom skulpturom od maslinovog drva na visini +3.34 m.',
-      'Bordo peć na pelete (54 × 49 × 101 cm) s crnom dimovodnom cijevi promjera Ø 130 mm do visine +2.60 m.',
-      'Dvije kromirane zidne lampe (gore/dolje) na dimnjaku na h = 1.62 m.'
+      'Pravokutni blagovaonski stol od zlatnog hrasta (193 × 105 × 78 cm) na crnim X-nogama sa 4 bijele i 2 ružičaste baršunaste stolice pod dvjema visećim kupolama.',
+      'Vertikalni stup od crvene opeke visine 5.98 m s drvenom skulpturom na +3.34 m i dvjema krom zidnim lampama (h = 1.62 m).',
+      'Bordo peć na pelete (54 × 49 × 101 cm) s crnom dimovodnom cijevi Ø 130 mm do visine +2.60 m.'
     ],
     redesign: {
-      summary: 'Dimnjak od opeke se izbijeljuje paropropusnom vapnenom lazurom (limewash), peć i zidne lampe prelaze u mat crnu, a uz južnu stijenu dodaje se veliko sobno stablo u terakoti.',
+      summary: 'Okrugli travertinski stol Ø 136 cm s bouclé stolicama pod papirnatom Akari lampom Ø 76 cm; dimnjak dobiva vapnenu lazuru (limewash), peć i zidne lampe prelaze u mat crnu, a stijena dobiva lanene rolete.',
       finishes: [
-        { element: 'Obloga dimnjaka', material: 'Vapnena lazura za opeku (limewash)', spec: '2 ruke razrijeđene mineralne vapnene boje, vidljiva tekstura fuge (#f2ece4)', qty: 11.0, unit: 'm²', note: 'Površina do visine sljemena (5.98 m) — izvoditi sa skele' },
-        { element: 'Podloga oko peći (sigurnosna)', material: 'Kaljeno crno staklo ili kamena ploča (preporuka)', spec: 'Min. 70 × 70 cm ispod/ispred ložišta', qty: 1, unit: 'kom', note: 'Zaštita novog uljenog hrastovog parketa od žara' }
+        { element: 'Pod', material: 'Troslojni hrastov parket riblja kost', spec: 'Isti slog bez dilatacijskih lajsni prema boravku i kuhinji', qty: 16.5, unit: 'm²', note: '+10 % rezanje' },
+        { element: 'Zidne plohe oko južne stijene', material: 'Vapneni štuk NCS S 1505-Y30R', spec: 'Fina mineralna obrada do krovnih kosina', qty: 14.5, unit: 'm²', note: 'Obrada špaleta oko južnih stakala' },
+        { element: 'Obloga dimnjaka', material: 'Vapnena lazura za opeku (limewash)', spec: '2 ruke mineralne vapnene boje s vidljivom teksturom fuge (#f2ece4)', qty: 11.0, unit: 'm²', note: 'Rad sa skele do sljemena (5.98 m)' }
       ],
       furniture: [
-        { item: 'Peć na pelete (dorada obloge)', dims: '54 × 49 × 101 cm', material: 'Termootporni mat crni lak (ili originalne mat crne stranice)', position: 'Ispred dimnjaka X = 0.02, Y = -4.42 m', note: 'Obvezno rastaviti bočne oplate i lakirati u komori termootpornom bojom do 300 °C' },
-        { item: 'Velika biljka u terakota posudi', dims: 'Ø 48 × 125 cm', material: 'Terakota posuda + fikus/maslina (prijedlog)', position: 'Uz zapadnu stranu dimnjaka / južnu stijenu', note: 'Omekšava geometriju stijene' }
+        { item: 'Okrugli blagovaonski stol', dims: 'Ø 136 × 79 cm', material: 'Impregnirani mat travertin (ploča + stožasto postolje)', position: 'Središte blagovaonice (X = -1.86, Y = -3.23 m)', note: 'Težina ~135 kg — zaštititi pod pri unosu' },
+        { item: 'Blagovaonske stolice (6 kom)', dims: '58 × 56 × 80 cm', material: 'Masivni hrast + tapecirano sjedalo u krem bouclé tkanini', position: 'Radijalno oko okruglog stola', note: 'Slobodan prolaz min. 85 cm prema kuhinji i kaminu' },
+        { item: 'Peć na pelete (mat crna obrada) + sigurnosno staklo', dims: '54 × 49 × 101 cm', material: 'Termootporni mat crni lak do 300 °C + kaljeno podno staklo 70 × 70 cm', position: 'Ispred dimnjaka (X = 0.02, Y = -4.42 m)', note: 'Zaštita parketa od žara' },
+        { item: 'Rimske lanene rolete + terakota biljka', dims: '224 × 228 cm (rolete)', material: 'Prirodni poludrapirani lan u tonu zobi', position: 'Južna staklena stijena i ugao uz dimnjak', note: 'Zamjena tamnih žaluzina' }
       ],
       lighting: [
-        { item: 'Dvosmjerne zidne lampe (gore/dolje)', spec: 'Mat crni eloksirani aluminij, 2× GU10 LED 5 W, 2700 K, uski snop 36°', qty: 2, mount: 'Dimnjak X = ±0.44 m, visina h = 1.62 m od poda', circuit: 'Krug 5 — postojeći kablovi u dimnjaku' }
+        { item: 'Viseća papirnata lampa (Akari stil)', spec: 'Ø 76 cm, rižin papir, 1× E27 LED 12 W, 2700 K, CRI 95', qty: 1, mount: 'Ovjes sa stropa (+5.70 m) na visinu sjenila h = 1.60 m iznad stola', circuit: 'Krug 4 — centralna rozeta iznad stola' },
+        { item: 'Dvosmjerne zidne lampe na dimnjaku (gore/dolje)', spec: 'Mat crni aluminij, 2× GU10 LED 5 W, 2700 K, 36°', qty: 2, mount: 'Dimnjak X = ±0.44 m, h = 1.62 m', circuit: 'Krug 5 — postojeći kablovi u dimnjaku' }
       ],
       electrical: [
-        { item: 'Priključak peći na pelete (230 V + termostat)', qty: 1, height_cm: 30, position: 'Južni zid neposredno iza peći (X = 0.25, Y = -4.72 m)', note: 'Postojeća pozicija; provjeriti utikač i osigurač 16 A' }
+        { item: 'Centralni stropni izvod rasvjete (ovjes 4.1 m)', qty: 1, height_cm: 570, position: 'Krovna kosina iznad stola (X = -1.86, Y = -3.23 m)', note: 'Tekstilni kabel min. 4.5 m s čeličnom sajlom' },
+        { item: 'Priključak peći na pelete (230 V + termostat)', qty: 1, height_cm: 30, position: 'Južni zid iza peći (X = 0.25, Y = -4.72 m)', note: 'Osigurač 16 A' }
       ],
       plumbing: [],
       sequence: [
-        'Privremeno odspojiti dimovod i izvući/zaštititi peć na pelete.',
-        'Otpremiti bočne oplate peći na termootporno lakiranje u mat crnu.',
-        'Očistiti crvenu opeku od prašine, navlažiti podlogu i kistom nanijeti vapnenu lazuru (limewash) od vrha prema dnu.',
-        'Zamijeniti kromirane lampe mat crnim cilindričnim svjetiljkama, postaviti staklenu/kamenu ploču ispod peći i vratiti peć uz ispitivanje brtvljenja dimovoda.'
+        'Privremeno odspojiti dimovod i izvući/zaštititi peć na pelete; bočne oplate poslati na termootporno mat crno lakiranje.',
+        'Demontirati dvije bijele kupole i pripremiti jedinstvenu rozetu za Akari lampu.',
+        'Navlažiti opeku dimnjaka i kistom nanijeti vapnenu lazuru (limewash) sa skele.',
+        'Položiti parket riblju kost, vratiti peć na kaljeno podno staklo te postaviti travertinski stol i rasvjetu.'
       ]
     },
     checks: [
-      'Provjeriti čistoću i brtvljenje dimovodne cijevi pri ponovnom spajanju peći.',
-      'Ne lakirati peć dok nije potpuno hladna i odmašćena; koristiti isključivo atestiranu termootpornu boju.'
+      'Visinske radove na dimnjaku i stropnom ovjesu uskladiti s najmom skele za krovne rešetke (zona 12).',
+      'Obavezno ispitati brtvljenje dimovoda Ø 130 mm nakon vraćanja peći.'
     ]
   },
   {
-    stop: 4,
-    code: '05',
-    name: 'Dnevni boravak',
+    stop: 6,
+    code: '07',
+    name: 'Dnevni boravak i TV zid',
     floor: 'Prizemlje — jugoistok (0.00 m)',
     openPlan: true,
     dims: {
@@ -269,7 +382,7 @@ export const ZONES = [
       kneeWall_m: null,
       floorArea_m2: 15.3,
       wallArea_m2: 26.4,
-      note: 'Istočni zid od tamnih dasaka (5.65 × 4.05 m) transformira se u akustični letvičasti zid.'
+      note: 'Istočni zid od tamnih dasaka (5.65 × 4.05 m) postaje akustični zid od letvica; otvoreni balkonski portal na jugu vodi u zonu 08.'
     },
     existing: [
       'Siva chesterfield L-garnitura (278 × 256 × 85 cm), pravokutni hrastov stolić (114 × 70 × 45 cm) i bež tepih.',
@@ -280,138 +393,299 @@ export const ZONES = [
       summary: 'Topli Japandi boravak s modularnom krem bouclé L-garniturom, mid-century kožnom foteljom, zidom od vertikalnih hrastovih letvica na crnom filcu i lebdećom TV komodom s donjim LED pranjem poda.',
       finishes: [
         { element: 'Pod', material: 'Troslojni hrastov parket riblja kost', spec: 'U kontinuitetu s blagovaonicom', qty: 16.8, unit: 'm²', note: '+10 % rezanje' },
-        { element: 'Istočni TV zid', material: 'Akustični paneli — hrastove letvice na crnom PET filcu', spec: 'Visina panela 405 cm (od 0.00 do +4.05 m), letvica 27 × 19 mm, razmak 13 mm, filc 9 mm', qty: 23.0, unit: 'm²', note: 'Obrada oko istočnog prozora stepeništa (70 × 185 cm); +8 % za ukrajanje' },
+        { element: 'Istočni TV zid', material: 'Akustični paneli — hrastove letvice na crnom PET filcu', spec: 'Visina panela 405 cm (0.00 → +4.05 m), letvica 27 × 19 mm, razmak 13 mm, filc 9 mm', qty: 23.0, unit: 'm²', note: 'Obrada oko istočnog prozora stepeništa (70 × 185 cm); +8 % za ukrajanje' },
         { element: 'Stropne kosine i ostali zidovi', material: 'Vapneni štuk NCS S 1505-Y30R', spec: 'Mat izvedba', qty: 12.0, unit: 'm²', note: 'Stupovi i špalete' }
       ],
       furniture: [
-        { item: 'Lebdeća TV komoda s LED utorom', dims: '210 × 41 × 32 cm', material: 'Furnir prirodni hrast + crna aluminijska nosiva šina', position: 'Istočni zid Y ∈ [-4.55, -2.45 m], montaža na visini h = 28–60 cm od poda', note: 'Izrađuje se po mjeri; integrirani kanal za 24 V LED traku na dnu' },
-        { item: 'Modularna L-garnitura (prijedlog)', dims: '282 × 227 × 84 cm', material: 'Krem bouclé tkanina na niskom crnom soklu', position: 'Središte boravka X ∈ [-0.15, 2.67], Y ∈ [-3.55, -1.28 m]', note: 'Visina sjedišta 42 cm' },
-        { item: 'Okrugli klub-stolić + pomoćni travertin', dims: 'Ø 92 × 33 cm + Ø 50 × 44 cm', material: 'Prirodni hrast (klub) / mat travertin (pomoćni)', position: 'Ispred garniture na vunenom tepihu', note: 'Tepih 276 × 225 cm (ravno tkanje, svijetla vuna)' },
-        { item: 'Mid-century kožna lounge fotelja', dims: '85 × 88 × 82 cm', material: 'Tamni hrast/orah + konjak koža', position: 'Jugoistočni dio boravka X ≈ 2.68, Y ≈ -3.96 m', note: 'Zakrenuta prema centru druženja' }
+        { item: 'Lebdeća TV komoda s LED utorom', dims: '210 × 41 × 32 cm', material: 'Furnir prirodni hrast + crna aluminijska nosiva šina', position: 'Istočni zid Y ∈ [-4.55, -2.45 m], h = 28–60 cm od poda', note: 'Integrirani kanal za 24 V LED traku na dnu' },
+        { item: 'Modularna L-garnitura', dims: '282 × 227 × 84 cm', material: 'Krem bouclé tkanina na niskom crnom soklu', position: 'Središte boravka X ∈ [-0.15, 2.67], Y ∈ [-3.55, -1.28 m]', note: 'Visina sjedišta 42 cm' },
+        { item: 'Okrugli klub-stolić + pomoćni travertin + tepih', dims: 'Ø 92 × 33 cm + Ø 50 × 44 cm + tepih 276 × 225 cm', material: 'Prirodni hrast / mat travertin / vuna', position: 'Ispred garniture', note: 'Ostaviti čist prolaz od 90 cm prema balkonskim vratima' },
+        { item: 'Mid-century kožna lounge fotelja', dims: '85 × 88 × 82 cm', material: 'Tamni orah + konjak koža', position: 'Jugoistočni dio boravka (X ≈ 2.68, Y ≈ -3.96 m)', note: 'Zakrenuta prema centru druženja' }
       ],
       lighting: [
-        { item: '3× viseće papirnate lampe različitih visina', spec: 'Ø 60, 48 i 42 cm, rižin papir, 3× E27 LED 10 W, 2700 K, dimabilno', qty: 3, mount: 'Visine sjenila od poda: +2.36 m, +2.54 m i +2.78 m iznad boravka', circuit: 'Krug 6 — postojeći stropni izvodi opalnih kugli (zamjena visilica)' },
-        { item: 'Skrivena LED traka ispod TV komode', spec: '12 W/m, 2700 K, 24 V DC, l = 1.96 m u utoru komode', qty: 2.0, mount: 'Donja ploha TV komode (h = 27 cm od poda)', circuit: 'Krug 7 — prekidač uz ulaz u boravak ili pametni dimer (ukinuti X-lampu)' }
+        { item: '3× viseće papirnate lampe različitih visina', spec: 'Ø 60, 48 i 42 cm, rižin papir, 3× E27 LED 10 W, 2700 K, dimabilno', qty: 3, mount: 'Visine sjenila od poda: +2.36 m, +2.54 m i +2.78 m iznad boravka', circuit: 'Krug 6 — zamjena triju opalnih kugli' },
+        { item: 'Skrivena LED traka ispod TV komode', spec: '12 W/m, 2700 K, 24 V DC, l = 1.96 m u utoru komode', qty: 2.0, mount: 'Donja ploha TV komode (h = 27 cm)', circuit: 'Krug 7 — pametni dimer' }
       ],
       electrical: [
-        { item: 'TV zid — skriveni bužir Ø 50 mm + set utičnica iza TV-a', qty: 4, height_cm: 130, position: 'Istočni zid Y = -3.92 m (iza 65" TV-a)', note: '3× Schuko + 2× RJ45 LAN + 1× antena; HDMI kanal spušten u lebdeću komodu na h = 44 cm' },
-        { item: 'Napajanje LED trake 24 V DC (skriveno u komodi)', qty: 1, height_cm: 44, position: 'Iza desnog polja TV komode', note: 'Trafo 60 W s pasivnim hlađenjem smješten unutar komode' }
+        { item: 'TV zid — skriveni bužir Ø 50 mm + 3× Schuko + 2× LAN', qty: 4, height_cm: 130, position: 'Istočni zid Y = -3.92 m (iza 65" TV-a)', note: 'HDMI kanal spušten u lebdeću komodu na h = 44 cm' },
+        { item: 'Napajanje LED trake 24 V DC (skriveno u komodi)', qty: 1, height_cm: 44, position: 'Iza desnog polja TV komode', note: 'Trafo 60 W s pasivnim hlađenjem' }
       ],
       plumbing: [],
       sequence: [
-        'Demontirati tamne daske, bijelo-hrastovu komodu i 4-smjernu X-zidnu lampu.',
+        'Demontirati tamne daske, bijelo-hrastovu komodu i X-zidnu lampu.',
         'Ukopati kabel za skrivenu LED traku i bužir Ø 50 mm od visine TV-a (130 cm) do visine komode (44 cm).',
-        'Postaviti drvenu potkonstrukciju/oslonac na zid iza nosača TV-a i lebdeće komode (da vijci ne gnječe PET filc).',
-        'Montirati akustične letvičaste panele od poda do +4.05 m s preciznim izrezima za prozorsku špaletu i elektro kutije.',
-        'Objesiti tri papirnate lampe (zamjena za tri opalne kugle), montirati lebdeću TV komodu s LED trakom i unijeti garnituru.'
+        'Postaviti drvenu potkonstrukciju na zid iza nosača TV-a i lebdeće komode (da vijci ne gnječe PET filc).',
+        'Montirati akustične letvičaste panele do +4.05 m i postaviti lebdeću TV komodu te Akari visilice.'
       ]
     },
     checks: [
-      'OBAVEZNO ugraditi drvene odstojnike ili nosive profile kroz akustični filc izravno u zid prije vješanja TV nosača i komode.',
-      'Izmjeriti visinu ovjesa triju papirnatih lampi kako ne bi ulazile u liniju pogleda s gornje galerije.'
-    ]
-  },
-  {
-    stop: 5,
-    code: '06',
-    name: 'Stepenište i vinoteka',
-    floor: 'Prizemlje / uspon (0.00 → +2.74 m)',
-    openPlan: true,
-    dims: {
-      length_m: 4.05,
-      width_m: 1.05,
-      clearHeight_m: 5.2,
-      kneeWall_m: null,
-      floorArea_m2: 4.3,
-      wallArea_m2: 11.8,
-      note: 'Otvoreno L-stepenište sa 14 lebdećih hrastovih gazišta bez čela (bez zatvorene visine), otvorenim kutnim ukosom na podestu 109 × 100 cm i komodom ispod kraka.'
-    },
-    existing: [
-      'Otvorena lebdeća hrastova gazišta bez čela (d = 50 mm, bez zatvorene visine) na središnjem i bočnom crnom čeličnom nosaču s otvorenim dijagonalnim ukosom na podestu; 5 paralelnih crnih sajli i 2 hrastova zidna rukohvata na sjevernom zidu.',
-      'Hrastova komoda s vinotekom (176 × 58 × 91 cm) ispod gornjeg kraka stepenica (X ∈ [1.16, 2.92 m]), 2 uokvirene slike na sjevernom zidu i ZZ biljka u SI kutu podesta.',
-      'Crna mat cilindrična zidna X-svjetiljka na istočnom zidu (umjesto kroma) i tamne zidne daske uz donji krak oko prozora 70 × 185 cm.'
-    ],
-    redesign: {
-      summary: 'Otvorena lebdeća hrastova gazišta bez čela i crna čelična ograda ostaju kao čista prozračna skulptura; istočni zid uz stepenište prelazi u hrastove letvice s filcom, a gazišta, zidni rukohvati i komoda dobivaju mat uljnu završnicu.',
-      finishes: [
-        { element: 'Gazišta i rukohvati (14 lebdećih gazišta + podest i otvoreni ukos)', material: 'Masivni hrast — brušenje i mat uljenje', spec: 'Bezbojni mat 2K lak ili tvrdo ulje za visoko opterećenje (protukliznost R10)', qty: 6.2, unit: 'm²', note: 'Lebdeća gazišta širine 98 cm bez čela (otvorena visina) + 2× zidna hrastova rukohvata' },
-        { element: 'Sjeverni i istočni zid stepeništa', material: 'Vapneni štuk + nastavak hrastovih letvica na istoku', spec: 'Usklađeno sa zonom 05', qty: 11.8, unit: 'm²', note: 'Obrada spoja oko prozora 70 × 185 cm' }
-      ],
-      furniture: [
-        { item: 'Postojeća hrastova komoda s vinotekom (osvježenje)', dims: '176 × 58 × 91 cm (vinoteka 46 × 55 × 79 cm)', material: 'Prirodni hrast + inox okvir hladnjaka za vino', position: 'Ispod gornjeg kraka (X ∈ [1.16, 2.92], Y ∈ [0.27, 0.85 m])', note: 'Očistiti i preuljiti u istom tonu kao gazišta i parket' }
-      ],
-      lighting: [
-        { item: 'Diskretno podgazišno ili zidno usponsko svjetlo (opcija)', spec: '3× ugradbena 2 W LED 2700 K (ili postojeći snop iz galerije)', qty: 3, mount: 'Na h = 25 cm iznad svakog četvrtog gazišta', circuit: 'Izmjenični prekidač prizemlje ↔ galerija' }
-      ],
-      electrical: [
-        { item: 'Utičnica za ugradbeni hladnjak za vino', qty: 1, height_cm: 30, position: 'Sjeverni zid ispod gornjeg kraka (X = 2.65, Y = 0.74 m)', note: 'Postojeća utičnica; provjeriti ispravnost i ventilaciju oko vinoteke' }
-      ],
-      plumbing: [],
-      sequence: [
-        'Demontirati tamne daske na istočnom zidu uz donji krak i podest.',
-        'Zaštititi komodu i stepenište za vrijeme stropnih/zidnih radova na visini.',
-        'Pobrusiti i mat uljiti sva hrastova gazišta (raditi naizmjenično ili izvan uporabe 24 h radi sušenja).'
-      ]
-    },
-    checks: [
-      'Provjeriti zategnutost četiriju paralelnih čeličnih sajli ograde i fiksaciju rukohvata.',
-      'Kod postavljanja letvica na istočnom zidu paziti na čist zazor do konzolnih hrastovih gazišta.'
-    ]
-  },
-  {
-    stop: 6,
-    code: '07',
-    name: 'Krovište i drvene rešetke',
-    floor: 'Međukat / potkrovlje (do +6.19 m)',
-    openPlan: true,
-    dims: {
-      length_m: 8.56,
-      width_m: 5.87,
-      clearHeight_m: 3.17,
-      kneeWall_m: null,
-      floorArea_m2: 0.0,
-      wallArea_m2: 58.0,
-      note: 'Zračni prostor i vidljiva drvena krovna građa iznad prizemlja i galerije (površina poda već je iskazana u zonama 01–05 i 08).'
-    },
-    existing: [
-      'Masivne hrastove rešetke: Truss_0 (Y = -3.55 m), Truss_1 iznad južne ograde galerije (Y = -1.97 m) te visoki sjeverni okvir bez niske vezne grede na zidu Y = +0.66 m.',
-      'Dvije uzdužne podrožnice (587 × 14 × 14 cm) na koti +5.85 m, bijeli kosi strop sa špaletom krovnog prozora na zapadnoj kosini i kompaktni crni cilindrični stropni spot.',
-      'Unutarnja jedinica klima uređaja na sjevernom zabatu centrirana iznad dvokrilnih vrata galerije (h = +4.92 m od poda prizemlja).'
-    ],
-    redesign: {
-      summary: 'Dramatičan Japandi kontrast: sve tri rešetke, podrožnice i gornji prozorski okviri boje se u duboki ebonizirani (gotovo crni) ton, dok kosi strop dobiva toplu čistu bijelu nijansu.',
-      finishes: [
-        { element: '3× krovne rešetke + 2× podrožnice', material: 'Ebonizirani hrast (tamna lazura/premaz)', spec: 'Lagano brušenje P120 + 2 sloja polutransparentne mat lazure crno-smeđeg tona (RAL 9005/8022)', qty: 26.0, unit: 'm²', note: 'Razvijena površina drva sve tri rešetke i podrožnica' },
-        { element: 'Kosi strop krovišta i zabati', material: 'Mat disperzijska/vapnena boja (NCS S 0502-Y)', spec: '2 premaza s visokim stupnjem pokrivnosti', qty: 58.0, unit: 'm²', note: 'Rad s atestirane pokretne skele do visine 6.2 m' },
-        { element: 'Gornji prozori (južni kosi + bočni)', material: 'Mat crno-smeđa lazura okvira + čelični čvorovi', spec: 'Obnova crnih čeličnih spojnica mat bojom za metal', qty: 1, unit: 'kpl', note: 'Bez oštećenja stakala' }
-      ],
-      furniture: [
-        { item: 'Unutarnja klima jedinica (servis i maskiranje)', dims: '86 × 27 × 28 cm', material: 'Postojeća bijela jedinica (opcija: mat crna ili topla bijela folija)', position: 'Sjeverni zabat iznad galerije (h = +4.52 m od prizemlja)', note: 'Očistiti i servisirati prije završnog ličenja zabata' }
-      ],
-      lighting: [
-        { item: 'Krovni/visinski ovjesi za lampe blagovaonice i boravka', spec: '4× stropna priključna mjesta s čeličnim rozetama u mat crnoj', qty: 4, mount: 'Kose plohe stropa na visini +5.65 do +5.95 m', circuit: 'Kabliranje izvesti dok je skela postavljena' }
-      ],
-      electrical: [
-        { item: 'Izvodi rasvjete na kosom stropu i napajanje klime', qty: 5, height_cm: 570, position: 'Krovni greben iznad zone 03 i 05 + sjeverni zabat', note: 'Provjeriti dužinu svih kablova za papirnate visilice prije rastavljanja skele' }
-      ],
-      plumbing: [],
-      sequence: [
-        'Postaviti modularnu aluminijsku skelu u središtu atrija (zaštititi pod prizemlja OSB pločama).',
-        'Pobrusiti krovne rešetke i podrožnice te prekriti okolne zidove i podove.',
-        'Prvo obojiti bijelu/toplu bijelu površinu kosog stropa i zabata.',
-        'Zatim u dva sloja nanijeti eboniziranu tamnu lazuru na hrastove grede i osvježiti mat crne čelične čvorne ploče.',
-        'Montirati kablove za viseće lampe na točne pozicije blagovaonice i boravka prije spuštanja skele.'
-      ]
-    },
-    checks: [
-      'Sjeverna krovna rešetka na Y = +0.66 m izvedena s visokim ovratnikom iznad klime — prolaz s vrha stepeništa na most i kroz vrata R2_D1 potpuno je slobodan (> 2.05 m svijetle visine).',
-      'Sve visinske električne izvode završiti i testirati prije uklanjanja skele.'
+      'OBAVEZNO ugraditi drvene odstojnike ili čeličnu nosivu šinu izravno u zid kroz akustični filc prije vješanja TV-a i komode.',
+      'Sačuvati slobodan radijus otvaranja balkonskih vrata (zona 08) iza kožne fotelje.'
     ]
   },
   {
     stop: 7,
     code: '08',
-    name: 'Gornja galerija (radni kutak)',
+    name: 'Jugoistočni balkon',
+    floor: 'Prizemlje — vanjska terasa (+0.00 m)',
+    openPlan: true,
+    dims: {
+      length_m: 5.9,
+      width_m: 1.15,
+      clearHeight_m: 3.1,
+      kneeWall_m: null,
+      floorArea_m2: 6.8,
+      wallArea_m2: 4.5,
+      note: 'Konzolni južni balkon iznad garaže i radne sobe (X ∈ [-2.95, +2.95], Y ∈ [-6.15, -5.00 m]), povezan otvorenim vratima s boravkom.'
+    },
+    existing: [
+      'Betonska konzolna balkonska ploča s metalno-staklenom ogradom (h = 100 cm) i vanjskom keramikom.',
+      'Izravan izlaz kroz balkonska vrata dnevnog boravka (X ∈ [1.80, 2.72 m]).'
+    ],
+    redesign: {
+      summary: 'Čist i siguran konzolni balkon obložen vanjskim mat travertinom R11, s novom polimercementnom hidroizolacijom, okapnim profilom i laminiranom staklenom ogradom s antracit rukohvatom.',
+      finishes: [
+        { element: 'Hidroizolacija i pod balkona', material: 'Elastična 2K hidroizolacija + travertin porculan 60 × 60 cm (R11)', spec: 'Uključuje aluminijski okapni rubni profil i brtvenu traku uz prag vrata', qty: 7.5, unit: 'm²', note: 'Pad 1.5 % prema južnom rubu' },
+        { element: 'Podgled balkona iznad garažnog praga', material: 'Fasadna žbuka s okapnicom', spec: 'Topla mineralna bijela (NCS S 0804-Y20R)', qty: 6.8, unit: 'm²', note: 'Sprečava podlijevanje kiše prema garažnim vratima' }
+      ],
+      furniture: [
+        { item: 'Balkonska staklena ograda + kompaktni bistro set', dims: 'l = 8.2 m, h = 100 cm (ograda)', material: 'Kaljeno laminirano staklo 8.8.2 + antracit rukohvat + 2 tikove stolice', position: 'Duž južnog, zapadnog i istočnog ruba balkonske ploče', note: 'Sidrenje u čelo ploče da se ne probija gornja hidroizolacija' }
+      ],
+      lighting: [
+        { item: 'Fasadne zidne svjetiljke uz balkonska vrata', spec: '2× 6 W LED, 2700 K, IP65, mat antracit', qty: 2, mount: 'Uz izlazna vrata boravka i južnu stijenu blagovaonice (h = 2.10 m)', circuit: 'Prekidač pokraj balkonskih vrata' }
+      ],
+      electrical: [
+        { item: 'Vanjska IP55 utičnica uz balkonski izlaz', qty: 1, height_cm: 35, position: 'Zid lijevo od balkonskih vrata', note: 'Za prigodnu rasvjetu ili održavanje' }
+      ],
+      plumbing: [],
+      sequence: [
+        'Skinuti staru ogradu i keramiku do betonske ploče te provjeriti/izravnati pad 1.5 %.',
+        'Ugraditi rubni okapni profil, 2 sloja elastične hidroizolacije i brtvenu traku uz vrata.',
+        'Polaganje R11 travertin porculana na C2TE S1 fleksibilno ljepilo.',
+        'Montirati staklenu ogradu bočnim sidrenjem u čelo ploče i vanjske zidne svjetiljke.'
+      ]
+    },
+    checks: [
+      'Sidriti stupiće ograde bočno u armiranobetonsko čelo ploče kako se ne bi probušila gornja hidroizolacija.',
+      'Ispitati visinu praga balkonskih vrata u odnosu na debljinu vanjskih pločica.'
+    ]
+  },
+  {
+    stop: 8,
+    code: '09',
+    name: 'Sjeverno krilo prizemlja (Predsoblje, Soba 1, Kupaonica Pr, Soba 2)',
+    floor: 'Prizemlje — sjever (0.00 m)',
+    openPlan: false,
+    dims: {
+      length_m: 9.12,
+      width_m: 3.92,
+      clearHeight_m: 2.53,
+      kneeWall_m: null,
+      floorArea_m2: 40.9,
+      wallArea_m2: 92.0,
+      note: 'Predsoblje s U-stepeništem (7.9 m²), Soba 1 SZ (11.1 m²), Kupaonica Pr (5.1 m²) i Soba 2 SI (12.8 m²) u punom tlocrtnom obuhvatu sjevernog trakta prizemlja.'
+    },
+    existing: [
+      'Sjeverno predsoblje povezuje dvoetažni atrij s unutarnjim dvokrakim U-stepeništem za podrum i ulazima u tri prostorije.',
+      'Soba 1 SZ (krevet, pisaći stol, ormar), Kupaonica Pr s walk-in tušem i Soba 2 SI (bračni krevet, ormar i dva prozora).'
+    ],
+    redesign: {
+      summary: 'Jedinstvena cjelina mirnog prizemnog spavaćeg trakta: troslojni hrastov parket riblja kost kroz predsoblje i obje sobe, vapneni štuk na zidovima, hrastove klupice i garderobe te walk-in tuš kupaonica u mat travertinu i brušenoj mjedi.',
+      finishes: [
+        { element: 'Podovi (Predsoblje, Soba 1, Soba 2)', material: 'Troslojni hrastov parket riblja kost + lajsne 60 mm', spec: 'Prijelazi bez pragova između hodnika i soba', qty: 38.5, unit: 'm²', note: '+10 % rezanje' },
+        { element: 'Zidovi i stropovi sjevernog trakta', material: 'Vapneni štuk NCS S 1505-Y30R / strop mat bijela', spec: 'Uključuje špalete stepenišnog prozora i svih vrata', qty: 76.0, unit: 'm²', note: 'Obrada 4 dovratnika' },
+        { element: 'Kupaonica Pr — hidroizolacija i travertin', material: 'Dvokomponentna hidroizolacija + porculan mat travertin 60 × 120 cm', spec: 'Walk-in pod u razini s kanalicom + zidovi do stropa 2.53 m', qty: 24.5, unit: 'm²', note: 'R10 protukliznost u tuš zoni' }
+      ],
+      furniture: [
+        { item: 'Predsoblje: hrastova klupica s bouclé jastukom + ogledalo', dims: '100 × 36 × 50 cm + 80 × 110 cm', material: 'Masivni hrast + lan/bouclé', position: 'Južni zid predsoblja (X ∈ [1.15, 2.15 m])', note: 'Prostran prolaz uz ogradu U-stubišta' },
+        { item: 'Soba 1 SZ: krevet 90×200, radni stol 117×57 i ormar 121 cm', dims: 'Komplet za jednokrevetnu / radnu sobu', material: 'Prirodni hrast + lanena posteljina kadulja/zob + crni metal', position: 'Zapadni i sjeverni zid Sobe 1 (X ∈ [-3.68, +0.10], Y ∈ [2.70, 4.88 m])', note: 'Radni stol ispod sjevernog prozora' },
+        { item: 'Soba 2 SI: bračni krevet 160×200, noćni ormarići i garderoba', dims: '205 × 170 cm + ormar 150 × 58 × 228 cm', material: 'Prirodni hrast + lan + mat bijeli/hrast ormar', position: 'Istočni i južni zid Sobe 2 (X ∈ [2.54, 5.44], Y ∈ [0.96, 4.88 m])', note: 'Dobra dnevna rasvjeta kroz sjeverni i JI prozor' },
+        { item: 'Kupaonica Pr: lebdeći ormarić + ogledalo + walk-in staklo', dims: '80 × 44 × 42 cm + pregrada 111 × 199 cm', material: 'Hrast otporan na vlagu + kaljeno prozirno staklo 8 mm', position: 'Zapadni stup (Y ∈ [4.02, 4.84]) i SI kut tuša', note: 'Crni/mjed U-profil stakla tuša' }
+      ],
+      lighting: [
+        { item: 'Stropne plafonjere (Predsoblje, Soba 1, Kupaonica IP44, Soba 2)', spec: '4× LED plafonjera Ø 32–40 cm, 2700 K, CRI > 90', qty: 4, mount: 'Središta svake prostorije (h = 2.53 m)', circuit: 'Zasebni krugovi i prekidači uz svaka vrata' },
+        { item: 'Noćne stolne/zidne lampe Sobe 2 i ogledala Kupaonice Pr', spec: '2× 6 W 2700 K uz krevet + LED ogledalo 80 × 70 cm', qty: 3, mount: 'Uzglavlje Sobe 2 i umivaonik Kupaonice Pr', circuit: 'Prekidači uz uzglavlje i ulaz u kupaonicu' }
+      ],
+      electrical: [
+        { item: 'Setovi utičnica 230 V, prekidača i UTP/LAN priključaka', qty: 12, height_cm: 30, position: 'Ispod radnog stola Sobe 1, obostrano uz krevet Sobe 2 i u predsoblju', note: 'IP44 utičnica uz ogledalo Kupaonice Pr na h = 115 cm' }
+      ],
+      plumbing: [
+        { item: 'Walk-in tuš kanalica + podžbukna/nadžbukna miješalica brušena mjed', spec: 'Inox kanalica 80 cm u ravnini poda + kišna ruža Ø 25 cm', position: 'SI kut Kupaonice Pr (X ∈ [1.45, 2.40], Y ∈ [3.75, 4.86 m])', height_cm: 105, note: 'Pad estriha 2 % prema kanalici' },
+        { item: 'Konzolna WC školjka + umivaonik s miješalicom', spec: 'Ugradbeni vodokotlić h = 115 cm, rimless školjka, tipkalo brušena mjed', position: 'Zapadni zid Kupaonice Pr (Y = 3.30 i Y = 4.43 m)', height_cm: 84, note: 'Odvod Ø 110 / Ø 50 mm provjeriti prije glazure' }
+      ],
+      sequence: [
+        'Grubi vodovodni i elektro radovi u Kupaonici Pr i sobama sjevernog trakta.',
+        'Hidroizolacija poda/zidova Kupaonice Pr, polaganje mat travertin porculana i walk-in stakla.',
+        'Gletanje, vapneni štuk na zidovima i bojenje stropova svih 4 prostorija.',
+        'Polaganje hrastovog parketa riblja kost, montaža dovratnika, sanitarija i rasvjete te unos namještaja.'
+      ]
+    },
+    checks: [
+      'Provjeriti čiste dimenzije špalete visokog prozora stubišta (-4.05 do -2.05 m) između prizemlja i podruma.',
+      'Ispitati nagib tuš ploče Kupaonice Pr prema kanalici prije fugiranja.'
+    ]
+  },
+  {
+    stop: 9,
+    code: '10',
+    name: 'Podrum — unutarnje U-stubište, vešeraj i kotlovnica',
+    floor: 'Podrum — sjever (-2.73 m)',
+    openPlan: false,
+    dims: {
+      length_m: 9.12,
+      width_m: 3.92,
+      clearHeight_m: 2.43,
+      kneeWall_m: null,
+      floorArea_m2: 33.8,
+      wallArea_m2: 88.0,
+      note: 'Unutarnje dvokrako U-stepenište (16 stuba po 17.06 cm), donji predprostor, Vešeraj (11.1 m²) i Kotlovnica (16.5 m²) s dva sjeverna prozora u engleskim šahtovima.'
+    },
+    existing: [
+      'Dvokrako U-stepenište od hrastovih gazišta s međupodestom (-1.365 m) i obostrano montiranim zidnim rukohvatima od prizemlja (0.00 m) do podruma (-2.73 m).',
+      'Vešeraj na sjeverozapadu s perilicom, sušilicom, sudoperom od nehrđajućeg čelika i radnom pločom ispod sjevernog nadsvjetla 160 × 70 cm.',
+      'Kotlovnica na sjeveroistoku s jedinicom dizalice topline, bojlerom/puferom 500 L, ekspanzijskom posudom i razdjelnikom podnog grijanja.'
+    ],
+    redesign: {
+      summary: 'Čist i izdržljiv tehničko-gospodarski trakt: protuklizni tehnički porculan R10 na cijelom podu i soklu, uljeni hrastovi gazišni pragovi U-stubišta, perive zidne boje, radna ploha vešeraja i organizirana LED rasvjeta 4000 K.',
+      finishes: [
+        { element: 'Podovi podruma (Hodnik, Vešeraj, Kotlovnica)', material: 'Tehnički porculan R10 60 × 60 cm s podnom sokl-lajsnom h = 8 cm', spec: 'Svijetli toplo-sivi beton efekt otporan na vlagu i udarce', qty: 36.5, unit: 'm²', note: '+8 % otpada; podni sifon u kotlovnici i vešeraju' },
+        { element: 'Zidovi i AB strop podruma', material: 'Periva paropropusna silikatna boja (NCS S 1002-Y)', spec: 'Otporno na vlagu u podrumu + obrada engleskih šahtova', qty: 88.0, unit: 'm²', note: 'Uključuje gornji dio prozorskih niša' },
+        { element: 'Gazišta i rukohvati U-stubišta (16 stuba)', material: 'Masivni hrast — protuklizno mat uljenje R10', spec: 'Obostrani hrastovi rukohvati i metalna zaštitna ograda na prizemlju', qty: 1, unit: 'kpl', note: 'Čista visina spusta 2.73 m' }
+      ],
+      furniture: [
+        { item: 'Vešeraj: radna ploča iznad perilice/sušilice + sudoper', dims: '207 × 68 × 90 cm + regal 123 × 42 × 195 cm', material: 'Kompakt / vodoodporni hrast + inox praonički sudoper + bijeli ormarić', position: 'Sjeverni i zapadni zid Vešeraja (X ∈ [-3.62, -1.55], Y ∈ [4.18, 4.86 m])', note: 'Prostor za perilicu i sušilicu širine 2× 65 cm ispod ploče' },
+        { item: 'Kotlovnica: dizalica topline, pufer 500 L, ekspanzija i razdjelnik', dims: 'Kompletna toplinska stanica', material: 'Tvornička bijela + inox bakreni spremnik + crveni spremnik', position: 'Sjeveroistočni dio Kotlovnice (X ∈ [3.15, 5.35], Y ∈ [2.25, 4.85 m])', note: 'Ostaviti min. 90 cm servisnog pristupa ispred svih uređaja' }
+      ],
+      lighting: [
+        { item: 'Linearne LED svjetiljke IP44 (Vešeraj & Kotlovnica)', spec: '2× 24 W LED letva l = 120 cm, 4000 K za jasan radni pregled', qty: 2, mount: 'Središte stropa Vešeraja i Kotlovnice (h = 2.43 m)', circuit: 'Prekidači uz svaka vrata' },
+        { item: 'Zidna orijentacijska svjetla U-stubišta', spec: '3× 3 W ugradbeni LED step-light 2700 K', qty: 3, mount: 'Zid uz gornji, središnji i donji krak stubišta', circuit: 'Izmjenični prekidač Pr ↔ Po' }
+      ],
+      electrical: [
+        { item: 'Zasebni 16 A krugovi za perilicu, sušilicu i 3-faznu dizalicu topline', qty: 4, height_cm: 120, position: 'Sjeverni zid Vešeraja + razvodni ormar Kotlovnice', note: 'Zaštitne utičnice IP44 s poklopcem' }
+      ],
+      plumbing: [
+        { item: 'Priključci perilice, sušilice (kondenzat) i praoničkog sudopera', spec: '2× kombinirana slavina + sifon s nepovratnim ventilom', position: 'Sjeverni zid Vešeraja (Y = 4.82 m)', height_cm: 65, note: 'Podni sifon Ø 50 mm sa suhim zatvaračem mirisa' },
+        { item: 'Razdjelnik podnog grijanja i hidraulička veza kotlovnice', spec: '12-kružni inox razdjelnik za Po+Pr+Pk, cirkulacijske pumpe i punjenje sustava', position: 'Istočni zid Kotlovnice (X = 5.32 m)', height_cm: 115, note: 'Obavezna tlačna proba 6 bar prije polaganja podnih obloga' }
+      ],
+      sequence: [
+        'Ugraditi i tlačnim testom ispitati cjevovode kotlovnice, podnog grijanja i vešeraja.',
+        'Polaganje R10 tehničkog porculana i soklova sa zaštitom podnih sifona.',
+        'Bojenje podrumskih zidova i stropa paropropusnom perivom bojom.',
+        'Montaža radne ploče vešeraja, praoničkog sudopera, vrata u antracitu te stepenišne LED rasvjete.'
+      ]
+    },
+    checks: [
+      'Provjeriti prohodnost engleskih šahtova ispred sjevernih prozora i funkcionalnost odvodnje dna šahta.',
+      'Ispitati rad podnih sifona i tlačne ventile u kotlovnici.'
+    ]
+  },
+  {
+    stop: 10,
+    code: '11',
+    name: 'Podrum — garaža i radna prostorija',
+    floor: 'Podrum — jug (-2.73 m)',
+    openPlan: false,
+    dims: {
+      length_m: 8.6,
+      width_m: 5.95,
+      clearHeight_m: 2.43,
+      kneeWall_m: null,
+      floorArea_m2: 52.0,
+      wallArea_m2: 68.0,
+      note: 'Dvostruka Garaža SE (38.0 m², vrata 540 × 220 cm podignuta pod strop) i Radna prostorija / hobi studio SW (14.0 m²) s izravnim ostakljenim izlazom prema dvorištu.'
+    },
+    existing: [
+      'Garaža sa širokim sekcijskim vratima 540 × 220 cm prema južnom 2P platou, radnim pultom uz istočni zid, regalom za alat na zapadu i bočnim pješačkim vratima.',
+      'Radna prostorija zapadno od garaže s hrastovim radnim stolom, policama, radnom stolicom i ostakljenim vratima na uvučenom južnom pročelju.'
+    ],
+    redesign: {
+      summary: 'Dvostruka garaža organizirana kao čista radionica s antracit radnim blokom i snažnom LED linijskom rasvjetom, dok se susjedna radna prostorija uređuje toplim hrastovim detaljima i vapnenim zidovima kao miran kućni ured ili atelier.',
+      finishes: [
+        { element: 'Pod garaže (visoko opterećenje)', material: 'Klinker / tehnički porculan debljine ≥ 10 mm (R10/R11)', spec: 'Otporno na ulje, sol i težinu vozila do 3.5 t; epoksidna fuga', qty: 41.0, unit: 'm²', note: 'Pad 0.5 % prema izlaznom pragu garažnih vrata' },
+        { element: 'Pod radne prostorije (SW)', material: 'Toplo siva/hrast LVT ili keramika drvo-dekor + vuneni tepih', spec: 'Otporno na vlagu suterena i toplo na dodir za duži rad', qty: 15.4, unit: 'm²', note: 'Brisanje vlažnom krpom, prijelazna lajsna prema garaži' },
+        { element: 'Zidovi i strop garaže i radne sobe', material: 'Periva lateks/silikatna boja (Garaža RAL 9010 / Radna NCS S 1505-Y30R)', spec: 'Lako perivi donji pojas do 1.4 m visine u garaži', qty: 68.0, unit: 'm²', note: 'Antracit sokl lajsna' }
+      ],
+      furniture: [
+        { item: 'Radni stol / pult garaže + zidni regal', dims: '200 × 66 × 90 cm + regal 220 × 46 × 190 cm', material: 'Antracit čelični ormarići + masivna bukova/hrastova ploča 50 mm', position: 'Istočni i zapadni zid garaže', note: 'Ostavljena čista širina za dva automobila' },
+        { item: 'Radna prostorija: hrastov stol, stolica i polica', dims: '180 × 70 × 76 cm + regal 42 × 40 × 185 cm', material: 'Masivni hrast + crni čelik + bouclé/tkanina stolica', position: 'Zapadni zid radne prostorije (X ∈ [-4.28, -3.58 m])', note: 'Dobro bočno prirodno svjetlo kroz južnu staklenu stijenu' }
+      ],
+      lighting: [
+        { item: '4× linearne stropne LED svjetiljke garaže', spec: '4× 36 W LED, 4000 K, l = 130 cm, IP54', qty: 4, mount: 'Strop garaže lijevo i desno od vozila (h = 2.43 m)', circuit: 'Senzor otvaranja garažnih vrata + zidni prekidač' },
+        { item: 'Topla stropna plafonjera radne prostorije', spec: 'Ø 32 cm, 18 W LED, 2700 K, CRI > 90', qty: 1, mount: 'Središte stropa radne sobe (X = -3.10, Y = -0.65 m)', circuit: 'Prekidač uz vrata iz garaže i izlazna vrata' }
+      ],
+      electrical: [
+        { item: 'Radne duple utičnice iznad pulta u garaži i stola radne sobe', qty: 6, height_cm: 110, position: 'Istočni zid garaže iznad radne ploče + zapadni zid radne sobe', note: 'Poseban osigurač 16 A za kompresor / električni alat' }
+      ],
+      plumbing: [
+        { item: 'Izvod hladne vode s umivaonikom za pranje ruku (opcija)', spec: 'Zidna slavina u SI kutu garaže', position: 'Uz zid kotlovnice (X = 3.80, Y = 0.65 m)', height_cm: 105, note: 'Ventil za zatvaranje zimi' }
+      ],
+      sequence: [
+        'Pregledati i servisirati vodilice te pogon sekcijskih vrata 540 × 220 cm.',
+        'Polaganje tehničkog porculana garaže i poda radne prostorije.',
+        'Ličenje zidova i stropova te montaža antracit protupožarnih/sobno-tehničkih vrata.',
+        'Ugradnja linearnih LED letvi, radnog bloka garaže i hrastovog namještaja radne sobe.'
+      ]
+    },
+    checks: [
+      'Provjeriti zazor otvorenih sekcijskih vrata pod stropom u odnosu na pozicije četiriju stropnih LED letvi.',
+      'Osigurati čisto zatvaranje i brtvljenje vanjskih vrata radne sobe prema uvučenom južnom trijemu.'
+    ]
+  },
+  {
+    stop: 11,
+    code: '12',
+    name: 'Otvoreno L-stepenište i krovna rešetka sa sajlama',
+    floor: 'Uspon na kat (0.00 → +2.74 m / do +6.19 m)',
+    openPlan: true,
+    dims: {
+      length_m: 8.56,
+      width_m: 5.87,
+      clearHeight_m: 5.2,
+      kneeWall_m: null,
+      floorArea_m2: 4.3,
+      wallArea_m2: 69.8,
+      note: 'Otvoreno L-stepenište (14 lebdećih gazišta bez čela, d = 50 mm, otvorena visina) + podignute uzdužne krovne grede s crnim čvorovima i dvjema napetim sajlama rasvjete (8 spotova).'
+    },
+    existing: [
+      'Otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela i bez zatvorene visine (d = 50 mm) na središnjem/bočnom crnom čeličnom nosaču s otvorenim kutnim ukosom, 5 crnih sajli ograde, 2 zidna rukohvata i komodom s vinotekom ispod kraka.',
+      'Masivne hrastove rešetke (Truss_0, Truss_1, visoki sjeverni okvir bez prepreke na ulazu mosta) te podignute uzdužne krovne grede (+4.38 m) s crnim mat čeličnim okovima.',
+      'Dvije paralelne napete čelične sajle s 8 bijelih usmjerenih LED spotova u gornjoj zoni krovišta + klima na sjevernom zabatu.'
+    ],
+    redesign: {
+      summary: 'Skulpturalni vrhunac atrija: otvorena gazišta stepeništa se mat ulje i ostaju prozračna bez zatvorenih čela, dok se sve rešetke, podignute uzdužne grede i okviri kose stolarije moče u duboki ebonizirani hrast uz topli bijeli strop.',
+      finishes: [
+        { element: '14 lebdećih gazišta bez čela + otvoreni podest i rukohvati', material: 'Masivni hrast — brušenje i mat protuklizno uljenje R10', spec: 'Gazišta 98 × 28 × 5 cm bez zatvorene visine + komoda s vinotekom', qty: 6.2, unit: 'm²', note: 'Raditi naizmjenično radi održavanja prohodnosti' },
+        { element: '3× krovne rešetke + 2× podignute uzdužne grede + podrožnice', material: 'Ebonizirani hrast (mat lazura RAL 9005/8022)', spec: 'Lagano brušenje P120 + 2 sloja polutransparentne mat lazure + crni čvorovi', qty: 30.0, unit: 'm²', note: 'Visina podignutih uzdužnih greda +4.38 m — izvođenje sa skele' },
+        { element: 'Kosi strop krovišta i sjeverni zabat', material: 'Mat vapnena/disperzijska boja (NCS S 0502-Y)', spec: '2 visoko pokrivna sloja na kosim plohama do sljemena +6.19 m', qty: 58.0, unit: 'm²', note: 'Zadržati postojeće napete sajle rasvjete ili ih privremeno skinuti pa vratiti' }
+      ],
+      furniture: [
+        { item: 'Postojeća hrastova komoda s vinotekom (osvježenje)', dims: '176 × 58 × 91 cm', material: 'Prirodni hrast + inox hladnjak za vino', position: 'Ispod gornjeg kraka stepeništa (X ∈ [1.16, 2.92], Y ∈ [0.27, 0.85 m])', note: 'Uskladiti ton ulja s parketom' },
+        { item: 'Unutarnja jedinica klime (servis i maskiranje)', dims: '86 × 27 × 28 cm', material: 'Postojeća jedinica na sjevernom zabatu (h = +4.52 m)', position: 'Centrirana iznad vrata galerije', note: 'Očistiti prije završnog bojenja zabata' }
+      ],
+      lighting: [
+        { item: 'Sustav napetih čeličnih sajli s 8× usmjerenih LED spotova', spec: '2 paralelne dvostruke sajle duž osi atrija (X = -1.65 i +2.38 m, h = +4.35 m), 8× 7 W 2700 K dimabilnih spotova', qty: 8, mount: 'Zidna sidra od sjevernog zabata do južne kosine', circuit: 'Postojeći transformator i prekidač uz boravak/galeriju' },
+        { item: 'Podgazišno/zidno usponsko svjetlo stepenica (opcija)', spec: '3× ugradbena 2 W LED 2700 K', qty: 3, mount: 'Sjeverni zid na h = 25 cm iznad gazišta', circuit: 'Izmjenični prekidač prizemlje ↔ galerija' }
+      ],
+      electrical: [
+        { item: 'Kabliranje svih visećih lampi i provjera zategnutosti sajli rasvjete', qty: 6, height_cm: 570, position: 'Krovni greben i zone sidrenja sajli rasvjete', note: 'Izvesti sve visinske spojeve dok je skela montirana' }
+      ],
+      plumbing: [],
+      sequence: [
+        'Postaviti modularnu aluminijsku skelu u središtu atrija uz zaštitu poda i stepenica.',
+        'Otkopčati/zaštititi obje napete sajle rasvjete, obojiti kosi strop i zabate toplom bijelom bojom.',
+        'Pobrusiti i ebonizirati sve rešetke, podrožnice i podignute uzdužne grede te obnoviti mat crne čvorove.',
+        'Vratiti napete sajle s 2700 K spotovima, demontirati skelu i završno mat uljiti lebdeća gazišta stepenica.'
+      ]
+    },
+    checks: [
+      'Provjeriti zategnutost čeličnih zateznih sajli rasvjete (X = -1.65 i +2.38 m) i sajli ograde stepeništa.',
+      'Sjeverni okvir rešetke bez niske vezne grede na Y = +0.66 m osigurava slobodan prolaz > 2.05 m na vrh stepenica.'
+    ]
+  },
+  {
+    stop: 12,
+    code: '13',
+    name: 'Most galerije i radni kutak',
     floor: 'Kat (+2.74 m)',
     openPlan: true,
     dims: {
@@ -421,102 +695,47 @@ export const ZONES = [
       kneeWall_m: 1.48,
       floorArea_m2: 12.6,
       wallArea_m2: 15.2,
-      note: 'Zapadna galerija (X ∈ [-4.32, -0.28], Y ∈ [-2.10, 0.85 m]) s otvorenim mostom (X ∈ [-0.28, +0.15], Y ∈ [-0.22, 0.76 m]), uvučenim krovnim prozorom 90 × 80 cm i dvokrilnim prolazom u Room 2.'
+      note: 'Zapadna galerija (X ∈ [-4.32, -0.28], Y ∈ [-2.10, 0.85 m]) povezana čistim otvorenim mostom s vrhom stepeništa, uvučeni krovni prozor 90 × 80 cm i dvokrilni portal u potkrovlje.'
     },
     existing: [
-      'Pod od hrastovog laminata s otvorenim mostom galerije na vrhu stepeništa; crna čelična ograda h = 98 cm s 5 horizontalnih sajli i neprekinutim hrastovim rukohvatom koji skreće na istok.',
-      'Zaobljeni hrastov L-radni stol sa srebrnom zglobnom rukom za monitor, Mac jedinicom, mehaničkom tipkovnicom i ergonomskom foteljom ispod uvučenog krovnog prozora (špaleta dubine 28 cm).',
-      'Dvije drvene žardinjere obješene s unutarnje strane ograde sa slapovima biljke pothos te dvokrilna staklena vrata (R2_D1) prema sjevernom krilu.'
+      'Hrastov laminat s potpuno čistim otvorenim mostom galerije; crna čelična ograda (h = 98 cm) s 5 horizontalnih sajli i neprekinutim hrastovim rukohvatom.',
+      'Zaobljeni hrastov L-radni stol s rukom za monitor, Mac jedinicom i ergonomskom foteljom ispod krovnog prozora (špaleta 28 cm).',
+      'Viseće biljke pothos u žardinjerama na ogradi te dvokrilna staklena vrata (R2_D1) prema sjevernom potkrovlju.'
     ],
     redesign: {
-      summary: 'Smireni radni kutak u kontinuitetu s donjim prostorom: parket riblja kost, ebonizirani rukohvat ograde i okviri dovratnika prema sjevernom krilu, uz toplo vapneno ličenje zidova.',
+      summary: 'Mirni radni kutak i prolazni most: parket riblja kost na zvučnoj podlozi, ebonizirani rukohvat ograde i okvir dvokrilnih vrata te vapneni štuk zidova bez vizualnih prepreka.',
       finishes: [
-        { element: 'Pod galerije', material: 'Troslojni hrastov parket riblja kost', spec: 'Postava preko akustične podloge debljine 3 mm (smanjenje udarne buke prema kuhinji)', qty: 13.3, unit: 'm²', note: '+10 % rezanje' },
-        { element: 'Zidovi i zapadni nadozid', material: 'Vapneni štuk NCS S 1505-Y30R', spec: 'Mat izvedba do kosog stropa', qty: 15.2, unit: 'm²', note: 'Uključuje špalete sjevernih vrata prema Room 2' },
-        { element: 'Rukohvat ograde i dovratnik Room 2', material: 'Ebonizirani hrast (lazura)', spec: 'Duljina rukohvata 7.0 m + dovratnik 90 × 205 cm', qty: 7.0, unit: 'm', note: 'Ton usklađen s krovnim rešetkama' }
+        { element: 'Pod galerije i mosta', material: 'Troslojni hrastov parket riblja kost', spec: 'Postava preko akustične podloge 3 mm (ΔLw ≥ 18 dB prema kuhinji)', qty: 13.8, unit: 'm²', note: '+10 % rezanje; uskladiti kotu s vrhom L-stepeništa' },
+        { element: 'Zidovi i zapadni nadozid', material: 'Vapneni štuk NCS S 1505-Y30R', spec: 'Mat izvedba do kosog stropa i oko krovnog prozora', qty: 15.2, unit: 'm²', note: 'Uključuje špalete portala' },
+        { element: 'Rukohvat ograde i dovratnik vrata R2_D1', material: 'Ebonizirani hrast (lazura)', spec: 'Duljina rukohvata 7.0 m + dvokrilni dovratnik', qty: 7.0, unit: 'm', note: 'Ton usklađen s krovnim rešetkama' }
       ],
       furniture: [
-        { item: 'Hrastov radni L-stol (postojeći, uljenje)', dims: '179 × 63 × 81 cm + krak 89 × 79 × 81 cm', material: 'Prirodni hrast', position: 'Središte/zapad galerije (X ∈ [-3.96, -2.37], Y ∈ [-1.65, 0.14 m])', note: 'Lagano brušenje i zaštita bezbojnim mat uljem' },
-        { item: 'Biljke u terakota/keramičkim posudama', dims: '4× Ø 38 cm', material: 'Terakota / mat kamenina', position: 'Uz istočnu ogradu galerije (Y ∈ [-2.05, -0.16 m])', note: 'Podmetači protiv curenja vode na parket' }
+        { item: 'Hrastov radni L-stol (postojeći, mat uljenje)', dims: '179 × 63 × 81 cm + krak 89 × 79 × 81 cm', material: 'Prirodni hrast', position: 'Zapadni rub galerije ispod krovnog prozora', note: 'Lagano brušenje i zaštita mat uljem' },
+        { item: 'Biljke u žardinjerama / terakota posudama', dims: '4× posuda na ogradi', material: 'Hrast / terakota s podmetačima', position: 'Unutarnja strana ograde galerije', note: 'Zaštita parketa od zalijevanja' }
       ],
       lighting: [
-        { item: 'Zidna/radna lampa na galeriji (prijedlog)', spec: '10 W LED, 2700 K, usmjereno svjetlo za radni stol', qty: 1, mount: 'Zapadni zid iznad radnog stola (h = 1.45 m) ili stolna lampa', circuit: 'Prekidač pri vrhu stepeništa' }
+        { item: 'Zidna/radna lampa na galeriji', spec: '10 W LED, 2700 K, usmjereno svjetlo', qty: 1, mount: 'Zapadni zid iznad L-stola (h = 1.45 m)', circuit: 'Prekidač pri vrhu stepeništa' }
       ],
       electrical: [
-        { item: 'Radne utičnice ispod/uz L-stol', qty: 4, height_cm: 30, position: 'Zapadni nadozid galerije (X = -4.25, Y ≈ -1.10 m)', note: 'Za monitor, računalo, punjače i stolnu lampu + RJ45 LAN' }
+        { item: 'Radne utičnice ispod/uz L-stol + LAN', qty: 4, height_cm: 30, position: 'Zapadni nadozid galerije (X = -4.25, Y ≈ -1.10 m)', note: 'Postojeći priključci za računalo i monitor' }
       ],
       plumbing: [],
       sequence: [
-        'Demontirati postojeći laminat na galeriji i pregledati ravnost OSB/betonske podloge.',
-        'Položiti zvučnu podlogu i parket riblju kost (uskladiti visinu s gornjom stubom i pragom vrata prema Room 2).',
-        'Obojiti zidove vapnenim štukom i potamniti rukohvate ograde te okvir vrata za Room 2.'
+        'Demontirati laminat na galeriji i mostu te provjeriti ravnost podloge.',
+        'Položiti zvučnu podlogu i parket riblju kost u ravnini s gornjom stubom stepeništa.',
+        'Obojiti zidove vapnenim štukom i ebonizirati rukohvate ograde te okvir vrata prema sjeveru.'
       ]
     },
     checks: [
-      'Provjeriti visinski spoj parketa s najgornjom stubom stepeništa i s drvenim pragom na pragu sobe 09.',
-      'Provjeriti nosivost i učvršćenje stupića galerije na rubu ploče.'
+      'Provjeriti čistoću prolaza preko mosta galerije (X ∈ [-0.55, +0.25]) i stabilnost stupića ograde na rubu ploče.',
+      'Uskladiti prag između parketa galerije (+2.74 m) i garderobe sjevernog krila (+2.73 m).'
     ]
   },
   {
-    stop: 8,
-    code: '09',
-    name: 'Garderoba i radna soba (Room 2)',
-    floor: 'Kat — sjeverno krilo (+2.73 m)',
-    openPlan: false,
-    dims: {
-      length_m: 3.92,
-      width_m: 3.36,
-      clearHeight_m: 2.49,
-      kneeWall_m: null,
-      floorArea_m2: 13.2,
-      wallArea_m2: 28.4,
-      note: 'Središnja prolazna soba sjevernog krila (X ∈ [-1.45, 1.91], Y ∈ [0.96, 4.88 m]) s pristupom u kupaonicu i glavnu spavaću sobu.'
-    },
-    existing: [
-      'Peterokrilni bijeli sjajni ugradbeni ormar (267 × 53 × 213 cm) s dekorativnim hrastovim letvicama na južnom boku (7 kom).',
-      'Konjak kožna „Butterfly” fotelja i bačva-stolić „LEGENDS 1872” uz sjeverni prozor (67 × 61 cm, parapet 126 cm).',
-      'Tamni wenge radni stol s 3 ladice (126 × 52 × 75 cm) na južnom zidu i vertikalno ogledalo (48 × 138 cm) pokraj vrata kupaonice.',
-      'VAŽNO: Na južnom zidu (X ∈ [0.80, 1.38 m]) smještena su gornja i donja revizijska vrata elektro/razdjelnika grijanja.'
-    ],
-    redesign: {
-      summary: 'Zamjena bijelih sjajnih fronti ormara toplim furnirom svijetlog hrasta s vertikalnim ručkicama i skrivenom gornjom LED linijom, parket riblja kost te bouclé lounge kutak uz prozor.',
-      finishes: [
-        { element: 'Pod', material: 'Troslojni hrastov parket riblja kost', spec: 'Postava preko ravne podloge, prag prema kupaonici s kamenom/mjed lajsnom', qty: 14.5, unit: 'm²', note: '+10 % rezanje' },
-        { element: 'Zidovi i strop', material: 'Vapneni štuk NCS S 1505-Y30R / strop mat bijela', spec: 'Revizijske ormariće na južnom zidu obojiti u boju zida radi stapanja', qty: 28.4, unit: 'm²', note: 'Obrada triju dovratnika (ulaz, kupaonica, spavaća)' }
-      ],
-      furniture: [
-        { item: 'Nove fronte peterokrilnog ormara + LED kruna', dims: '267 × 53 × 213 cm (5 fronti po ~52.5 × 209 cm)', material: 'Furnir svijetli hrast mat + 5 vertikalnih crnih/mjed ručkica l = 60 cm', position: 'Istočni pregradni zid X ∈ [1.28, 1.81], Y ∈ [2.17, 4.84 m]', note: 'Postojeći korpus i bočne letvice se zadržavaju; dodati aluminijski LED profil iznad vrata' },
-        { item: 'Lounge kutak uz prozor', dims: 'Tepih Ø 190 cm + stolić Ø 62 × 46 cm + fotelja 58 × 58 cm', material: 'Vuna (tepih), bijeli/travertin pomoćni stolić, bouclé ili postojeća kožna fotelja', position: 'Sjeverni prozor (X ∈ [-0.80, 0.40], Y ∈ [3.80, 4.70 m])', note: 'Stolić zamjenjuje metalnu bačvu ili ostaje po izboru' },
-        { item: 'Radni stol s ladičarom (zadržati ili lakirati)', dims: '126 × 52 × 75 cm', material: 'Tamni hrast/wenge (ili zamjena u svijetli hrast)', position: 'Južni zid X ∈ [-0.48, 0.78], Y ∈ [1.20, 1.72 m]', note: 'Paziti na otvoreno pasivno krilo dvokrilnih vrata iza stola' },
-        { item: 'Zidno ogledalo visokog formata', dims: '48 × 138 cm', material: 'Brušeni srebrni/crni aluminijski okvir', position: 'Zapadni zid uz vrata kupaonice (Y ∈ [1.34, 1.82 m], h = 45–183 cm)', note: 'Postojeća pozicija' }
-      ],
-      lighting: [
-        { item: 'Stropna plafonjera s toplim sjenilom', spec: 'Ø 40 cm, 18 W LED, 2700 K, CRI > 90', qty: 1, mount: 'Središte stropa (X = 0.15, Y = 3.00, h = 2.49 m)', circuit: 'Krug 8 — prekidač na južnom zidu (X = 0.25, h = 105 cm)' },
-        { item: 'LED linija iznad garderobnog ormara', spec: '10 W/m, 2700 K, 24 V DC, l = 2.61 m', qty: 2.65, mount: 'Gornji prednji rub ormara na h = 2.13 m', circuit: 'Prekidač uz ormar ili mikro-senzor na otvaranje vrata' }
-      ],
-      electrical: [
-        { item: 'Glavni prekidač sobe + utičnica uz radni stol', qty: 2, height_cm: 105, position: 'Južni zid (X = 0.25) i zapadna niša (X = -1.28, Y = 3.02 m, h = 40 cm)', note: 'Postojeći antracit okviri' },
-        { item: 'Revizijski elektroormar i podno grijanje (ZADRŽATI PRISTUP)', qty: 2, height_cm: 120, position: 'Južni zid X ∈ [0.80, 1.38 m] (h = 30 cm i h = 113–163 cm)', note: 'Ne zagraditi namještajem; dopušteno ličenje metalnih poklopaca bojom zida' }
-      ],
-      plumbing: [],
-      sequence: [
-        'Demontirati 5 bijelih sjajnih vrata ormara i laminat/podnu lajsnu.',
-        'Provesti napajanje 24 V za gornju LED traku ormara s krovnog/stropnog izvoda.',
-        'Ličiti zidove i revizijske poklopce u vapneni štuk.',
-        'Postaviti parket riblju kost i prageve prema vratima.',
-        'Montirati 5 novih hrastovih fronti na postojeće pante (soft-close), ručkice i LED profil.'
-      ]
-    },
-    checks: [
-      'PROVJERITI NA LICU MJESTA točne dimenzije postojećih 5 vrata ormara i raspored rupa za šarke prije izrade novih fronti.',
-      'Osigurati da su revizijska vrata na južnom zidu uvijek slobodna za servisere.'
-    ]
-  },
-  {
-    stop: 9,
-    code: '10',
-    name: 'Spa kupaonica u potkrovlju (Room 2)',
-    floor: 'Kat — zapad (+2.73 m)',
+    stop: 13,
+    code: '14',
+    name: 'Spa kupaonica u potkrovlju',
+    floor: 'Potkrovlje — zapad (+2.73 m)',
     openPlan: false,
     dims: {
       length_m: 3.72,
@@ -530,201 +749,258 @@ export const ZONES = [
     existing: [
       'Pod od pješčano-bež keramike i siva kamena zidna keramika (puna visina uz kadu i stup umivaonika; h = 99 cm uz WC).',
       'Polukružna kutna bijela akrilna kada (180 × 85 × 58 cm) s krom miješalicom i bijeli ljestvasti radijator (50 × 98 cm).',
-      'Lebdeći ormarić umivaonika od rustikalnog hrasta (100 × 46 cm), okruglo ogledalo Ø 94 cm s kvadratnom LED kopčom, konzolni WC i bijela komoda s 3 ladice (87 × 52 × 86 cm).'
+      'Lebdeći ormarić umivaonika od rustikalnog hrasta (100 × 46 cm), okruglo ogledalo Ø 94 cm s LED kopčom, konzolni WC i bijela komoda s 3 ladice.'
     ],
     redesign: {
-      summary: 'Pretvorba u Japandi spa: mat travertin keramika velikog formata na podu i zidovima oko kade, sve armature i tipkalo WC-a u brušenoj mjedi, te okruglo ogledalo Ø 94 cm s toplim stražnjim halo LED svjetlom.',
+      summary: 'Pretvorba u Japandi spa: mat travertin keramika 60 × 120 cm na podu i zidovima oko kade, sve armature i tipkalo WC-a u brušenoj mjedi, te okruglo ogledalo Ø 94 cm s toplim stražnjim halo LED svjetlom.',
       finishes: [
-        { element: 'Hidroizolacija mokrih zona', material: 'Dvokomponentni polimercementni premaz + brtvene trake', spec: 'Cijeli pod + 15 cm na zidove + puna visina 2.49 m oko kade i tuš zone', qty: 24.0, unit: 'm²', note: '2 križna premaza prema DIN 18534' },
-        { element: 'Podna keramika', material: 'Porculan efekt mat travertin (R10 protuklizno)', spec: 'Format 60 × 120 cm, uska fuga 2 mm u pješčanom tonu', qty: 9.5, unit: 'm²', note: '+12 % za rezanje oko kade i kosina' },
-        { element: 'Zidna keramika i obloga kade', material: 'Porculan efekt mat travertin (isti dekor)', spec: 'Puna visina uz kadu i stup umivaonika (X = -1.33); poluvisina h = 99 cm iza WC-a i pod prozorom', qty: 16.5, unit: 'm²', note: 'Uključuje +12 % otpada i ukrajanje pod zapadnu kosinu' },
-        { element: 'Zidovi i kosi strop iznad pločica', material: 'Kupaonska paropropusna mat boja (protiv gljivica)', spec: 'Topla bijela / vapneni štuk ton (#efe9df)', qty: 14.0, unit: 'm²', note: 'Spoj s pločicama izvesti akrilnim/silikonskim profilom' }
+        { element: 'Hidroizolacija mokrih zona', material: 'Dvokomponentni polimercementni premaz + brtvene trake', spec: 'Cijeli pod + 15 cm na zidove + puna visina oko kade', qty: 24.0, unit: 'm²', note: '2 križna premaza prema DIN 18534' },
+        { element: 'Podna keramika', material: 'Porculan efekt mat travertin (R10)', spec: 'Format 60 × 120 cm, uska fuga 2 mm', qty: 9.5, unit: 'm²', note: '+12 % za rezanje' },
+        { element: 'Zidna keramika i obloga kade', material: 'Porculan efekt mat travertin', spec: 'Puna visina uz kadu i stup umivaonika; poluvisina h = 99 cm iza WC-a', qty: 16.5, unit: 'm²', note: 'Ukrajanje pod zapadnu kosinu' },
+        { element: 'Zidovi i kosi strop iznad pločica', material: 'Kupaonska paropropusna mat boja', spec: 'Topla bijela / vapneni štuk (#efe9df)', qty: 14.0, unit: 'm²', note: 'Akrilni/silikonski prijelaz' }
       ],
       furniture: [
-        { item: 'Polukružna kutna kada (zadržati ili obložiti travertinom)', dims: '180 × 85 × 58 cm', material: 'Bijeli lijevani sanitarni akril + obloga od travertin pločica', position: 'Jugozapadni kut X ∈ [-3.68, -1.80], Y ∈ [1.16, 2.01 m]', note: 'Predvidjeti magnetski revizijski otvor 30 × 30 cm za pristup sifonu' },
-        { item: 'Lebdeći kupaonski ormarić s umivaonikom', dims: '100 × 46 × 46 cm (gornji rub na h = 82.5 cm)', material: 'Furnir svijetlog hrasta za vlažne prostore + ploča mat kamen/keramika', position: 'Istočni stup Y ∈ [3.14, 4.16 m]', note: '2 duboke ladice s urezom za sifon' },
-        { item: 'Okruglo halo ogledalo (zamjena LED kopče)', dims: 'Ø 94 cm', material: 'Kristalno ogledalo na podkonstrukciji s neizravnim LED vijencem', position: 'Iznad umivaonika (središte Y = 3.65, h = 153 cm od poda)', note: 'Podiže atmosferu i uklanja hladno radno svjetlo' },
-        { item: 'Komoda s 3 ladice u sjeverozapadnom kutu', dims: '87 × 52 × 86 cm', material: 'Mat bež / bijela + drveni detalji (postojeća prebojati ili zadržati)', position: 'Sjeverozapadni kut X ∈ [-3.63, -2.76], Y ∈ [4.34, 4.86 m]', note: 'Uz zapadni nadozid h = 141 cm' }
+        { item: 'Polukružna kutna kada s oblogom travertina', dims: '180 × 85 × 58 cm', material: 'Sanitarni akril + obloga od travertin pločica', position: 'Jugozapadni kut X ∈ [-3.68, -1.80], Y ∈ [1.16, 2.01 m]', note: 'Predvidjeti magnetski revizijski otvor 30 × 30 cm za sifon' },
+        { item: 'Lebdeći kupaonski ormarić s umivaonikom', dims: '100 × 46 × 46 cm', material: 'Furnir svijetlog hrasta + kamena ploča', position: 'Istočni stup Y ∈ [3.14, 4.16 m]', note: '2 duboke ladice s urezom za sifon' },
+        { item: 'Okruglo halo ogledalo', dims: 'Ø 94 cm', material: 'Kristalno ogledalo s neizravnim toplim LED vijencem', position: 'Iznad umivaonika (h = 153 cm)', note: 'Zamjena radne LED kopče' },
+        { item: 'Komoda s 3 ladice u SZ kutu', dims: '87 × 52 × 86 cm', material: 'Mat bež / bijela + drveni detalji', position: 'Sjeverozapadni kut uz nadozid h = 141 cm', note: 'Postojeća ili osvježena' }
       ],
       lighting: [
-        { item: 'Neizravni LED halo krug iza ogledala', spec: '16 W LED traka, 2700 K, CRI > 92, IP44, integrirano u ogledalo Ø 94 cm', qty: 1, mount: 'Stup umivaonika (X = -1.33, Y = 3.65, h = 153 cm)', circuit: 'Prekidač kod vrata kupaonice' },
-        { item: 'Stropna vodootporna plafonjera', spec: 'Ø 30 cm, 15 W LED, 3000 K (ili 2700 K), IP44, CRI > 90', qty: 1, mount: 'Ravni strop (X = -2.15, Y = 3.00, h = 2.49 m)', circuit: 'Glavni prekidač kupaonice izvan zone 2' }
+        { item: 'Neizravni LED halo krug iza ogledala', spec: '16 W LED traka, 2700 K, CRI > 92, IP44', qty: 1, mount: 'Stup umivaonika (h = 153 cm)', circuit: 'Prekidač kod vrata kupaonice' },
+        { item: 'Stropna vodootporna plafonjera', spec: 'Ø 30 cm, 15 W LED, 2700 K, IP44', qty: 1, mount: 'Ravni strop (X = -2.15, Y = 3.00, h = 2.49 m)', circuit: 'Glavni prekidač izvan zone 2' }
       ],
       electrical: [
-        { item: 'Izvod iza ogledala 230 V + IP44 utičnica uz umivaonik', qty: 2, height_cm: 145, position: 'Istočni stup umivaonika (Y = 3.45 i Y = 3.18 m)', note: 'Obavezna zaštita FID 30 mA i usklađenost s HRN HD 60364-7-701' },
-        { item: 'Kupaonski ventilator (ako postoji kanal u ravnom stropu)', qty: 1, height_cm: 249, position: 'Istočni gornji ugao', note: 'S tajmerom za odvlaživanje nakon kupanja' }
+        { item: 'Izvod iza ogledala 230 V + IP44 utičnica uz umivaonik', qty: 2, height_cm: 145, position: 'Istočni stup umivaonika', note: 'Obavezna zaštita FID 30 mA (HRN HD 60364-7-701)' },
+        { item: 'Kupaonski ventilator s tajmerom', qty: 1, height_cm: 249, position: 'Istočni gornji ugao', note: 'Za odvlaživanje potkrovlja' }
       ],
       plumbing: [
-        { item: 'Zidna miješalica za kadu + ručni tuš (brušena mjed)', spec: 'Podžbukno tijelo ili nadžbukna baterija s razmakom 150 mm, PVD brušena mjed', position: 'Južni zid iznad kade (X = -2.62, Y = 1.18 m)', height_cm: 78, note: 'Zamjena postojeće kromirane armature' },
-        { item: 'Stojeća/zidna miješalica umivaonika (brušena mjed)', spec: 'Jednoručna baterija visoka/standardna PVD brušena mjed + click-clack sifon', position: 'Umivaonik X = -1.41, Y = 3.65 m', height_cm: 83, note: 'Dovod 2× kutni ventil 1/2", odvod Ø 40 mm na h = 55 cm' },
-        { item: 'Konzolna WC školjka + tipkalo u brušenoj mjedi', spec: 'Rimless WC školjka na postojećem ugradbenom vodokotliću, tipkalo brušena mjed', position: 'Sjeveroistočni kut X = -1.78, Y = 4.54 m', height_cm: 41, note: 'Obzid vodokotlića završiti travertinom (h = 99 cm)' },
-        { item: 'Ljestvasti radijator za ručnike', spec: '50 × 98 cm, priključci dolje na razmaku 50 mm (zadržati ili lakirati u bijelu/mjed)', position: 'Zapadni nadozid X = -3.62, Y ∈ [2.15, 2.65 m]', height_cm: 25, note: 'Montaža na minimalnoj udaljenosti 4 cm od nove keramike' }
+        { item: 'Zidna miješalica kade + umivaonika + tipkalo WC-a (brušena mjed)', spec: 'PVD brušena mjed, razmak priključaka kade 150 mm + click-clack sifon', position: 'Zidovi kade, umivaonika i WC-a', height_cm: 83, note: 'Provjeriti kompatibilnost tipkala s vodokotlićem' },
+        { item: 'Konzolna WC školjka + ljestvasti radijator', spec: 'Rimless WC školjka (h = 41 cm) + radijator 50 × 98 cm', position: 'Sjeveroistočni kut i zapadni nadozid', height_cm: 41, note: 'Zazor radijatora min. 4 cm od nove keramike' }
       ],
       sequence: [
-        'Demontirati sanitarije, kadu/oblogu (ako se mijenja), postojeće pločice i ogledalo.',
-        'Provjeriti nagibe odvoda kade i umivaonika te prilagoditi visinu električnog izvoda za halo ogledalo.',
-        'Nanijeti temeljni premaz i 2 sloja hidroizolacije s brtvenim trakama na sve podne i zidne spojeve.',
-        'Obloga podnim i zidnim travertin pločicama 60 × 120 cm (pažljivo ukrajanje pod kosinu krova i oko prozora).',
-        'Fugiranje fleksibilnom masom + sanitarni silikon u kutovima.',
-        'Montaža lebdećeg hrastovog ormarića, sanitarija u brušenoj mjedi, halo ogledala i testiranje brtvljenja.'
+        'Demontirati sanitarije, oblogu kade, postojeće pločice i ogledalo.',
+        'Pripremiti električni izvod iza ogledala i provjeriti odvode.',
+        'Nanijeti 2 sloja hidroizolacije s brtvenim trakama i obložiti travertin pločicama 60 × 120 cm.',
+        'Montirati lebdeći hrastov ormarić, armature u brušenoj mjedi i halo ogledalo.'
       ]
     },
     checks: [
-      'PROVJERITI NA LICU MJESTA razmak priključaka miješalice za kadu (standard 150 mm) prije narudžbe armature u brušenoj mjedi.',
-      'Kod postavljanja pločica na kosi zid pažljivo pratiti nagib krova (od h = 141 cm na X = -3.68 do h = 249 cm na X = -2.40 m).',
-      'Kompatibilnost novog tipkala u brušenoj mjedi s markom postojećeg ugradbenog vodokotlića (Geberit / Tece / Grohe).'
+      'Izmjeriti osni razmak postojećih izlaza za miješalicu kade (150 mm) prije narudžbe armature.',
+      'Pratiti nagib zapadne kosine krova (h = 141 → 249 cm) prilikom ukrajanja pločica.'
     ]
   },
   {
-    stop: 10,
-    code: '11',
-    name: 'Glavna spavaća soba (Room 2)',
-    floor: 'Kat — istok (+2.73 m)',
+    stop: 14,
+    code: '15',
+    name: 'Garderoba i glavna spavaća soba u potkrovlju',
+    floor: 'Potkrovlje — središte i istok (+2.73 m)',
     openPlan: false,
     dims: {
-      length_m: 3.72,
-      width_m: 3.43,
+      length_m: 7.52,
+      width_m: 3.65,
       clearHeight_m: 2.49,
       kneeWall_m: 1.16,
-      floorArea_m2: 12.8,
-      wallArea_m2: 26.8,
-      note: 'Istočna soba sjevernog krila (X ∈ [2.01, 5.44], Y ∈ [1.16, 4.88 m]); istočni nadozid 1.16 m ima suhu gips-kartonsku policu (dubina 11 cm).'
+      floorArea_m2: 26.0,
+      wallArea_m2: 55.2,
+      note: 'Povezana središnja garderoba (13.2 m², revizijska vrata na južnom zidu) i istočna glavna spavaća soba (12.8 m², nadozid 1.16 m sa suho-gipsanom policom).'
     },
     existing: [
-      'Smeđe-sivi tapecirani bračni krevet (223 × 196 cm) s bijelom ladicom na izvlačenje i oker prekrivačem.',
-      'Dva različita noćna ormarića (okrugli hrast + metalna žičana košara s crno-bakrenom lampom).',
-      'Otvorena troetažna hrastova konzola (229 × 42 × 85.5 cm) na južnom zidu sa slikom suncokreta, obiteljskim okvirima i slanom lampom; kožna Butterfly fotelja u SZ kutu.'
+      'Garderoba: peterokrilni bijeli sjajni ugradbeni ormar (267 × 53 × 213 cm) s hrastovim letvicama, konjak Butterfly fotelja, bačva-stolić „LEGENDS 1872” i wenge radni stol uz visoko ogledalo.',
+      'Glavna spavaća soba: tapecirani bračni krevet (223 × 196 cm) s bijelom ladicom i oker prekrivačem, dva noćna stolića i otvorena hrastova konzola (229 × 42 × 85.5 cm) sa slikom suncokreta.'
     ],
     redesign: {
-      summary: 'Smirena Japandi spavaća oaza: niski lebdeći hrastov krevet na crnom uvučenom postolju s krem bouclé uzglavljem, par hrastovih/travertinskih noćnih stolića, lanena posteljina i papirnate lampe 2700 K.',
+      summary: 'Toplo utočište potkrovlja: peterokrilni garderobni ormar dobiva fronte od svijetlog hrasta s gornjom LED krunom, kroz obje sobe teče parket riblja kost i vapneni štuk, a glavna soba dobiva lebdeći hrastov krevet s krem bouclé uzglavljem i papirnate lampe 2700 K.',
       finishes: [
-        { element: 'Pod', material: 'Troslojni hrastov parket riblja kost', spec: 'U kontinuitetu s garderobom bez praga', qty: 14.1, unit: 'm²', note: '+10 % rezanje' },
-        { element: 'Zidovi i istočni kaskadni nadozid', material: 'Vapneni štuk NCS S 1505-Y30R', spec: 'Fina mat izvedba na nadozidu (1.16 m) i gips-kartonskoj polici', qty: 26.8, unit: 'm²', note: 'Obrada oko sjevernog prozora 108 × 110 cm' }
+        { element: 'Pod garderobe i spavaće sobe', material: 'Troslojni hrastov parket riblja kost', spec: 'Kontinuitet bez praga između garderobe i spavaće sobe', qty: 28.6, unit: 'm²', note: '+10 % rezanje' },
+        { element: 'Zidovi, revizijski poklopci i istočni nadozid', material: 'Vapneni štuk NCS S 1505-Y30R / strop mat bijela', spec: 'Revizijske ormariće na južnom zidu garderobe obojiti u boju zida', qty: 55.2, unit: 'm²', note: 'Uključuje gornju policu istočnog nadozida (h = 1.16 m)' }
       ],
       furniture: [
-        { item: 'Lebdeći bračni krevet s bouclé uzglavljem (po mjeri/narudžbi)', dims: '223 × 196 cm (za madrac 180 × 200 cm), uzglavlje h = 111 cm', material: 'Okvir masivni/furnirani hrast na crnom uvučenom postolju + 6 segmenata krem bouclé uzglavlja', position: 'Uz istočni nadozid (X ∈ [3.15, 5.38], Y ∈ [2.50, 4.46 m])', note: 'Ukupna visina podnice + madraca ~58 cm od poda' },
-        { item: 'Par cilindričnih noćnih stolića (prijedlog)', dims: '2× Ø 43 × 58 cm', material: 'Cilindar prirodni hrast + ploča bijeli mat travertin', position: 'Simetrično lijevo i desno od kreveta (Y = 2.22 i Y = 4.66 m)', note: 'Zamjena neusklađenih stolića' },
-        { item: 'Vuneni tepih ispod kreveta', dims: '254 × 257 cm', material: 'Meka petljasta vuna u boji zobi', position: 'Ispod donje dvije trećine kreveta (X ∈ [2.78, 5.32], Y ∈ [2.15, 4.72 m])', note: 'Izlazi cca 40 cm lijevo, desno i pred podnožjem' },
-        { item: 'Otvorena hrastova konzola (postojeća, uljenje)', dims: '229 × 42 × 85.5 cm', material: 'Masivni hrast + crna ili terakota vaza', position: 'Južni zid X ∈ [2.97, 5.26], Y ∈ [1.18, 1.58 m]', note: 'Zadržati; ostaviti otvoren pristup 4-strukoj utičnici u lijevom polju' }
+        { item: '5× nove fronte garderobnog ormara + gornji LED profil', dims: '267 × 53 × 213 cm (5 fronti po ~52.5 × 209 cm)', material: 'Furnir svijetli hrast mat + 5 vertikalnih crnih ručkica l = 60 cm', position: 'Istočni pregradni zid garderobe (X ∈ [1.28, 1.81], Y ∈ [2.17, 4.84 m])', note: 'Zadržava se postojeći korpus; provjeriti raspored šarki' },
+        { item: 'Lounge kutak uz prozor garderobe', dims: 'Tepih Ø 190 cm + travertin stolić Ø 62 cm + fotelja', material: 'Vuna / travertin / bouclé ili kožna fotelja', position: 'Sjeverni prozor garderobe', note: 'Slobodan pristup radnom stolu i ogledalu' },
+        { item: 'Lebdeći bračni krevet s bouclé uzglavljem + 2× noćni stolić', dims: '223 × 196 cm (madrac 180 × 200) + 2× Ø 43 × 58 cm', material: 'Masivni hrast + krem bouclé uzglavlje + mat travertin ploče', position: 'Istočni nadozid spavaće sobe (X ∈ [3.15, 5.38], Y ∈ [2.50, 4.46 m])', note: 'Vuneni tepih 254 × 257 cm ispod kreveta' },
+        { item: 'Otvorena hrastova konzola (postojeća, uljenje)', dims: '229 × 42 × 85.5 cm', material: 'Masivni hrast', position: 'Južni zid spavaće sobe (X ∈ [2.97, 5.26], Y ∈ [1.18, 1.58 m])', note: 'Ostaje otvoren pristup 4-strukoj utičnici' }
       ],
       lighting: [
-        { item: 'Sferna viseća papirnata lampa (Akari)', spec: 'Ø 60 cm, rižin papir, E27 LED 12 W, 2700 K, dimabilno', qty: 1, mount: 'Ravni strop (X = 3.55, Y = 3.15, h = 2.49 m; spuštena 52 cm)', circuit: 'Izmjenični krug 10 — prekidač na ulazu + kraj uzglavlja' },
-        { item: '2× stolne lampe s rižinim sjenilom', spec: 'Ø 25 cm, E14 LED 6 W, 2700 K', qty: 2, mount: 'Na cilindričnim noćnim stolićima (h = 58 cm od poda)', circuit: 'Neovisni noćni priključak ili pametna žarulja' }
+        { item: '2× viseće Akari/lanene svjetiljke + LED kruna ormara + 2× stolne lampe', spec: 'Plafonjera garderobe Ø 40 cm, Akari sfera spavaće Ø 60 cm, 2× stolna papirnata 2700 K, LED 2.61 m', qty: 6, mount: 'Stropovi 2.49 m, gornji rub ormara (h = 2.13 m) i noćni stolići', circuit: 'Izmjenični krugovi na ulazu i uz uzglavlje kreveta' }
       ],
       electrical: [
-        { item: 'Utičnice i izmjenični prekidači uz uzglavlje', qty: 2, height_cm: 55, position: 'Istočni nadozid Y = 2.22 i Y = 4.54 m (ispod kaskadne police)', note: 'Provjeriti postojeću utičnicu na Y = 4.54 m (h = 53 cm); dodati drugu stranu ako nedostaje' },
-        { item: '4-struka utičnica uz hrastovu konzolu', qty: 1, height_cm: 64, position: 'Južni zid (X = 3.38, Y = 1.17 m) unutar lijevog otvora konzole', note: 'Postojeća instalacija; zamijeniti masku po želji' }
+        { item: 'Utičnice i izmjenični prekidači uz krevet + revizijski ormar (ZADRŽATI PRISTUP)', qty: 5, height_cm: 55, position: 'Istočni nadozid Y = 2.22 i 4.54 m + južni zid garderobe (h = 30 i 113–163 cm)', note: 'Revizijska vrata grijanja/elektro na južnom zidu garderobe ne smiju se zagraditi' }
       ],
       plumbing: [],
       sequence: [
-        'Ukloniti postojeći bračni krevet, noćne stoliće i laminat.',
-        'Dodati/uskladiti utičnice i izmjenične prekidače uz obje strane kreveta u istočnom nadozidu.',
-        'Izvesti gletanje i nanošenje vapnenog štuka (NCS S 1505-Y30R) uključujući gornju policu nadozida.',
-        'Položiti parket riblju kost i završne lajsne.',
-        'Postaviti veliki tepih, sastaviti lebdeći hrastov krevet s bouclé uzglavljem i postaviti lampe.'
+        'Demontirati 5 sjajnih fronti ormara, stari bračni krevet i laminat u obje prostorije.',
+        'Dodati noćne utičnice/prekidače i izvod za gornju LED liniju ormara.',
+        'Izvesti gletanje i vapneni štuk na zidovima (uključujući metalne poklopce revizija).',
+        'Položiti parket riblju kost, montirati 5 hrastovih fronti ormara, lebdeći krevet, tepihe i Akari rasvjetu.'
       ]
     },
     checks: [
-      'Provjeriti točnu dubinu slobodnog prolaza između ruba kreveta (X = 3.15 m) i konzole/vrata (slobodno ≥ 95 cm).',
-      'Kod izrade bouclé uzglavlja (visina 111 cm od poda) voditi računa o ispupčenju gips-kartonske police istočnog nadozida na koti h = 116–130 cm.'
+      'Zadržati puni servisni pristup gornjem i donjem revizijskom ormariću na južnom zidu garderobe.',
+      'Kod izrade bouclé uzglavlja (h = 111 cm) poštovati ispupčenje gips-kartonske police istočnog nadozida (h = 116–130 cm).'
     ]
   }
 ];
 
 export const BOQ = [
+  // Vanjsko uređenje i 3D vrt
+  { category: 'Vanjsko uređenje i 3D vrt', item: 'Opločnik prilaznog platoa i 2P parkinga s oborinskom rešetkom', spec: 'Nosivi betonski/kameni opločnik d = 8 cm + linijska rešetka D400 l = 5.6 m ispred garaže', qty: 42.0, unit: 'm²', zones: ['01'] },
+  { category: 'Vanjsko uređenje i 3D vrt', item: 'Pergola od sibirskog ariša/cedra + mat travertin R11 terasa i koračne ploče', spec: 'Konstrukcija 380 × 380 cm na čeličnim ankerima + travertin ploče 80 × 80 cm', qty: 18.5, unit: 'm²', zones: ['02'] },
+  { category: 'Vanjsko uređenje i 3D vrt', item: 'Vrtni šljunčani pojas, rubnjaci i trajnice (trave, lavanda, javor)', spec: 'Geotekstil, bijeli/sivi kulir, sadnice i priprema kap-po-kap navodnjavanja', qty: 24.0, unit: 'm²', zones: ['02'] },
+  { category: 'Vanjsko uređenje i 3D vrt', item: 'Vanjska lounge garnitura s vodoodbojnim bouclé jastucima i stolićem', spec: 'Tikovina / termo-jasen za zapadnu vrtnu terasu pod pergolom', qty: 1, unit: 'kpl', zones: ['02'] },
+
+  // Fasada i vanjska stolarija
+  { category: 'Fasada i vanjska stolarija', item: 'Fasadno pranje i bojenje toplom mineralno-bijelom bojom (NCS S 0804-Y20R)', spec: '2 sloja paropropusne silikatno-silikonske boje na gornjim etažama', qty: 96.0, unit: 'm²', zones: ['01', '03'] },
+  { category: 'Fasada i vanjska stolarija', item: 'Sanacija i impregnacija kamenog sokla suterena/podruma', spec: 'Čišćenje i zaštitna okapna letva iznad garaže i radne sobe', qty: 36.0, unit: 'm²', zones: ['01', '11'] },
+  { category: 'Fasada i vanjska stolarija', item: 'Gazišta vanjskog stubišta (16 kom) i podest trijema u plamenom kamenu/R11', spec: 'Ploče d = 30 mm s protukliznim brazdama i okapnicom', qty: 8.0, unit: 'm²', zones: ['03'] },
+  { category: 'Fasada i vanjska stolarija', item: 'Cedrov letvičasti podgled ulazne nadstrešnice + staklena ograda stubišta i balkona', spec: 'Ariš/cedar podgled 3.8 m² + laminirano staklo 8.8.2 (ukupno l = 15.0 m)', qty: 1, unit: 'kpl', zones: ['03', '08'] },
+
+  // Podrum i strojarske instalacije
+  { category: 'Podrum i strojarske instalacije', item: 'Tehnički porculan R10 na podu garaže, vešeraja, kotlovnice i hodnika + sokl', spec: 'Format 60 × 60 cm visoke nosivosti s epoksidnim fugama', qty: 77.5, unit: 'm²', zones: ['10', '11'] },
+  { category: 'Podrum i strojarske instalacije', item: 'Perive podrumske zidne/stropne boje + obrada engleskih šahtova', spec: 'Paropropusni premaz otporan na vlagu + obnova hrastovog U-stubišta (16 stuba)', qty: 156.0, unit: 'm²', zones: ['10', '11'] },
+  { category: 'Podrum i strojarske instalacije', item: 'Servis toplinske stanice kotlovnice (dizalica topline, pufer 500 L, razdjelnik) + sifoni', spec: 'Tlačna proba podnog grijanja za Po+Pr+Pk i priključci perilice/sušilice', qty: 1, unit: 'kpl', zones: ['10'] },
+  { category: 'Podrum i strojarske instalacije', item: 'Opremanje vešeraja, antracit radni pult garaže i radna soba SW', spec: 'Radna ploča 207 cm + praonički sudoper + radni stolovi i regali', qty: 1, unit: 'kpl', zones: ['10', '11'] },
+
   // Podovi
-  { category: 'Podovi', item: 'Demontaža postojećeg laminata, lajsni i podloga', spec: 'Uključuje sortiranje i odvoz na ovlašteno odlagalište', qty: 92.6, unit: 'm²', zones: ['01', '02', '03', '04', '05', '08', '09', '11'] },
-  { category: 'Podovi', item: 'Priprema estriha, brušenje i impregnacija podloge', spec: 'Lokalno izravnavanje samonivelirajućom masom do 3 mm', qty: 92.6, unit: 'm²', zones: ['01', '02', '03', '04', '05', '08', '09', '11'] },
-  { category: 'Podovi', item: 'Dobava i polaganje troslojnog hrastovog parketa — riblja kost', spec: 'Uljeni prirodni hrast, uključeno 2K elastično ljepilo i +10 % otpada', qty: 101.9, unit: 'm²', zones: ['01', '02', '03', '04', '05', '08', '09', '11'] },
-  { category: 'Podovi', item: 'Akustična podloga na katu (galerija + sjeverno krilo)', spec: 'Podloga 3 mm za prigušenje udarnog zvuka ΔLw ≥ 18 dB', qty: 38.1, unit: 'm²', zones: ['08', '09', '11'] },
-  { category: 'Podovi', item: 'Podne kutne lajsne od masivnog hrasta + prijelazni profili', spec: 'Profil 60 × 15 mm u tonu parketa, s montažom', qty: 68.0, unit: 'm', zones: ['01', '03', '05', '08', '09', '11'] },
+  { category: 'Podovi', item: 'Demontaža postojećeg laminata, lajsni i podloga u Pr i Pk', spec: 'Sortiranje i odvoz na ovlašteno odlagalište', qty: 131.1, unit: 'm²', zones: ['04', '05', '06', '07', '09', '13', '15'] },
+  { category: 'Podovi', item: 'Priprema estriha, brušenje i izravnavanje do 3 mm', spec: 'Impregnacija i samonivelirajuća masa za riblju kost', qty: 131.1, unit: 'm²', zones: ['04', '05', '06', '07', '09', '13', '15'] },
+  { category: 'Podovi', item: 'Dobava i polaganje troslojnog hrastovog parketa — riblja kost', spec: 'Uljeni prirodni hrast, 2K elastično ljepilo i +10 % otpada (Pr + Pk)', qty: 144.2, unit: 'm²', zones: ['04', '05', '06', '07', '09', '13', '15'] },
+  { category: 'Podovi', item: 'Akustična podloga na katu (most, galerija, garderoba, spavaća)', spec: 'Podloga 3 mm za prigušenje udarnog zvuka ΔLw ≥ 18 dB', qty: 41.9, unit: 'm²', zones: ['13', '15'] },
+  { category: 'Podovi', item: 'Podne kutne lajsne od masivnog hrasta + prijelazni profili', spec: 'Profil 60 × 15 mm u tonu parketa, s montažom', qty: 96.0, unit: 'm', zones: ['04', '06', '07', '09', '13', '15'] },
 
   // Zidovi i stropovi
-  { category: 'Zidovi i stropovi', item: 'Skela za dvoetažni atrij i krovište (najam, montaža, demontaža)', spec: 'Radna visina do 6.2 m uz zaštitu podova OSB pločama', qty: 1, unit: 'kpl', zones: ['01', '03', '04', '07'] },
-  { category: 'Zidovi i stropovi', item: 'Impregnacija, gletanje i vapneni štuk (NCS S 1505-Y30R)', spec: '2 ruke mineralne vapnene boje u toplom bež tonu na zidove', qty: 159.2, unit: 'm²', zones: ['01', '02', '03', '05', '06', '08', '09', '11'] },
-  { category: 'Zidovi i stropovi', item: 'Ličenje kosih i ravnih stropova toplom bijelom bojom (NCS S 0502-Y)', spec: 'Uključuje potkrovlje do sljemena i suhe zone kata', qty: 84.0, unit: 'm²', zones: ['07', '09', '10', '11'] },
-  { category: 'Zidovi i stropovi', item: 'Izbijeljena vapnena lazura na dimnjaku od crvene opeke (limewash)', spec: 'Visina 5.98 m, paropropusna lazura u 2 sloja s vidljivom fugom', qty: 11.0, unit: 'm²', zones: ['04'] },
-  { category: 'Zidovi i stropovi', item: 'Demontaža tamnih dasaka na istočnom zidu + zbrinjavanje', spec: 'Prizemlje i podest stepenica (5.65 × 4.05 m)', qty: 23.0, unit: 'm²', zones: ['05', '06'] },
-  { category: 'Zidovi i stropovi', item: 'Akustični panel-zid — vertikalne hrastove letvice na crnom PET filcu', spec: 'Letvice 27 × 19 mm, razmak 13 mm, uključeno +8 % za izreze oko prozora', qty: 24.8, unit: 'm²', zones: ['05', '06'] },
+  { category: 'Zidovi i stropovi', item: 'Skela za dvoetažni atrij i krovište (najam, montaža, demontaža)', spec: 'Radna visina do 6.2 m uz zaštitu podova OSB pločama', qty: 1, unit: 'kpl', zones: ['04', '06', '12'] },
+  { category: 'Zidovi i stropovi', item: 'Impregnacija, gletanje i vapneni štuk (NCS S 1505-Y30R)', spec: '2 ruke mineralne vapnene boje na zidove Pr i Pk', qty: 235.2, unit: 'm²', zones: ['04', '05', '06', '07', '09', '13', '15'] },
+  { category: 'Zidovi i stropovi', item: 'Ličenje kosih i ravnih stropova toplom bijelom bojom (NCS S 0502-Y)', spec: 'Potkrovlje do sljemena + suhe zone kata i sjevernog prizemlja', qty: 118.0, unit: 'm²', zones: ['09', '12', '14', '15'] },
+  { category: 'Zidovi i stropovi', item: 'Izbijeljena vapnena lazura na dimnjaku od crvene opeke (limewash)', spec: 'Visina 5.98 m, paropropusna lazura u 2 sloja s vidljivom fugom', qty: 11.0, unit: 'm²', zones: ['06'] },
+  { category: 'Zidovi i stropovi', item: 'Demontaža tamnih dasaka na istočnom zidu + akustični zid od hrastovih letvica', spec: 'Uklanjanje dasaka i montaža letvica 27 × 19 mm na crnom PET filcu (+8 %)', qty: 24.8, unit: 'm²', zones: ['07', '12'] },
 
-  // Stolarija
-  { category: 'Stolarija', item: 'Brušenje i ebonizirano lazurno močenje 3 krovnih rešetki i podrožnica', spec: 'Ton RAL 9005/8022 mat + osvježenje crnih čeličnih čvorova', qty: 26.0, unit: 'm²', zones: ['07'] },
-  { category: 'Stolarija', item: 'Ebonizirana lazura na rukohvatu galerije i sjevernom dovratniku', spec: 'Rukohvat 7.0 m + dovratnik 90 × 205 cm + stepenišni prozor', qty: 1, unit: 'kpl', zones: ['01', '06', '08'] },
-  { category: 'Stolarija', item: 'Brušenje i protuklizno mat uljenje 15 hrastovih gazišta stepenica + komode', spec: 'Stepenište 6.2 m² + hrastova komoda s vinotekom', qty: 1, unit: 'kpl', zones: ['06'] },
+  // Stolarija i krovište
+  { category: 'Stolarija i krovište', item: 'Brušenje i ebonizirano lazurno močenje 3 rešetke, podrožnica i podignutih greda', spec: 'Ton RAL 9005/8022 mat + osvježenje crnih čeličnih čvornih okova', qty: 30.0, unit: 'm²', zones: ['12'] },
+  { category: 'Stolarija i krovište', item: 'Ebonizirana lazura na rukohvatu galerije i sjevernim dovratnicima', spec: 'Rukohvat 7.0 m + dovratnici R2_D1 i Pr', qty: 1, unit: 'kpl', zones: ['04', '12', '13'] },
+  { category: 'Stolarija i krovište', item: 'Brušenje i protuklizno mat uljenje 14 lebdećih gazišta L-stepenica + komode', spec: 'Otvorena gazišta bez čela + hrastova komoda s vinotekom', qty: 1, unit: 'kpl', zones: ['12'] },
 
   // Keramika i kamen
-  { category: 'Keramika i kamen', item: 'Polimercementna hidroizolacija u 2 sloja s kutnim brtvenim trakama', spec: 'Pod kupaonice, uzdignuća i zona kade do stropa', qty: 24.0, unit: 'm²', zones: ['10'] },
-  { category: 'Keramika i kamen', item: 'Mat travertin porculan 60 × 120 cm — pod i zidovi kupaonice', spec: 'Uključeno +12 % otpada, C2TE S1 ljepilo, epoksi/fleksibilna fuga i silikon', qty: 26.0, unit: 'm²', zones: ['10'] },
-  { category: 'Keramika i kamen', item: 'Kamena radna ploča i zidna obloga kuhinje od mat travertina (d = 20/30 mm)', spec: 'Ploča 290 × 71 cm s izrezima + obloga 2.4 m² s otvorima za utičnice', qty: 1, unit: 'kpl', zones: ['02'] },
+  { category: 'Keramika i kamen', item: 'Polimercementna hidroizolacija u 2 sloja (Kupaonica Pr, Spa Kupaonica Pk, Balkon SE)', spec: 'Podovi, uzdignuća, walk-in tuš i zona kade + brtvene trake', qty: 46.5, unit: 'm²', zones: ['08', '09', '14'] },
+  { category: 'Keramika i kamen', item: 'Mat travertin porculan 60 × 120 cm (R10/R11) — Kupaonice Pr/Pk i Balkon SE', spec: 'Uključeno +12 % otpada, C2TE S1 ljepilo, epoksi/fleksibilna fuga i okapnice', qty: 53.0, unit: 'm²', zones: ['08', '09', '14'] },
+  { category: 'Keramika i kamen', item: 'Kamena radna ploča i zidna obloga kuhinje od mat travertina (d = 20/30 mm)', spec: 'Ploča 290 × 71 cm s izrezima + obloga 2.4 m² s otvorima za utičnice', qty: 1, unit: 'kpl', zones: ['05'] },
 
   // Vodovod i sanitarije
-  { category: 'Vodovod i sanitarije', item: 'Komplet armatura u PVD brušenoj mjedi (kada, umivaonik, kuhinja)', spec: 'Zidna miješalica kade + ručni tuš, slavina umivaonika, kuhinjska slavina + tipkalo WC-a', qty: 4, unit: 'kom', zones: ['02', '10'] },
-  { category: 'Vodovod i sanitarije', item: 'Konzolna rimless WC školjka, crni kuhinjski sudoper i sifoni', spec: 'Montaža na postojeće priključke s ispitivanjem nepropusnosti', qty: 1, unit: 'kpl', zones: ['02', '10'] },
+  { category: 'Vodovod i sanitarije', item: 'Komplet armatura u PVD brušenoj mjedi (kada Pk, walk-in tuš Pr, 2× umivaonik, kuhinja)', spec: 'Uključuje 2× tipkala konzolnog WC-a u brušenoj mjedi', qty: 6, unit: 'kom', zones: ['05', '09', '14'] },
+  { category: 'Vodovod i sanitarije', item: 'Sanitarije (2× rimless WC, tuš kanalica 80 cm + staklo, crni kuhinjski sudoper)', spec: 'Montaža s ispitivanjem nepropusnosti', qty: 1, unit: 'kpl', zones: ['05', '09', '14'] },
 
   // Namještaj po mjeri
-  { category: 'Namještaj po mjeri', item: 'Zamjena kuhinjskih fronti (kadulja mat NCS S 4010-G50Y + furnir hrast)', spec: 'Donji elementi 290 cm (5 fronti), kolona pećnice 223 cm i gornji elementi + 2 police', qty: 1, unit: 'kpl', zones: ['02'] },
-  { category: 'Namještaj po mjeri', item: 'Lebdeća hrastova TV komoda 210 × 41 × 32 cm s LED utorom', spec: 'Uključuje čeličnu zidnu nosivu šinu kroz akustični panel', qty: 1, unit: 'kom', zones: ['05'] },
-  { category: 'Namještaj po mjeri', item: 'Nove fronte peterokrilnog garderobnog ormara 267 × 213 cm', spec: 'Furnir svijetli hrast mat, 5 crnih/mjed ručkica l = 60 cm, soft-close panti', qty: 5, unit: 'kom', zones: ['09'] },
-  { category: 'Namještaj po mjeri', item: 'Lebdeći hrastov kupaonski ormarić 100 × 46 × 46 cm s 2 ladice', spec: 'Vodootporna izvedba s gornjom pločom od mat kamena', qty: 1, unit: 'kom', zones: ['10'] },
-  { category: 'Namještaj po mjeri', item: 'Okruglo halo ogledalo Ø 94 cm s toplim LED pozadinskim svjetlom (IP44)', spec: '2700 K, ugradbena dubina 35 mm', qty: 1, unit: 'kom', zones: ['10'] },
+  { category: 'Namještaj po mjeri', item: 'Zamjena kuhinjskih fronti (kadulja mat NCS S 4010-G50Y + furnir hrast)', spec: 'Donji elementi 290 cm, kolona pećnice 223 cm i gornji elementi + 2 police', qty: 1, unit: 'kpl', zones: ['05'] },
+  { category: 'Namještaj po mjeri', item: 'Lebdeća hrastova TV komoda 210 × 41 × 32 cm s LED utorom', spec: 'Čelična zidna nosiva šina kroz akustični panel', qty: 1, unit: 'kom', zones: ['07'] },
+  { category: 'Namještaj po mjeri', item: 'Nove fronte peterokrilnog garderobnog ormara 267 × 213 cm', spec: 'Furnir svijetli hrast mat, 5 crnih ručkica l = 60 cm, soft-close panti', qty: 5, unit: 'kom', zones: ['15'] },
+  { category: 'Namještaj po mjeri', item: '2× lebdeća hrastova kupaonska ormarića (100 cm Pk + 80 cm Pr) i halo ogledala', spec: 'Vodootporni hrast s kamenom pločom + okruglo halo ogledalo Ø 94 cm (IP44)', qty: 2, unit: 'kpl', zones: ['09', '14'] },
 
   // Rasvjeta
-  { category: 'Rasvjeta', item: 'Viseće papirnate lampe u stilu Akari (2700 K, CRI > 92)', spec: '1× Ø 76 cm (blagovaonica), 3× Ø 60/48/42 cm (boravak), 1× Ø 60 cm (spavaća)', qty: 5, unit: 'kom', zones: ['03', '05', '11'] },
-  { category: 'Rasvjeta', item: 'Zidne, stropne i stolne svjetiljke (2700 K)', spec: '2× dimnjačne gore/dolje mat crne, 2× stolne papirnate, 2× stropne IP20/IP44, 2× spot kuhinja', qty: 8, unit: 'kom', zones: ['01', '02', '04', '09', '10', '11'] },
-  { category: 'Rasvjeta', item: 'Linearne LED trake 2700 K, 24 V DC u aluminijskim profilima', spec: '1.05 m (kuhinja IP44), 1.96 m (TV komoda), 2.61 m (ormar) s napajanjima', qty: 5.7, unit: 'm', zones: ['02', '05', '09'] },
+  { category: 'Rasvjeta', item: 'Viseće papirnate lampe u stilu Akari (2700 K, CRI > 92)', spec: '1× Ø 76 cm (blagovaonica), 3× Ø 60/48/42 cm (boravak), 1× Ø 60 cm (spavaća)', qty: 5, unit: 'kom', zones: ['06', '07', '15'] },
+  { category: 'Rasvjeta', item: 'Vanjski LED stupići, podgled trijema, fasadne lampe i stubišni step-lighti (2700 K)', spec: '5× vrtni stupić IP65, 2× spot trijem, 6× fasada IP65, 3× step-light Po', qty: 16, unit: 'kom', zones: ['01', '02', '03', '08', '10'] },
+  { category: 'Rasvjeta', item: 'Napete sajle krovišta (8 spotova), linearne LED letve Po i unutarnje plafonjere/lampe', spec: 'Kontrola sajli krovišta + 6× IP44 letva podruma + 8× plafonjere/zidne lampe Pr/Pk', qty: 15, unit: 'kom', zones: ['04', '05', '06', '09', '10', '11', '12', '14', '15'] },
+  { category: 'Rasvjeta', item: 'Linearne LED trake 2700 K, 24 V DC u aluminijskim profilima', spec: 'Kuhinja (1.05 m), TV komoda (1.96 m), ormar (2.61 m), pergola (3.6 m), vanjske stube (16×)', qty: 18.0, unit: 'm', zones: ['02', '03', '05', '07', '15'] },
 
   // Elektro
-  { category: 'Elektro', item: 'Skriveno kabliranje LED rasvjete, bužira TV Ø 50 mm i visinskih ovjesa', spec: 'Uključuje štemanje/uvlačenje vodiča, izvod za halo ogledalo i izmjenu maski prekidača', qty: 1, unit: 'kpl', zones: ['02', '03', '05', '07', '09', '10', '11'] },
-  { category: 'Elektro', item: 'Termootporno mat crno lakiranje obloga peći na pelete', spec: 'Bočne oplate do 300 °C + kontrola dimovoda Ø 130 mm', qty: 1, unit: 'kpl', zones: ['04'] },
+  { category: 'Elektro', item: 'Skriveno kabliranje, TV bužir Ø 50 mm, priprema Wallbox 11 kW, portafon i sajle ovjesi', spec: 'Kompletna prilagodba Po + Pr + Pk + Vrt s mjerenjem otpora izolacije i FID zaštite', qty: 1, unit: 'kpl', zones: ['01', '02', '03', '05', '07', '09', '10', '11', '12', '14', '15'] },
+  { category: 'Elektro', item: 'Termootporno mat crno lakiranje obloga peći na pelete', spec: 'Bočne oplate do 300 °C + kontrola dimovoda Ø 130 mm', qty: 1, unit: 'kpl', zones: ['06'] },
 
-  // Dekor i tekstil (dobava opreme po dogovoru s investitorom)
-  { category: 'Dekor i tekstil', item: 'Okrugli stol od travertina Ø 136 cm + 6× hrast/bouclé blagovaonskih stolica', spec: 'Unos i montaža na licu mjesta', qty: 1, unit: 'kpl', zones: ['03'] },
-  { category: 'Dekor i tekstil', item: 'Krem bouclé L-garnitura 282 × 227 cm + kožna fotelja + hrast/travertin stolići', spec: 'Uključuje tkani vuneni tepih 276 × 225 cm', qty: 1, unit: 'kpl', zones: ['05'] },
-  { category: 'Dekor i tekstil', item: 'Lebdeći hrastov bračni krevet 180 × 200 cm s bouclé uzglavljem + 2× noćni stolić', spec: 'Uključuje vuneni tepih 254 × 257 cm', qty: 1, unit: 'kpl', zones: ['11'] },
-  { category: 'Dekor i tekstil', item: 'Lanene rimske rolete za južnu staklenu stijenu + vuneni tepih Ø 190 cm (soba 09)', spec: 'Mjerenje špalete na licu mjesta prije šivanja', qty: 1, unit: 'kpl', zones: ['03', '04', '09'] }
+  // Dekor i tekstil
+  { category: 'Dekor i tekstil', item: 'Okrugli stol od travertina Ø 136 cm + 6× hrast/bouclé blagovaonskih stolica', spec: 'Unos i montaža na licu mjesta', qty: 1, unit: 'kpl', zones: ['06'] },
+  { category: 'Dekor i tekstil', item: 'Krem bouclé L-garnitura 282 × 227 cm + kožna fotelja + hrast/travertin stolići + tepih', spec: 'Tkani vuneni tepih 276 × 225 cm', qty: 1, unit: 'kpl', zones: ['07'] },
+  { category: 'Dekor i tekstil', item: 'Lebdeći hrastov bračni krevet 180 × 200 cm s bouclé uzglavljem + kreveti Sobe 1 i 2 Pr', spec: 'Uključuje vunene tepihe i noćne stoliće', qty: 1, unit: 'kpl', zones: ['09', '15'] },
+  { category: 'Dekor i tekstil', item: 'Lanene rimske rolete za južnu staklenu stijenu i prozore spavaćih soba', spec: 'Mjerenje špaleta na licu mjesta prije šivanja', qty: 1, unit: 'kpl', zones: ['06', '09', '15'] }
 ];
 
 export const PLANS = [
   {
-    id: 'prizemlje-redizajn',
-    floor: 'Prizemlje',
+    id: 'situacija-redizajn',
+    floor: 'Situacija & 3D Vrt',
     interior: 'redesign',
-    title: 'Prizemlje (kota 0.00 m) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_prizemlje_redizajn.png?v=7',
-    widthPx: 1600,
-    heightPx: 1432,
-    world: { xMin: -4.75, xMax: 4.75, yMin: -5.4512, yMax: 3.0512 },
+    title: 'Situacija parcele i 3D Vrt (prilaz Banfi, 2P, pergola) — Redizajn ✦ Japandi Calm',
+    image: './assets/plan_situacija_redizajn.png?v=8',
+    widthPx: 1920,
+    heightPx: 1680,
+    world: { xMin: -16.5, xMax: 17.9, yMin: -16.05, yMax: 14.05 },
     rooms: [
-      { code: '01', stop: 0, label: '01 Atrij', x: -0.05, y: 1.78 },
-      { code: '02', stop: 1, label: '02 Kuhinja', x: -2.85, y: -1.65 },
-      { code: '03', stop: 2, label: '03 Blagovaonica', x: -1.86, y: -3.23 },
-      { code: '04', stop: 3, label: '04 Kamin', x: 0.02, y: -4.42 },
-      { code: '05', stop: 4, label: '05 Boravak', x: 2.05, y: -2.95 },
-      { code: '06', stop: 5, label: '06 Stepenište', x: 3.65, y: -0.95 }
+      { code: '01', stop: 0, label: '01 Prilaz & 2P', x: 6.2, y: -6.8 },
+      { code: '02', stop: 1, label: '02 Pergola & 3D Vrt', x: -9.8, y: -2.5 },
+      { code: '03', stop: 2, label: '03 Trijem & stubište', x: -5.2, y: -3.0 },
+      { code: '08', stop: 7, label: '08 Balkon SE', x: 0.0, y: -6.0 }
     ],
     dims: [
-      { x1: -4.35, y1: -5.0, x2: 4.25, y2: -5.0, text: '8.60 m (unutarnja širina)', offset: -0.26 },
-      { x1: -4.35, y1: -5.0, x2: -4.35, y2: 0.94, text: '5.94 m', offset: 0.24 },
-      { x1: -4.35, y1: -5.01, x2: -4.35, y2: -0.53, text: '4.48 m (kuhinjski niz)', offset: -0.48 },
-      { x1: -2.54, y1: -3.91, x2: -1.18, y2: -3.91, text: 'Ø 1.36 m', offset: -0.25 },
-      { x1: -0.65, y1: 2.65, x2: 0.95, y2: 2.65, text: '1.60 m', offset: 0.22 },
-      { x1: 1.16, y1: 0.56, x2: 2.92, y2: 0.56, text: '1.76 m komoda', offset: -0.32 }
+      { x1: -13.5, y1: -11.5, x2: 11.2, y2: -11.5, text: '24.7 m uređeni obuhvat parcele', offset: -0.6 },
+      { x1: -4.5, y1: -5.1, x2: 5.59, y2: -5.1, text: '10.09 m', offset: -1.35 },
+      { x1: 5.59, y1: -5.1, x2: 5.59, y2: 5.08, text: '10.18 m', offset: -0.9 }
+    ]
+  },
+  {
+    id: 'podrum-redizajn',
+    floor: 'Podrum (-2.73 m)',
+    interior: 'redesign',
+    title: 'Podrum — Po (kota -2.73 m: Garaža, Radna, Vešeraj, Kotlovnica) — Redizajn ✦ Japandi Calm',
+    image: './assets/plan_podrum_redizajn.png?v=8',
+    widthPx: 1600,
+    heightPx: 1480,
+    world: { xMin: -7.0, xMax: 6.6, yMin: -6.49, yMax: 6.09 },
+    rooms: [
+      { code: '10', stop: 9, label: '10 U-stubište', x: -2.2, y: 1.75 },
+      { code: '10', stop: 9, label: '10 Vešeraj', x: -1.8, y: 3.85 },
+      { code: '10', stop: 9, label: '10 Kotlovnica', x: 3.1, y: 3.2 },
+      { code: '11', stop: 10, label: '11 Garaža', x: 1.3, y: -2.2 },
+      { code: '11', stop: 10, label: '11 Radna soba', x: -3.0, y: -0.9 }
+    ],
+    dims: [
+      { x1: -1.72, y1: -4.9, x2: 4.24, y2: -4.9, text: '5.96 m garaža', offset: -0.45 },
+      { x1: -1.46, y1: -5.05, x2: 3.94, y2: -5.05, text: '5.40 m garažna vrata', offset: -0.95 },
+      { x1: -4.24, y1: -2.35, x2: -1.88, y2: -2.35, text: '2.36 m radna', offset: -0.4 },
+      { x1: -3.68, y1: 4.88, x2: 0.58, y2: 4.88, text: '4.26 m vešeraj', offset: 0.35 },
+      { x1: 0.7, y1: 4.88, x2: 5.44, y2: 4.88, text: '4.74 m kotlovnica', offset: 0.35 }
+    ]
+  },
+  {
+    id: 'prizemlje-redizajn',
+    floor: 'Prizemlje (0.00 m)',
+    interior: 'redesign',
+    title: 'Prizemlje — Pr (kota 0.00 m: 3D Vrt, Trijem, Loft + Sjeverno krilo) — Redizajn ✦ Japandi Calm',
+    image: './assets/plan_prizemlje_redizajn.png?v=8',
+    widthPx: 1860,
+    heightPx: 1340,
+    world: { xMin: -12.3, xMax: 6.3, yMin: -7.2, yMax: 6.2 },
+    rooms: [
+      { code: '02', stop: 1, label: '02 Pergola & 3D Vrt', x: -9.6, y: -2.5 },
+      { code: '03', stop: 2, label: '03 Ulazni trijem', x: -5.2, y: -0.2 },
+      { code: '04', stop: 3, label: '04 Atrij', x: -1.2, y: 0.0 },
+      { code: '05', stop: 4, label: '05 Kuhinja', x: -3.1, y: -2.3 },
+      { code: '06', stop: 5, label: '06 Blagovaonica', x: -1.8, y: -3.6 },
+      { code: '07', stop: 6, label: '07 Boravak', x: 1.8, y: -2.8 },
+      { code: '08', stop: 7, label: '08 Balkon SE', x: 0.0, y: -5.7 },
+      { code: '09', stop: 8, label: '09 Soba 1 SZ', x: -1.9, y: 3.8 },
+      { code: '09', stop: 8, label: '09 Kupaonica Pr', x: 1.3, y: 3.8 },
+      { code: '09', stop: 8, label: '09 Soba 2 SI', x: 4.0, y: 3.1 }
+    ],
+    dims: [
+      { x1: -4.35, y1: -5.0, x2: 4.25, y2: -5.0, text: '8.60 m južni loft', offset: -0.42 },
+      { x1: -2.95, y1: -6.1, x2: 2.95, y2: -6.1, text: '5.90 m balkon SE', offset: -0.45 },
+      { x1: -3.68, y1: 4.88, x2: 0.1, y2: 4.88, text: '3.78 m Soba 1', offset: 0.32 },
+      { x1: 0.2, y1: 4.88, x2: 2.42, y2: 4.88, text: '2.22 m Kup Pr', offset: 0.32 },
+      { x1: 2.54, y1: 4.88, x2: 5.44, y2: 4.88, text: '2.90 m Soba 2', offset: 0.32 }
     ]
   },
   {
     id: 'kat-redizajn',
-    floor: 'Kat & sjeverno krilo',
+    floor: 'Potkrovlje (+2.73 m)',
     interior: 'redesign',
-    title: 'Kat (+2.74 m) & Sjeverno krilo (+2.73 m) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_kat_redizajn.png?v=7',
+    title: 'Potkrovlje — Pk (kota +2.73 / +2.74 m: Galerija, Most, Kupaonica, Spavaća) — Redizajn ✦ Japandi Calm',
+    image: './assets/plan_kat_redizajn.png?v=8',
     widthPx: 1600,
-    heightPx: 1615,
-    world: { xMin: -4.75, xMax: 5.95, yMin: -5.4502, yMax: 5.3502 },
+    heightPx: 1520,
+    world: { xMin: -5.1, xMax: 6.3, yMin: -5.465, yMax: 5.365 },
     rooms: [
-      { code: '08', stop: 7, label: '08 Galerija', x: -2.35, y: -0.55 },
-      { code: '09', stop: 8, label: '09 Garderoba', x: -0.15, y: 2.55 },
-      { code: '10', stop: 9, label: '10 Kupaonica', x: -2.55, y: 3.05 },
-      { code: '11', stop: 10, label: '11 Spavaća soba', x: 3.72, y: 3.45 }
+      { code: '12', stop: 11, label: '12 Stepenište & grede', x: 2.6, y: -0.8 },
+      { code: '13', stop: 12, label: '13 Most & galerija', x: -2.2, y: -0.5 },
+      { code: '14', stop: 13, label: '14 Kupaonica Pk', x: -2.55, y: 3.05 },
+      { code: '15', stop: 14, label: '15 Garderoba', x: 0.3, y: 2.6 },
+      { code: '15', stop: 14, label: '15 Spavaća soba', x: 3.75, y: 3.45 }
     ],
     dims: [
       { x1: -3.68, y1: 4.88, x2: -1.35, y2: 4.88, text: '2.33 m', offset: 0.26 },
@@ -732,59 +1008,106 @@ export const PLANS = [
       { x1: 2.01, y1: 4.88, x2: 5.44, y2: 4.88, text: '3.43 m', offset: 0.26 },
       { x1: 5.44, y1: 1.16, x2: 5.44, y2: 4.88, text: '3.72 m', offset: -0.28 },
       { x1: -4.32, y1: -2.1, x2: -0.28, y2: -2.1, text: '4.04 m (galerija)', offset: -0.28 },
-      { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 },
-      { x1: -0.28, y1: -0.22, x2: 0.15, y2: -0.22, text: '0.43 m most', offset: -0.26 },
-      { x1: 1.55, y1: 2.17, x2: 1.55, y2: 4.84, text: '2.67 m ormar', offset: 0.55 }
+      { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 }
+    ]
+  },
+  {
+    id: 'situacija-postojece',
+    floor: 'Situacija & 3D Vrt',
+    interior: 'current',
+    title: 'Situacija parcele i 3D Vrt (prilaz Banfi, 2P, pergola) — Postojeće stanje (1:1)',
+    image: './assets/plan_situacija_postojece.png?v=8',
+    widthPx: 1920,
+    heightPx: 1680,
+    world: { xMin: -16.5, xMax: 17.9, yMin: -16.05, yMax: 14.05 },
+    rooms: [
+      { code: '01', stop: 0, label: '01 Prilaz & 2P', x: 6.2, y: -6.8 },
+      { code: '02', stop: 1, label: '02 Pergola & 3D Vrt', x: -9.8, y: -2.5 },
+      { code: '03', stop: 2, label: '03 Trijem & stubište', x: -5.2, y: -3.0 },
+      { code: '08', stop: 7, label: '08 Balkon SE', x: 0.0, y: -6.0 }
+    ],
+    dims: [
+      { x1: -13.5, y1: -11.5, x2: 11.2, y2: -11.5, text: '24.7 m uređeni obuhvat parcele', offset: -0.6 },
+      { x1: -4.5, y1: -5.1, x2: 5.59, y2: -5.1, text: '10.09 m', offset: -1.35 },
+      { x1: 5.59, y1: -5.1, x2: 5.59, y2: 5.08, text: '10.18 m', offset: -0.9 }
+    ]
+  },
+  {
+    id: 'podrum-postojece',
+    floor: 'Podrum (-2.73 m)',
+    interior: 'current',
+    title: 'Podrum — Po (kota -2.73 m: Garaža, Radna, Vešeraj, Kotlovnica) — Postojeće stanje (1:1)',
+    image: './assets/plan_podrum_postojece.png?v=8',
+    widthPx: 1600,
+    heightPx: 1480,
+    world: { xMin: -7.0, xMax: 6.6, yMin: -6.49, yMax: 6.09 },
+    rooms: [
+      { code: '10', stop: 9, label: '10 U-stubište', x: -2.2, y: 1.75 },
+      { code: '10', stop: 9, label: '10 Vešeraj', x: -1.8, y: 3.85 },
+      { code: '10', stop: 9, label: '10 Kotlovnica', x: 3.1, y: 3.2 },
+      { code: '11', stop: 10, label: '11 Garaža', x: 1.3, y: -2.2 },
+      { code: '11', stop: 10, label: '11 Radna soba', x: -3.0, y: -0.9 }
+    ],
+    dims: [
+      { x1: -1.72, y1: -4.9, x2: 4.24, y2: -4.9, text: '5.96 m garaža', offset: -0.45 },
+      { x1: -1.46, y1: -5.05, x2: 3.94, y2: -5.05, text: '5.40 m garažna vrata', offset: -0.95 },
+      { x1: -4.24, y1: -2.35, x2: -1.88, y2: -2.35, text: '2.36 m radna', offset: -0.4 },
+      { x1: -3.68, y1: 4.88, x2: 0.58, y2: 4.88, text: '4.26 m vešeraj', offset: 0.35 },
+      { x1: 0.7, y1: 4.88, x2: 5.44, y2: 4.88, text: '4.74 m kotlovnica', offset: 0.35 }
     ]
   },
   {
     id: 'prizemlje-postojece',
-    floor: 'Prizemlje',
+    floor: 'Prizemlje (0.00 m)',
     interior: 'current',
-    title: 'Prizemlje (kota 0.00 m) — Postojeće stanje (LiDAR 1:1)',
-    image: './assets/plan_prizemlje_postojece.png?v=7',
-    widthPx: 1600,
-    heightPx: 1432,
-    world: { xMin: -4.75, xMax: 4.75, yMin: -5.4512, yMax: 3.0512 },
+    title: 'Prizemlje — Pr (kota 0.00 m: 3D Vrt, Trijem, Loft + Sjeverno krilo) — Postojeće stanje (LiDAR 1:1)',
+    image: './assets/plan_prizemlje_postojece.png?v=8',
+    widthPx: 1860,
+    heightPx: 1340,
+    world: { xMin: -12.3, xMax: 6.3, yMin: -7.2, yMax: 6.2 },
     rooms: [
-      { code: '01', stop: 0, label: '01 Atrij', x: -0.05, y: 1.78 },
-      { code: '02', stop: 1, label: '02 Kuhinja', x: -2.85, y: -1.65 },
-      { code: '03', stop: 2, label: '03 Blagovaonica', x: -1.86, y: -3.23 },
-      { code: '04', stop: 3, label: '04 Kamin', x: 0.02, y: -4.42 },
-      { code: '05', stop: 4, label: '05 Boravak', x: 2.05, y: -2.95 },
-      { code: '06', stop: 5, label: '06 Stepenište', x: 3.65, y: -0.95 }
+      { code: '02', stop: 1, label: '02 Pergola & 3D Vrt', x: -9.6, y: -2.5 },
+      { code: '03', stop: 2, label: '03 Ulazni trijem', x: -5.2, y: -0.2 },
+      { code: '04', stop: 3, label: '04 Atrij', x: -1.2, y: 0.0 },
+      { code: '05', stop: 4, label: '05 Kuhinja', x: -3.1, y: -2.3 },
+      { code: '06', stop: 5, label: '06 Blagovaonica', x: -1.8, y: -3.6 },
+      { code: '07', stop: 6, label: '07 Boravak', x: 1.8, y: -2.8 },
+      { code: '08', stop: 7, label: '08 Balkon SE', x: 0.0, y: -5.7 },
+      { code: '09', stop: 8, label: '09 Soba 1 SZ', x: -1.9, y: 3.8 },
+      { code: '09', stop: 8, label: '09 Kupaonica Pr', x: 1.3, y: 3.8 },
+      { code: '09', stop: 8, label: '09 Soba 2 SI', x: 4.0, y: 3.1 }
     ],
     dims: [
-      { x1: -4.35, y1: -5.0, x2: 4.25, y2: -5.0, text: '8.60 m (unutarnja širina)', offset: -0.26 },
-      { x1: -4.35, y1: -5.0, x2: -4.35, y2: 0.94, text: '5.94 m', offset: 0.24 },
-      { x1: -4.35, y1: -5.01, x2: -4.35, y2: -0.53, text: '4.48 m', offset: -0.48 },
-      { x1: -2.39, y1: -4.2, x2: -1.34, y2: -4.2, text: '1.05 × 1.93 m stol', offset: -0.25 },
-      { x1: -0.65, y1: 2.65, x2: 0.95, y2: 2.65, text: '1.60 m', offset: 0.22 }
+      { x1: -4.35, y1: -5.0, x2: 4.25, y2: -5.0, text: '8.60 m južni loft', offset: -0.42 },
+      { x1: -2.95, y1: -6.1, x2: 2.95, y2: -6.1, text: '5.90 m balkon SE', offset: -0.45 },
+      { x1: -3.68, y1: 4.88, x2: 0.1, y2: 4.88, text: '3.78 m Soba 1', offset: 0.32 },
+      { x1: 0.2, y1: 4.88, x2: 2.42, y2: 4.88, text: '2.22 m Kup Pr', offset: 0.32 },
+      { x1: 2.54, y1: 4.88, x2: 5.44, y2: 4.88, text: '2.90 m Soba 2', offset: 0.32 }
     ]
   },
   {
     id: 'kat-postojece',
-    floor: 'Kat & sjeverno krilo',
+    floor: 'Potkrovlje (+2.73 m)',
     interior: 'current',
-    title: 'Kat (+2.74 m) & Sjeverno krilo (+2.73 m) — Postojeće stanje (LiDAR 1:1)',
-    image: './assets/plan_kat_postojece.png?v=7',
+    title: 'Potkrovlje — Pk (kota +2.73 / +2.74 m: Galerija, Most, Kupaonica, Spavaća) — Postojeće stanje (LiDAR 1:1)',
+    image: './assets/plan_kat_postojece.png?v=8',
     widthPx: 1600,
-    heightPx: 1615,
-    world: { xMin: -4.75, xMax: 5.95, yMin: -5.4502, yMax: 5.3502 },
+    heightPx: 1520,
+    world: { xMin: -5.1, xMax: 6.3, yMin: -5.465, yMax: 5.365 },
     rooms: [
-      { code: '08', stop: 7, label: '08 Galerija', x: -2.35, y: -0.55 },
-      { code: '09', stop: 8, label: '09 Garderoba', x: -0.15, y: 2.55 },
-      { code: '10', stop: 9, label: '10 Kupaonica', x: -2.55, y: 3.05 },
-      { code: '11', stop: 10, label: '11 Spavaća soba', x: 3.72, y: 3.45 }
+      { code: '12', stop: 11, label: '12 Stepenište & grede', x: 2.6, y: -0.8 },
+      { code: '13', stop: 12, label: '13 Most & galerija', x: -2.2, y: -0.5 },
+      { code: '14', stop: 13, label: '14 Kupaonica Pk', x: -2.55, y: 3.05 },
+      { code: '15', stop: 14, label: '15 Garderoba', x: 0.3, y: 2.6 },
+      { code: '15', stop: 14, label: '15 Spavaća soba', x: 3.75, y: 3.45 }
     ],
     dims: [
       { x1: -3.68, y1: 4.88, x2: -1.35, y2: 4.88, text: '2.33 m', offset: 0.26 },
       { x1: -1.45, y1: 4.88, x2: 1.91, y2: 4.88, text: '3.36 m', offset: 0.26 },
       { x1: 2.01, y1: 4.88, x2: 5.44, y2: 4.88, text: '3.43 m', offset: 0.26 },
       { x1: 5.44, y1: 1.16, x2: 5.44, y2: 4.88, text: '3.72 m', offset: -0.28 },
-      { x1: -4.32, y1: -2.1, x2: -0.28, y2: -2.1, text: '4.04 m', offset: -0.28 },
-      { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 },
-      { x1: -0.28, y1: -0.22, x2: 0.15, y2: -0.22, text: '0.43 m most', offset: -0.26 }
+      { x1: -4.32, y1: -2.1, x2: -0.28, y2: -2.1, text: '4.04 m (galerija)', offset: -0.28 },
+      { x1: -4.32, y1: -2.1, x2: -4.32, y2: 0.85, text: '2.95 m', offset: 0.24 }
     ]
   }
 ];

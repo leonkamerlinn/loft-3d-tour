@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0d0c0b" />
-  <meta name="description" content="Interaktivna 1:1 3D šetnja dvoetažnim loftom rekonstruiranim iz Apple LiDAR RoomPlan skena." />
-  <title>Dvoetažni Loft 1:1 — 3D šetnja: postojeći interijer i redizajn Japandi</title>
+  <meta name="description" content="Interaktivna 1:1 3D šetnja kompletne kuće Po+Pr+Pk (Banfi 201A) i 3D vrta iz arhitektonskih nacrta i Apple LiDAR skena." />
+  <title>Kuća Banfi 201A (Po+Pr+Pk + 3D Vrt) — 3D šetnja: postojeće i Japandi redizajn</title>
   <script>
     document.documentElement.dataset.interior =
       new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
   </script>
-  <link rel="stylesheet" href="./styles.css?v=7" />
+  <link rel="stylesheet" href="./styles.css?v=8" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
     {
@@ -44,8 +44,8 @@
     <div class="brand">
       <span class="brand-dot" aria-hidden="true"></span>
       <div>
-        <div class="brand-title">LOFT 1:1</div>
-        <div class="brand-sub">10.09 × 10.18 × 6.19 m • 3× LiDAR + PBR</div>
+        <div class="brand-title">BANFI 201A • 1:1</div>
+        <div class="brand-sub">Po + Pr + Pk + 3D Vrt • LiDAR + PBR</div>
       </div>
     </div>
 
@@ -56,17 +56,21 @@
     </div>
 
     <nav id="room-nav" class="room-nav" aria-label="Prostorije">
-      <button type="button" class="nav-pill active" data-stop="0" aria-current="step"><span>01</span>Atrij</button>
-      <button type="button" class="nav-pill" data-stop="1"><span>02</span>Kuhinja</button>
-      <button type="button" class="nav-pill" data-stop="2"><span>03</span>Blagovaonica</button>
-      <button type="button" class="nav-pill" data-stop="3"><span>04</span>Kamin</button>
-      <button type="button" class="nav-pill" data-stop="4"><span>05</span>Boravak</button>
-      <button type="button" class="nav-pill" data-stop="5"><span>06</span>Stepenište</button>
-      <button type="button" class="nav-pill" data-stop="6"><span>07</span>Krovište</button>
-      <button type="button" class="nav-pill" data-stop="7"><span>08</span>Galerija</button>
-      <button type="button" class="nav-pill" data-stop="8"><span>09</span>Garderoba</button>
-      <button type="button" class="nav-pill" data-stop="9"><span>10</span>Kupaonica</button>
-      <button type="button" class="nav-pill" data-stop="10"><span>11</span>Spavaća</button>
+      <button type="button" class="nav-pill active" data-stop="0" aria-current="step"><span>01</span>Eksterijer</button>
+      <button type="button" class="nav-pill" data-stop="1"><span>02</span>3D Vrt</button>
+      <button type="button" class="nav-pill" data-stop="2"><span>03</span>Trijem</button>
+      <button type="button" class="nav-pill" data-stop="3"><span>04</span>Atrij</button>
+      <button type="button" class="nav-pill" data-stop="4"><span>05</span>Kuhinja</button>
+      <button type="button" class="nav-pill" data-stop="5"><span>06</span>Blagovaonica</button>
+      <button type="button" class="nav-pill" data-stop="6"><span>07</span>Boravak</button>
+      <button type="button" class="nav-pill" data-stop="7"><span>08</span>Balkon SE</button>
+      <button type="button" class="nav-pill" data-stop="8"><span>09</span>Prizemlje S</button>
+      <button type="button" class="nav-pill" data-stop="9"><span>10</span>Kotlovnica</button>
+      <button type="button" class="nav-pill" data-stop="10"><span>11</span>Garaža</button>
+      <button type="button" class="nav-pill" data-stop="11"><span>12</span>Krovište</button>
+      <button type="button" class="nav-pill" data-stop="12"><span>13</span>Galerija</button>
+      <button type="button" class="nav-pill" data-stop="13"><span>14</span>Kupaonica</button>
+      <button type="button" class="nav-pill" data-stop="14"><span>15</span>Spavaća</button>
     </nav>
 
     <div class="hud-actions">
@@ -127,367 +131,487 @@
 
   <!-- Scrollable Story Sections (Drive the 3D Camera Path) -->
   <main id="scroll-container" class="scroll-container">
-    <!-- 01 Atrij -->
+    <!-- 01 Eksterijer, prilaz Banfi i parcela -->
     <section class="story-section" data-index="0">
       <article class="room-card side-left">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">01 / 11</span>
-          <span class="elev-tag">PRIZEMLJE • +0.00 m</span>
-        </div>
-        <h2>Ulazni pogled &amp; dvoetažni atrij</h2>
-        <p>
-          Dobrodošli u interaktivnu <strong>1:1 3D rekonstrukciju</strong> izrađenu izravno iz Apple LiDAR RoomPlan skena i referentnih fotografija. Krenite dalje i prođite kroz sve zone prizemlja, a zatim se lebdećim stepeništem popnite na gornju galeriju.
-        </p>
-        <div class="spec-grid">
-          <div><span>Tlocrt</span><strong>10.09 × 10.18 m</strong></div>
-          <div><span>Visina sljemena</span><strong>6.19 m</strong></div>
-          <div><span>Skenovi</span><strong>Room 1 + Room 2 + Room 3</strong></div>
-        </div>
-        <div class="scroll-cue">
-          <span class="mouse-icon" aria-hidden="true"><span class="wheel-dot"></span></span>
-          <span class="hint-desktop">Scrollaj za šetnju kroz prostorije</span>
-          <span class="hint-touch">Povuci prstom prema gore za šetnju</span>
-        </div>
-        <button type="button" class="compare-btn cta-redesign" data-switch-interior="redesign">✦ Nova ideja: pogledaj redizajn interijera</button>
+          <div class="card-meta">
+            <span class="step-num">01 / 15</span>
+            <span class="elev-tag">EKSTERIJER • BANFI 201A</span>
+          </div>
+          <h2>Cjelovita kuća (Po + Pr + Pk) &amp; prilaz s ceste</h2>
+          <p>
+            Dobrodošli u <strong>1:1 3D rekonstrukciju</strong> kompletne kuće na adresi Banfi 201A (k.č. 2480/3), izrađenu spajanjem arhitektonskih nacrta (tlocrt, presjek, pročelja) i Apple LiDAR RoomPlan skenova. Krenite od glavnog cestovnog prilaza i 2P parkinga kroz <strong>3D vrt</strong> sve do potkrovlja.
+          </p>
+          <div class="spec-grid">
+            <div><span>Etaže</span><strong>Po + Pr + Pk</strong></div>
+            <div><span>Gabarit &amp; sljeme</span><strong>10.09 × 10.18 m • +6.19 m</strong></div>
+            <div><span>Ukupna neto</span><strong>248.4 m² + 3D Vrt</strong></div>
+          </div>
+          <div class="scroll-cue">
+            <span class="mouse-icon" aria-hidden="true"><span class="wheel-dot"></span></span>
+            <span class="hint-desktop">Scrollaj za šetnju kroz vrt i sve tri etaže</span>
+            <span class="hint-touch">Povuci prstom prema gore za šetnju</span>
+          </div>
+          <button type="button" class="compare-btn cta-redesign" data-switch-interior="redesign">✦ Nova ideja: pogledaj redizajn interijera i vrta</button>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">01 / 11</span><span class="elev-tag">NOVA IDEJA ✦ REDIZAJN</span></div>
-        <h2>Japandi Calm — novi interijer</h2>
-        <p>Isti prostor u mjerilu 1:1, potpuno nov karakter: spoj japanskog minimalizma i skandinavske topline. Topli vapneni štuk, svijetli parket riblja kost, crno močene grede, izbijeljena opeka i prirodni materijali umjesto rustikalno-industrijskog stila.</p>
-        <div class="palette" aria-label="Paleta boja"><span style="--c:#e9e1d3" title="Vapneni štuk"></span><span style="--c:#b98b5e" title="Hrast"></span><span style="--c:#7d8a6a" title="Kadulja"></span><span style="--c:#a8826a" title="Travertin"></span><span style="--c:#8a4a2f" title="Terakota"></span><span style="--c:#1d1a17" title="Ebonizirani hrast"></span></div>
-        <div class="spec-grid">
-          <div><span>Stil</span><strong>Japandi</strong></div>
-          <div><span>Arhitektura</span><strong>Zadržana 1:1</strong></div>
-          <div><span>Novo</span><strong>Materijali, namještaj, svjetlo</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Blagovaonica — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">01 / 15</span><span class="elev-tag">NOVA IDEJA ✦ REDIZAJN</span></div>
+          <h2>Japandi Calm — kuća i uređena okućnica</h2>
+          <p>Topla arhitektonska obnova u mjerilu 1:1: svijetli mineralni ton fasade, podrumski kameni sokl, travnata staza prema pergoli i interijer u vapnenom štuku, hrastu, kadulji i travertinu kroz sve tri etaže.</p>
+          <div class="palette" aria-label="Paleta boja"><span style="--c:#e9e1d3" title="Vapneni štuk"></span><span style="--c:#b98b5e" title="Hrast"></span><span style="--c:#7d8a6a" title="Kadulja"></span><span style="--c:#a8826a" title="Travertin"></span><span style="--c:#8a4a2f" title="Terakota"></span><span style="--c:#1d1a17" title="Ebonizirani hrast"></span></div>
+          <div class="spec-grid">
+            <div><span>Koncept</span><strong>Japandi &amp; Priroda</strong></div>
+            <div><span>Arhitektura</span><strong>Po + Pr + Pk (1:1)</strong></div>
+            <div><span>Zone</span><strong>15 povezanih zona</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_exterior.jpg" data-after="./assets/redesign_exterior.jpg" data-title="Eksterijer i okućnica — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 02 Kuhinja -->
+    <!-- 02 3D Vrt, pergola i vanjski lounge -->
     <section class="story-section" data-index="1">
       <article class="room-card side-right">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">02 / 11</span>
-          <span class="elev-tag">ZAPADNA ZONA • KUHINJA</span>
-        </div>
-        <h2>Moderna kuhinja u antracitu i hrastu</h2>
-        <p>
-          Visoki mat-antracitni ormar s ugradbenom pećnicom uokviren toplim hrastom, donje betonsko-sive fronte bez ručkica, hrastova radna ploča s indukcijskom pločom, crni sudoper uz prozor te ugradbeni inox hladnjak.
-        </p>
-        <div class="spec-grid">
-          <div><span>Fronte</span><strong>Beton siva &amp; Antracit</strong></div>
-          <div><span>Radna ploča</span><strong>Prirodni hrast</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/render_dining.jpg" data-title="Kuhinja i blagovaonica — stvarna fotografija vs. 3D">
-          Pogledaj referentnu fotografiju
-        </button>
+          <div class="card-meta">
+            <span class="step-num">02 / 15</span>
+            <span class="elev-tag">3D VRT • KOTIRANI TEREN ±0.00 m</span>
+          </div>
+          <h2>3D Vrt, pergola i vrtni lounge</h2>
+          <p>
+            Zapadno od ulaza prostire se uređen vrtni plato u razini prizemlja s drvenom pergolom od cedra/ariša, modularnom garniturom na podestu, ukrasnim travama, lavandom i vrtnim stazama od kamenih ploča do ulaznog trijema.
+          </p>
+          <div class="spec-grid">
+            <div><span>Zona vrta</span><strong>Pergola 4.2 × 3.8 m</strong></div>
+            <div><span>Staza &amp; rasvjeta</span><strong>Kamen + stupići</strong></div>
+          </div>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">02 / 11</span><span class="elev-tag">REDIZAJN • KUHINJA</span></div>
-        <h2>Kuhinja u kadulji, hrastu i travertinu</h2>
-        <p>Donje fronte u mat kadulja-zelenoj, visoki ormar i gornji elementi u svijetlom hrastu, radna ploča i obloga od travertina, slavina od brušenog mjedi i topla LED traka ispod gornjih elemenata.</p>
-        <div class="spec-grid">
-          <div><span>Fronte</span><strong>Kadulja mat &amp; hrast</strong></div>
-          <div><span>Radna ploča</span><strong>Travertin</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/redesign_kitchen.jpg" data-cap-a="Postojeća kuhinja (fotografija)" data-cap-b="Redizajn Japandi (Cycles render)" data-title="Kuhinja — postojeće vs. redizajn">Usporedi s postojećom kuhinjom</button>
+          <div class="card-meta"><span class="step-num">02 / 15</span><span class="elev-tag">REDIZAJN • 3D VRT</span></div>
+          <h2>Bioklimatski vrt s pergolom i travertin opločenjem</h2>
+          <p>Nadogradnja vrta u Japandi duh: prirodne travertin koračne ploče kroz šljunčani vrt, ebonizirana ili toplo nauljena drvena pergola, bouclé/laneni vanjski jastuci i diskretna večernja 2700 K ambijentalna rasvjeta.</p>
+          <div class="spec-grid">
+            <div><span>Opločenje</span><strong>Mat travertin &amp; šljunak</strong></div>
+            <div><span>Ambijent</span><strong>Stupići 2700 K</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg" data-after="./assets/redesign_entrance.jpg" data-title="3D Vrt, pergola i ulaz — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 03 Blagovaonica -->
+    <!-- 03 Vanjsko stubište i ulazni trijem -->
     <section class="story-section" data-index="2">
+      <article class="room-card side-left">
+        <div class="variant v-current">
+          <div class="card-meta">
+            <span class="step-num">03 / 15</span>
+            <span class="elev-tag">ULAZNA SEKVENCА • -2.73 → 0.00 m</span>
+          </div>
+          <h2>Vanjsko stubište &amp; natkriveni ulazni trijem</h2>
+          <p>
+            Od donjeg parkirnog platoa (<strong>-2.73 m</strong>) uspinje se vanjsko stubište od 16 gazišta s čelično-staklenom ogradom na natkriveni drveni ulazni trijem (kotirano <strong>0.00 m</strong>), odakle se kroz otvorena hrastova vrata (<strong>106 × 216 cm</strong>) ulazi ravno u kuću.
+          </p>
+          <div class="spec-grid">
+            <div><span>Uspon stubišta</span><strong>16 stuba (-2.73 → 0.00 m)</strong></div>
+            <div><span>Glavni ulaz</span><strong>106 × 216 cm • otvoren</strong></div>
+          </div>
+        </div>
+        <div class="variant v-redesign">
+          <div class="card-meta"><span class="step-num">03 / 15</span><span class="elev-tag">REDIZAJN • ULAZNI TRIJEM</span></div>
+          <h2>Cedrov podgled trijema &amp; kamena gazišta</h2>
+          <p>Protuklizna plamena kamena gazišta s LED linijom ispod prepusta, topli letvičasti podgled nadstrešnice, mat antracit okovi i reprezentativni ulazni portal.</p>
+          <div class="spec-grid">
+            <div><span>Nadstrešnica</span><strong>Cedrov letvičasti podgled</strong></div>
+            <div><span>Ograda</span><strong>Laminirano staklo + antracit</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg" data-after="./assets/redesign_entrance.jpg" data-title="Ulazni trijem i stubište — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- 04 Ulazni hodnik i dvoetažni atrij -->
+    <section class="story-section" data-index="3">
       <article class="room-card side-right">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">03 / 11</span>
-          <span class="elev-tag">JUGOZAPAD • BLAGOVAONICA</span>
-        </div>
-        <h2>Blagovaonica uz staklenu stijenu</h2>
-        <p>
-          Masivni blagovaonski stol od zlatnog hrasta na crnim čeličnim X-nogama, okružen dvjema ružičastim baršunastim i četirima bijelim prošivenim stolicama pod toplim svjetlom dviju visećih bijelih kupola.
-        </p>
-        <div class="spec-grid">
-          <div><span>Rasvjeta</span><strong>2× viseće kupole</strong></div>
-          <div><span>Stolice</span><strong>Baršun &amp; eko-koža</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_dining.jpg" data-render="./assets/render_dining.jpg" data-title="Blagovaonica i kamin (IMG_6449) — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
+          <div class="card-meta">
+            <span class="step-num">04 / 15</span>
+            <span class="elev-tag">PRIZEMLJE • +0.00 m</span>
+          </div>
+          <h2>Ulazni hodnik &amp; dvoetažni atrij</h2>
+          <p>
+            Ulaskom kroz otvorena vrata otvara se reprezentativni <strong>1:1 dvoetažni atrij</strong> visine sljemena <strong>+6.19 m</strong>. Sjeverni hodnik spaja predsoblje za podrum i prizemne sobe, dok se prema jugu otvaraju kuhinja, blagovaonica i dnevni boravak.
+          </p>
+          <div class="spec-grid">
+            <div><span>Visina sljemena</span><strong>+6.19 m</strong></div>
+            <div><span>Spojevi</span><strong>Pr jug + Pr sjever + Po</strong></div>
+          </div>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">03 / 11</span><span class="elev-tag">REDIZAJN • BLAGOVAONICA</span></div>
-        <h2>Okrugli stol od travertina</h2>
-        <p>Monolitni okrugli stol Ø 136 cm na stožastom postolju, šest hrastovih stolica s bouclé sjedalima i velika papirnata lampa Ø 76 cm u stilu Akari koja daje meko, raspršeno svjetlo.</p>
-        <div class="spec-grid">
-          <div><span>Stol</span><strong>Travertin Ø 136 cm</strong></div>
-          <div><span>Rasvjeta</span><strong>Papirnata lampa</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Blagovaonica — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">04 / 15</span><span class="elev-tag">REDIZAJN • ATRIJ</span></div>
+          <h2>Vapneni štuk, riblja kost &amp; ebonizirani okviri</h2>
+          <p>Pod ulaza nastavlja se u troslojnom hrastovom parketu sloga riblja kost, zidovi dobivaju meki mineralni vapneni štuk, a dovratnici prema sjevernom krilu tamni ebonizirani akcent.</p>
+          <div class="spec-grid">
+            <div><span>Pod</span><strong>Hrast riblja kost</strong></div>
+            <div><span>Zidovi</span><strong>Vapneni štuk NCS S 1505-Y30R</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Dvoetažni atrij — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 04 Kamin -->
-    <section class="story-section" data-index="3">
-      <article class="room-card side-left">
-        <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">04 / 11</span>
-          <span class="elev-tag">JUŽNI ZID • SREDIŠTE</span>
-        </div>
-        <h2>Dimnjak od crvene opeke &amp; peć na pelete</h2>
-        <p>
-          Šest metara visok stup od terakota opeke sa skulpturom od drva i dvjema dvosmjernim zidnim lampama koje naglašavaju teksturu fuge, uz bordo peć na pelete s crnom dimovodnom cijevi i plavim LED kontrolerom.
-        </p>
-        <div class="spec-grid">
-          <div><span>Obloga</span><strong>PBR crvena opeka</strong></div>
-          <div><span>Stolarija</span><strong>Kosi krovni prozori</strong></div>
-        </div>
-        </div>
-        <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">04 / 11</span><span class="elev-tag">REDIZAJN • JUŽNI ZID</span></div>
-        <h2>Izbijeljena opeka i mat crna peć</h2>
-        <p>Dimnjak dobiva oblogu od izbijeljene opeke, peć na pelete i zidne lampe postaju mat crne, a uz staklenu stijenu blagovaonice stoji velika biljka u terakota posudi. Tamne žaluzine zamijenjene su svijetlim lanenim roletama.</p>
-        <div class="spec-grid">
-          <div><span>Obloga</span><strong>Izbijeljena opeka</strong></div>
-          <div><span>Detalji</span><strong>Mat crna</strong></div>
-        </div>
-        </div>
-      </article>
-    </section>
-
-    <!-- 05 Dnevni boravak -->
+    <!-- 05 Kuhinja -->
     <section class="story-section" data-index="4">
-      <article class="room-card side-left">
+      <article class="room-card side-right">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">05 / 11</span>
-          <span class="elev-tag">JUGOISTOK • DNEVNI BORAVAK</span>
-        </div>
-        <h2>Dnevni boravak &amp; rustikalni TV zid</h2>
-        <p>
-          Prostrana siva L-garnitura s ukrasnim jastucima okrenuta prema hrastovom stoliću i asimetričnoj bijelo-hrastovoj TV komodi sa staklenom policom, tirkiznom vazom i 65" ekranom na zidu od tamnih drvenih dasaka s karakterističnim <strong>X-snopom</strong> svjetla.
-        </p>
-        <div class="spec-grid">
-          <div><span>Istočni zid</span><strong>Tamne drvene daske</strong></div>
-          <div><span>Zidna lampa</span><strong>4-smjerni X-snop</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_tv.jpg" data-render="./assets/render_living.jpg" data-title="Dnevni boravak i TV zid — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
+          <div class="card-meta">
+            <span class="step-num">05 / 15</span>
+            <span class="elev-tag">PRIZEMLJE ZAPAD • KUHINJA</span>
+          </div>
+          <h2>Moderna kuhinja u antracitu i hrastu</h2>
+          <p>
+            Visoki mat-antracitni ormar s ugradbenom pećnicom uokviren toplim hrastom, donje betonsko-sive fronte bez ručkica, hrastova radna ploča s indukcijskom pločom, crni sudoper uz zapadni prozor te inox hladnjak.
+          </p>
+          <div class="spec-grid">
+            <div><span>Fronte</span><strong>Beton siva &amp; Antracit</strong></div>
+            <div><span>Radna ploča</span><strong>Prirodni hrast</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/render_dining.jpg" data-title="Kuhinja i blagovaonica — stvarna fotografija vs. 3D">
+            Pogledaj referentnu fotografiju
+          </button>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">05 / 11</span><span class="elev-tag">REDIZAJN • DNEVNI BORAVAK</span></div>
-        <h2>Bouclé garnitura i zid od letvica</h2>
-        <p>Niska modularna L-garnitura u krem bouclé tkanini na crnom postolju, okrugli hrastov stolić, travertinski pomoćni stolić, vuneni tepih i mid-century kožna fotelja. Istočni zid čine vertikalne hrastove letvice na crnom akustičnom filcu, uz lebdeću TV komodu s LED rasvjetom.</p>
-        <div class="spec-grid">
-          <div><span>Istočni zid</span><strong>Hrastove letvice</strong></div>
-          <div><span>Sjedenje</span><strong>Bouclé + kožna fotelja</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_living.jpg" data-after="./assets/redesign_living.jpg" data-title="Dnevni boravak — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">05 / 15</span><span class="elev-tag">REDIZAJN • KUHINJA</span></div>
+          <h2>Kuhinja u kadulji, hrastu i travertinu</h2>
+          <p>Donje fronte u mat kadulja-zelenoj, visoki ormar i gornji elementi u svijetlom hrastu, radna ploča i obloga od travertina, slavina od brušenog mjedi i topla LED traka ispod gornjih elemenata.</p>
+          <div class="spec-grid">
+            <div><span>Fronte</span><strong>Kadulja mat &amp; hrast</strong></div>
+            <div><span>Radna ploča</span><strong>Travertin</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_kitchen.jpg" data-render="./assets/redesign_kitchen.jpg" data-cap-a="Postojeća kuhinja (fotografija)" data-cap-b="Redizajn Japandi (Cycles render)" data-title="Kuhinja — postojeće vs. redizajn">Usporedi s postojećom kuhinjom</button>
         </div>
       </article>
     </section>
 
-    <!-- 06 Stepenište i vinoteka -->
+    <!-- 06 Blagovaonica i kamin -->
     <section class="story-section" data-index="5">
       <article class="room-card side-left">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">06 / 11</span>
-          <span class="elev-tag">SJEVEROISTOK • USPON</span>
-        </div>
-        <h2>Otvoreno hrastovo stepenište &amp; vinoteka</h2>
-        <p>
-          Otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela i bez zatvorene visine (d = 50 mm) na središnjem i bočnom nosaču od crnog čelika, otvorenim dijagonalnim ukosom na podestu, dvama zidnim rukohvatima od hrasta, crnim X-svjetlom i komodom s vinotekom ispod kraka.
-        </p>
-        <div class="spec-grid">
-          <div><span>Konstrukcija</span><strong>Lebdeći hrast + crni čelik</strong></div>
-          <div><span>Podgled</span><strong>Komoda &amp; vinoteka</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_living.jpg" data-render="./assets/render_living.jpg" data-title="Stepenište i komoda (IMG_6452) — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
+          <div class="card-meta">
+            <span class="step-num">06 / 15</span>
+            <span class="elev-tag">JUGOZAPAD • BLAGOVAONICA &amp; KAMIN</span>
+          </div>
+          <h2>Blagovaonica uz staklenu stijenu &amp; kamin na pelete</h2>
+          <p>
+            Masivni hrastov stol na crnim X-nogama okružen baršunastim i bijelim stolicama pod dvjema bijelim kupolama, neposredno uz 6 m visok dimnjački stup od crvene opeke i bordo peć na pelete.
+          </p>
+          <div class="spec-grid">
+            <div><span>Obloga dimnjaka</span><strong>PBR crvena opeka</strong></div>
+            <div><span>Rasvjeta</span><strong>2× viseće kupole</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_dining.jpg" data-render="./assets/render_dining.jpg" data-title="Blagovaonica i kamin (IMG_6449) — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">06 / 11</span><span class="elev-tag">REDIZAJN • STEPENIŠTE</span></div>
-        <h2>Stepenište kao skulptura</h2>
-        <p>Otvorena lebdeća hrastova gazišta bez čela i crna čelična ograda ostaju. Uz zid od letvica i svijetle vapnene zidove prozračno stepenište postaje čista grafička skulptura prostora.</p>
-        <div class="spec-grid">
-          <div><span>Zidovi</span><strong>Vapneni štuk</strong></div>
-          <div><span>Pod</span><strong>Parket riblja kost</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_living.jpg" data-after="./assets/redesign_living.jpg" data-title="Stepenište i boravak — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">06 / 15</span><span class="elev-tag">REDIZAJN • BLAGOVAONICA &amp; KAMIN</span></div>
+          <h2>Okrugli travertinski stol &amp; izbijeljena opeka</h2>
+          <p>Monolitni okrugli stol Ø 136 cm s bouclé stolicama pod velikom Akari papirnatom lampom Ø 76 cm; dimnjak dobiva vapnenu lazuru, peć postaje mat crna, a stijenu krase lanene rolete.</p>
+          <div class="spec-grid">
+            <div><span>Stol &amp; lampa</span><strong>Travertin Ø 136 + Akari</strong></div>
+            <div><span>Dimnjak</span><strong>Izbijeljena opeka</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Blagovaonica i kamin — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 07 Uspon i krovne grede -->
+    <!-- 07 Dnevni boravak i TV zid -->
     <section class="story-section" data-index="6">
-      <article class="room-card side-right">
+      <article class="room-card side-left">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">07 / 11</span>
-          <span class="elev-tag">USPON NA KAT</span>
-        </div>
-        <h2>Pogled sa stepeništa kroz krovne rešetke</h2>
-        <p>
-          Penjući se prema gornjoj etaži otvara se pogled kroz tri masivne hrastove krovne rešetke s crnim čeličnim spojnicama, tri viseće opalne kugle iznad boravka i kose staklene stijene u potkrovlju.
-        </p>
-        <div class="spec-grid">
-          <div><span>Krovna građa</span><strong>3× hrastove rešetke</strong></div>
-          <div><span>Spojnice</span><strong>Crni mat čelik</strong></div>
-        </div>
+          <div class="card-meta">
+            <span class="step-num">07 / 15</span>
+            <span class="elev-tag">JUGOISTOK • DNEVNI BORAVAK</span>
+          </div>
+          <h2>Dnevni boravak &amp; rustikalni TV zid</h2>
+          <p>
+            Prostrana siva L-garnitura okrenuta prema hrastovom stoliću i TV komodi s 65" ekranom na zidu od tamnih dasaka s 4-smjernim <strong>X-snopom</strong> svjetla i izravnim izlazom na balkon na jugu.
+          </p>
+          <div class="spec-grid">
+            <div><span>Istočni zid</span><strong>Tamne drvene daske</strong></div>
+            <div><span>Zidna lampa</span><strong>4-smjerni X-snop</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_tv.jpg" data-render="./assets/render_living.jpg" data-title="Dnevni boravak i TV zid — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">07 / 11</span><span class="elev-tag">REDIZAJN • KROVIŠTE</span></div>
-        <h2>Crno močene krovne grede</h2>
-        <p>Hrastove rešetke i okviri prozora močeni su u gotovo crnu nijansu, kao grafički crtež na toplom bijelom stropu. Ispod njih vise tri papirnate lampe različitih veličina.</p>
-        <div class="spec-grid">
-          <div><span>Grede</span><strong>Ebonizirani hrast</strong></div>
-          <div><span>Lampe</span><strong>3× papir, 2700 K</strong></div>
-        </div>
+          <div class="card-meta"><span class="step-num">07 / 15</span><span class="elev-tag">REDIZAJN • DNEVNI BORAVAK</span></div>
+          <h2>Bouclé garnitura &amp; akustični zid od letvica</h2>
+          <p>Modularna krem bouclé L-garnitura, mid-century kožna fotelja, hrastove letvice na crnom akustičnom filcu visine 4.05 m i lebdeća TV komoda s toplim donjim LED pranjem poda.</p>
+          <div class="spec-grid">
+            <div><span>Istočni zid</span><strong>Hrastove letvice + filc</strong></div>
+            <div><span>Sjedenje</span><strong>Bouclé + kožna fotelja</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_living.jpg" data-after="./assets/redesign_living.jpg" data-title="Dnevni boravak — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 08 Gornja galerija i radni kutak -->
+    <!-- 08 Jugoistočni balkon -->
     <section class="story-section" data-index="7">
       <article class="room-card side-right">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">08 / 11</span>
-          <span class="elev-tag">GALERIJA • +2.74 m</span>
-        </div>
-        <h2>Gornja galerija, most &amp; krovni prozor</h2>
-        <p>
-          Na katu (<strong>+2.74 m</strong>) uz otvoreni <strong>most galerije</strong> s vrha stepeništa nastavlja se radni kutak sa zaobljenim hrastovim L-stolom ispod uvučenog krovnog prozora, visećih biljaka na ogradi i dvokrilnih staklenih vrata prema <strong>Room 2</strong>.
-        </p>
-        <div class="spec-grid">
-          <div><span>Razina &amp; most</span><strong>+2.74 m • otvoreni spoj</strong></div>
-          <div><span>Osvjetljenje</span><strong>Krovni prozor 90×80 cm</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_gallery.jpg" data-render="./assets/render_gallery.jpg" data-title="Gornja galerija i krovni prozor (IMG_6499) — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
+          <div class="card-meta">
+            <span class="step-num">08 / 15</span>
+            <span class="elev-tag">JUŽNO PROČELJE • BALKON SE</span>
+          </div>
+          <h2>Jugoistočni balkon &amp; pogled na dvorište</h2>
+          <p>
+            Kroz otvorena balkonska vrata dnevnog boravka izlazi se na konzolni jugoistočni balkon (<strong>+0.00 m</strong>) obložen vanjskom keramikom i laminiranom staklenom ogradom s pogledom na prilaz Banfi i podrumsku garažu ispod.
+          </p>
+          <div class="spec-grid">
+            <div><span>Dimenzija balkona</span><strong>6.00 × 1.15 m (6.9 m²)</strong></div>
+            <div><span>Ograda</span><strong>Laminirano kaljeno staklo</strong></div>
+          </div>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">08 / 11</span><span class="elev-tag">REDIZAJN • GALERIJA</span></div>
-        <h2>Mirna radna galerija</h2>
-        <p>Galerija zadržava krovni prozor, zaobljeni L-stol i viseće biljke na ogradi, dok otvoreni most u toplom vapnenom zidu i parket riblja kost vode u tri prostorije sjevernog krila.</p>
-        <div class="spec-grid">
-          <div><span>Razina &amp; most</span><strong>+2.74 m • parket + ebonit</strong></div>
-          <div><span>Nastavak</span><strong>Sjeverno krilo (3 sobe)</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_gallery.jpg" data-after="./assets/redesign_gallery.jpg" data-title="Gornja galerija i krovni prozor — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">08 / 15</span><span class="elev-tag">REDIZAJN • BALKON SE</span></div>
+          <h2>Balkon s travertinom i drvenim detaljima</h2>
+          <p>Mat travertin R11 vanjske pločice u slogu prizemlja, toplo antracit rukohvati na staklenoj ogradi i kompaktna drveno-čelična vrtna fotelja.</p>
+          <div class="spec-grid">
+            <div><span>Pod balkona</span><strong>Travertin R11</strong></div>
+            <div><span>Rukohvat</span><strong>Antracit + čelik</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_exterior.jpg" data-after="./assets/redesign_exterior.jpg" data-title="Balkon i južno pročelje — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 09 Gornje predsoblje, garderoba i radna soba (Room 2) -->
+    <!-- 09 Sjeverno krilo prizemlja -->
     <section class="story-section" data-index="8">
       <article class="room-card side-left">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">09 / 11</span>
-          <span class="elev-tag">ROOM 2 • SJEVERNO KRILO</span>
-        </div>
-        <h2>Garderoba, radni stol &amp; kutak za čitanje</h2>
-        <p>
-          Kroz dvokrilna hrastova vrata sa zatamnjenim pjeskarenim staklom otvara se središnja soba sjevernog krila (<strong>3.42 × 3.92 m</strong>): peterokrilni bijeli ugradbeni ormar visokog sjaja (2.65 m) s bočnim hrastovim letvicama, prošivena konjak kožna <em>Butterfly</em> fotelja uz bačva-stolić <em>„LEGENDS 1872”</em> te crni radni stol s ladičarom i visokim ogledalom.
-        </p>
-        <div class="spec-grid">
-          <div><span>Garderoba</span><strong>Bijeli sjaj + hrast letvice</strong></div>
-          <div><span>Kutak</span><strong>Kožna Butterfly &amp; bačva</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_study.jpg" data-render="./assets/render_study.jpg" data-title="Garderoba i kutak s leptir-foteljom (IMG_6477) — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
-        <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_study.jpg" data-after="./assets/redesign_study.jpg" data-title="Garderoba i radna soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta">
+            <span class="step-num">09 / 15</span>
+            <span class="elev-tag">PRIZEMLJE SJEVER • +0.00 m</span>
+          </div>
+          <h2>Sjeverno krilo: Predsoblje, Soba 1, Kupaonica &amp; Soba 2</h2>
+          <p>
+            Sjeverno krilo prizemlja (prema građevinskom tlocrtu) obuhvaća <strong>Predsoblje</strong> s U-stepeništem za podrum, sjeverozapadnu <strong>Sobu 1</strong>, <strong>Kupaonicu Pr</strong> s walk-in tušem i sjeveroistočnu bračnu <strong>Sobu 2</strong>.
+          </p>
+          <div class="spec-grid">
+            <div><span>Prostorije</span><strong>Predsoblje + 2 sobe + Kup.</strong></div>
+            <div><span>Površina krila</span><strong>40.9 m²</strong></div>
+          </div>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">09 / 11</span><span class="elev-tag">REDIZAJN • ROOM 2</span></div>
-        <h2>Garderoba u hrastu i lounge kutak</h2>
-        <p>Peterokrilni ormar dobiva tople hrastove fronte sa skrivenom LED linijom pri stropu, pod se nastavlja u parketu riblja kost, a uz prozor je bouclé fotelja s niskim travertinskim stolićem i vunenim tepihom.</p>
-        <div class="spec-grid">
-          <div><span>Fronte ormara</span><strong>Svijetli hrast + LED</strong></div>
-          <div><span>Kutak</span><strong>Bouclé &amp; travertin</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_study.jpg" data-after="./assets/redesign_study.jpg" data-title="Garderoba i radna soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">09 / 15</span><span class="elev-tag">REDIZAJN • SJEVERNO KRILO PR</span></div>
+          <h2>Smirene sobe prizemlja &amp; walk-in kupaonica</h2>
+          <p>Hrastov parket riblja kost kroz sobe i hodnik, laneni tekstil u toplim zemljanim tonovima, walk-in kupaonica obložena mat travertinom uz brušenu mjed i crne profile staklene stijene.</p>
+          <div class="spec-grid">
+            <div><span>Sobe 1 i 2</span><strong>Hrast + lan + štuk</strong></div>
+            <div><span>Kupaonica Pr</span><strong>Travertin + walk-in tuš</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_north_pr.jpg" data-after="./assets/redesign_north_pr.jpg" data-title="Sjeverno krilo prizemlja — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 10 Kupaonica u potkrovlju (Room 2) -->
+    <!-- 10 Podrum: U-stubište, vešeraj i kotlovnica -->
     <section class="story-section" data-index="9">
       <article class="room-card side-right">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">10 / 11</span>
-          <span class="elev-tag">ROOM 2 • ZAPADNA SOBA</span>
-        </div>
-        <h2>Kupaonica s kutnom kadom i okruglim ogledalom</h2>
-        <p>
-          Zapadna kupaonica (<strong>2.57 × 3.92 m</strong>) pod kosinom krova kombinira pješčano-bež podnu i sivu kamenu zidnu keramiku: polukružnu kutnu bijelu kadu s kromiranom zidnom miješalicom i bijelim ljestvastim radijatorom, lebdeći ormarić u rustikalnom hrastu s okruglim ogledalom Ø 94 cm i LED lampom, ugradbeni WC te bijelu komodu s tri ladice.
-        </p>
-        <div class="spec-grid">
-          <div><span>Kada &amp; grijanje</span><strong>Polukružna kutna + ljestve</strong></div>
-          <div><span>Umivaonik</span><strong>Rustik hrast &amp; Ø 94 cm</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_bathroom.jpg" data-render="./assets/render_bathroom.jpg" data-title="Kupaonica u potkrovlju (IMG_6481) — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
-        <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_bathroom.jpg" data-after="./assets/redesign_bathroom.jpg" data-title="Kupaonica u potkrovlju (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta">
+            <span class="step-num">10 / 15</span>
+            <span class="elev-tag">PODRUM • -2.73 m</span>
+          </div>
+          <h2>Podrum: U-stubište, vešeraj &amp; kotlovnica</h2>
+          <p>
+            Dvokrakim U-stepeništem (16 stuba po 17.1 cm) spušta se u suterenski dio (<strong>-2.73 m</strong>): na sjeverozapadu je <strong>Vešeraj</strong> s perilicom, sušilicom i sudoperom uz engleski šaht, a na sjeveroistoku <strong>Kotlovnica</strong> s dizalicom topline i puferom 500 L.
+          </p>
+          <div class="spec-grid">
+            <div><span>Spust stubišta</span><strong>0.00 → -2.73 m</strong></div>
+            <div><span>Vešeraj + Kotlovnica</span><strong>23.9 m² • tehnička zona</strong></div>
+          </div>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">10 / 11</span><span class="elev-tag">REDIZAJN • SPA KUPAONICA</span></div>
-        <h2>Travertin, brušena mjed i toplo svjetlo</h2>
-        <p>Kupaonica postaje kućni spa: pod i obloga kade u mat travertinu, lebdeći hrastov ormarić s kamenom pločom, miješalice i tuš u brušenoj mjedi te veliko ogledalo s neizravnim toplim halo osvjetljenjem.</p>
-        <div class="spec-grid">
-          <div><span>Kamen</span><strong>Mat travertin</strong></div>
-          <div><span>Armature</span><strong>Brušena mjed</strong></div>
-        </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_bathroom.jpg" data-after="./assets/redesign_bathroom.jpg" data-title="Kupaonica u potkrovlju (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta"><span class="step-num">10 / 15</span><span class="elev-tag">REDIZAJN • PODRUM TEHNIKA</span></div>
+          <h2>Uređen vešeraj &amp; organizirana strojarnica</h2>
+          <p>Epoksidni/porculanski podovi laka za održavanje (R10), vodootporna radna ploča u vešeraju, linearna LED radna rasvjeta 4000 K / 3000 K i čista zidna organizacija razdjelnika podnog grijanja.</p>
+          <div class="spec-grid">
+            <div><span>Podovi</span><strong>Tehnički porculan R10</strong></div>
+            <div><span>Rasvjeta</span><strong>Linearne LED letve</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_podrum.jpg" data-after="./assets/redesign_podrum.jpg" data-title="Podrum (kotlovnica, garaža i radna) — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
 
-    <!-- 11 Glavna spavaća soba / Master Bedroom (Room 2) -->
+    <!-- 11 Podrum: Garaža i radna prostorija -->
     <section class="story-section" data-index="10">
       <article class="room-card side-left">
         <div class="variant v-current">
-        <div class="card-meta">
-          <span class="step-num">11 / 11</span>
-          <span class="elev-tag">ROOM 2 • ISTOČNA SOBA</span>
-        </div>
-        <h2>Glavna spavaća soba u potkrovlju</h2>
-        <p>
-          Istočna spavaća soba (<strong>3.63 × 3.92 m</strong>) zaokružuje tlocrt kuće: bračni krevet u smeđe-sivoj tkanini s izvlačnom bijelom ladicom za posteljinu i zlatno-oker prekrivačem, crni stolić sa stolnom lampom bakrene unutrašnjosti, otvorena hrastova polica-konzola (2.31 m) sa slikom suncokreta i himalajskom solnom lampom te kožna <em>Butterfly</em> fotelja u kutu.
-        </p>
-        <div class="spec-grid">
-          <div><span>Krevet</span><strong>Tkanina + bijela ladica</strong></div>
-          <div><span>Konzola</span><strong>Otvoreni hrast 2.31 m</strong></div>
-        </div>
-        <button type="button" class="compare-btn" data-photo="./assets/photo_bedroom.jpg" data-render="./assets/render_bedroom.jpg" data-title="Glavna spavaća soba (IMG_6496) — stvarna fotografija vs. Cycles render">
-          Usporedi fotografiju i Cycles render
-        </button>
-        <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_bedroom.jpg" data-after="./assets/redesign_bedroom.jpg" data-title="Glavna spavaća soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <div class="card-meta">
+            <span class="step-num">11 / 15</span>
+            <span class="elev-tag">PODRUM • -2.73 m</span>
+          </div>
+          <h2>Podrum: Garaža &amp; radna prostorija</h2>
+          <p>
+            Glavni volumen podruma čini dvostruka <strong>Garaža</strong> (vrata <strong>540 × 220 cm</strong> podignuta pod strop, radni stol i regal) povezana s mirnom <strong>Radnom prostorijom</strong> na jugozapadu koja ima ostakljeni izlaz u uvučeni dvorišni prilaz.
+          </p>
+          <div class="spec-grid">
+            <div><span>Garaža + Radna</span><strong>52.0 m²</strong></div>
+            <div><span>Sekcijska vrata</span><strong>540 × 220 cm (otvorena)</strong></div>
+          </div>
         </div>
         <div class="variant v-redesign">
-        <div class="card-meta"><span class="step-num">11 / 11</span><span class="elev-tag">REDIZAJN • SPAVAĆA SOBA</span></div>
-        <h2>Japandi spavaća oaza</h2>
-        <p>Niski lebdeći hrastov krevet s krem bouclé uzglavljem, posteljina od prirodnog lana u tonu zobi s terakota prekrivačem, cilindrični travertinski noćni stolići i tople papirnate lampe stvaraju potpuno smireno utočište.</p>
-        <div class="spec-grid">
-          <div><span>Tekstil</span><strong>Lan, vuna &amp; bouclé</strong></div>
-          <div><span>Rasvjeta</span><strong>Papirnate lampe 2700 K</strong></div>
+          <div class="card-meta"><span class="step-num">11 / 15</span><span class="elev-tag">REDIZAJN • GARAŽA &amp; RADIONA</span></div>
+          <h2>Studio-radionica &amp; čista antracit garaža</h2>
+          <p>Radna prostorija opremljena hrastovim radnim stolom, policama i toplom LED rasvjetom za hobi ili ured; garaža dobiva protuklizni sivi porculan, antracit radni pult i četiri stropne LED linije.</p>
+          <div class="spec-grid">
+            <div><span>Radna soba</span><strong>Hrast + prirodno svjetlo</strong></div>
+            <div><span>Garaža</span><strong>Antracit radni blok</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_podrum.jpg" data-after="./assets/redesign_podrum.jpg" data-title="Garaža i radna prostorija — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_bedroom.jpg" data-after="./assets/redesign_bedroom.jpg" data-title="Glavna spavaća soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
-        <button type="button" class="compare-btn outline" data-switch-interior="current">Pogledaj postojeći interijer</button>
+      </article>
+    </section>
+
+    <!-- 12 L-stepenište i krovna rešetka sa sajlama -->
+    <section class="story-section" data-index="11">
+      <article class="room-card side-left">
+        <div class="variant v-current">
+          <div class="card-meta">
+            <span class="step-num">12 / 15</span>
+            <span class="elev-tag">USPON NA KAT • 0.00 → +2.74 m</span>
+          </div>
+          <h2>Otvoreno L-stepenište &amp; krovne grede sa sajlama</h2>
+          <p>
+            Glavno otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela (d = 50 mm, bez zatvorene visine) penje se ispod podignutih uzdužnih krovnih greda s crnim čeličnim čvornim okovima i dvjema napetim sajlama sa 8 usmjerenih LED spotova.
+          </p>
+          <div class="spec-grid">
+            <div><span>Stepenište</span><strong>14 lebdećih gazišta bez čela</strong></div>
+            <div><span>Krovište</span><strong>Povišene grede + 2× sajle</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_truss.jpg" data-render="./assets/render_truss.jpg" data-title="Krovna rešetka i sajle rasvjete (IMG_6527) — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
+          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_truss.jpg" data-after="./assets/redesign_truss.jpg" data-title="Krovište i stepenište — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+        <div class="variant v-redesign">
+          <div class="card-meta"><span class="step-num">12 / 15</span><span class="elev-tag">REDIZAJN • KROVIŠTE</span></div>
+          <h2>Ebonizirane krovne grede &amp; skulpturalno stepenište</h2>
+          <p>Sve hrastove rešetke i podignute uzdužne grede moče se u duboki ebonizirani ton na toplom bijelom kosom stropu; napete sajle i crni čvorovi ostaju kao precizan grafički detalj iznad boravka.</p>
+          <div class="spec-grid">
+            <div><span>Grede &amp; okviri</span><strong>Ebonizirani hrast</strong></div>
+            <div><span>Visilice</span><strong>3× Akari papir, 2700 K</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_truss.jpg" data-after="./assets/redesign_truss.jpg" data-title="Krovište i stepenište — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- 13 Most galerije i radni kutak -->
+    <section class="story-section" data-index="12">
+      <article class="room-card side-right">
+        <div class="variant v-current">
+          <div class="card-meta">
+            <span class="step-num">13 / 15</span>
+            <span class="elev-tag">GALERIJA • +2.74 m</span>
+          </div>
+          <h2>Most galerije, radni kutak &amp; krovni prozor</h2>
+          <p>
+            Na vrhu stepenica (<strong>+2.74 m</strong>) čisti <strong>most galerije</strong> s hrastovim rukohvatom vodi u radni kutak sa zaobljenim L-stolom ispod uvučenog krovnog prozora (90 × 80 cm), visećim biljkama na ogradi i dvokrilnim vratima prema potkrovlju.
+          </p>
+          <div class="spec-grid">
+            <div><span>Razina &amp; most</span><strong>+2.74 m • čist prolaz</strong></div>
+            <div><span>Osvjetljenje</span><strong>Krovni prozor 90 × 80 cm</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_gallery.jpg" data-render="./assets/render_gallery.jpg" data-title="Most galerije i krovni prozor (IMG_6499) — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
+          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_gallery.jpg" data-after="./assets/redesign_gallery.jpg" data-title="Most galerije — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+        <div class="variant v-redesign">
+          <div class="card-meta"><span class="step-num">13 / 15</span><span class="elev-tag">REDIZAJN • GALERIJA</span></div>
+          <h2>Mirna radna galerija</h2>
+          <p>Galerija zadržava krovni prozor, zaobljeni L-stol i biljke na ogradi, dok parket riblja kost, vapneni štuk i ebonizirani rukohvat vode kroz otvoreni most u tri prostorije sjevernog potkrovlja.</p>
+          <div class="spec-grid">
+            <div><span>Razina &amp; most</span><strong>+2.74 m • parket + ebonit</strong></div>
+            <div><span>Nastavak</span><strong>Potkrovlje sjever</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_gallery.jpg" data-after="./assets/redesign_gallery.jpg" data-title="Most galerije — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- 14 Spa kupaonica u potkrovlju -->
+    <section class="story-section" data-index="13">
+      <article class="room-card side-right">
+        <div class="variant v-current">
+          <div class="card-meta">
+            <span class="step-num">14 / 15</span>
+            <span class="elev-tag">POTKROVLJE ZAPAD • +2.73 m</span>
+          </div>
+          <h2>Kupaonica u potkrovlju s kutnom kadom &amp; ogledalom</h2>
+          <p>
+            Zapadna kupaonica (<strong>2.57 × 3.92 m</strong>) pod kosinom krova kombinira pješčano-bež i sivu kamenu keramiku, polukružnu kutnu kadu, ljestvasti radijator, lebdeći ormarić od rustikalnog hrasta s okruglim ogledalom Ø 94 cm i ugradbeni WC.
+          </p>
+          <div class="spec-grid">
+            <div><span>Kada &amp; grijanje</span><strong>Polukružna kutna + ljestve</strong></div>
+            <div><span>Umivaonik</span><strong>Rustik hrast &amp; Ø 94 cm</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_bathroom.jpg" data-render="./assets/render_bathroom.jpg" data-title="Kupaonica u potkrovlju (IMG_6481) — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
+          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_bathroom.jpg" data-after="./assets/redesign_bathroom.jpg" data-title="Kupaonica u potkrovlju — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+        <div class="variant v-redesign">
+          <div class="card-meta"><span class="step-num">14 / 15</span><span class="elev-tag">REDIZAJN • SPA KUPAONICA</span></div>
+          <h2>Travertin, brušena mjed &amp; halo LED ogledalo</h2>
+          <p>Kupaonica postaje kućni spa: pod i obloga kade u mat travertinu, lebdeći hrastov ormarić s kamenom pločom, armature u brušenoj mjedi i okruglo ogledalo s neizravnim toplim halo osvjetljenjem.</p>
+          <div class="spec-grid">
+            <div><span>Kamen</span><strong>Mat travertin 60 × 120</strong></div>
+            <div><span>Armature</span><strong>PVD brušena mjed</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_bathroom.jpg" data-after="./assets/redesign_bathroom.jpg" data-title="Kupaonica u potkrovlju — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- 15 Glavna spavaća soba i garderoba u potkrovlju -->
+    <section class="story-section" data-index="14">
+      <article class="room-card side-left">
+        <div class="variant v-current">
+          <div class="card-meta">
+            <span class="step-num">15 / 15</span>
+            <span class="elev-tag">POTKROVLJE ISTOK • +2.73 m</span>
+          </div>
+          <h2>Garderoba &amp; glavna spavaća soba u potkrovlju</h2>
+          <p>
+            Kroz središnju garderobu (5-krilni bijeli ormar s hrastovim letvicama, konjak <em>Butterfly</em> fotelja i bačva-stolić <em>„LEGENDS 1872”</em>) stiže se u istočnu <strong>glavnu spavaću sobu</strong> (<strong>3.63 × 3.92 m</strong>) s bračnim krevetom i otvorenom hrastovom konzolom.
+          </p>
+          <div class="spec-grid">
+            <div><span>Garderoba + Spavaća</span><strong>27.4 m²</strong></div>
+            <div><span>Namještaj</span><strong>5-krilni ormar &amp; konzola</strong></div>
+          </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_bedroom.jpg" data-render="./assets/render_bedroom.jpg" data-title="Glavna spavaća soba (IMG_6496) — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
+          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_bedroom.jpg" data-after="./assets/redesign_bedroom.jpg" data-title="Glavna spavaća soba — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        </div>
+        <div class="variant v-redesign">
+          <div class="card-meta"><span class="step-num">15 / 15</span><span class="elev-tag">REDIZAJN • GARDEROBA &amp; SPAVAĆA</span></div>
+          <h2>Japandi garderoba u hrastu &amp; spavaća oaza</h2>
+          <p>Hrastove fronte peterokrilnog ormara s LED linijom, niski lebdeći hrastov krevet s krem bouclé uzglavljem, posteljina od prirodnog lana u tonu zobi i tople Akari papirnate lampe zaokružuju cijelu kuću.</p>
+          <div class="spec-grid">
+            <div><span>Tekstil</span><strong>Lan, vuna &amp; bouclé</strong></div>
+            <div><span>Rasvjeta</span><strong>Papirnate lampe 2700 K</strong></div>
+          </div>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_bedroom.jpg" data-after="./assets/redesign_bedroom.jpg" data-title="Glavna spavaća soba — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <button type="button" class="compare-btn outline" data-switch-interior="current">Pogledaj postojeći interijer</button>
         </div>
 
         <button type="button" id="btn-back-top" class="compare-btn outline">
@@ -554,6 +678,6 @@
     </div>
   </aside>
 
-  <script type="module" src="./app.js?v=7"></script>
+  <script type="module" src="./app.js?v=8"></script>
 </body>
 </html>

@@ -201,7 +201,7 @@ export class WalkController {
   raycast(ndcX, ndcY) {
     if (!this.collider) return null;
     _ray.setFromCamera(_v1.set(ndcX, ndcY, 0.5), this.camera);
-    _ray.far = 40;
+    _ray.far = 65;
     const hit = _ray.intersectObject(this.collider, false)[0];
     if (!hit) return null;
     return { point: hit.point.clone(), normal: hit.face.normal.clone(), distance: hit.distance };
@@ -343,7 +343,7 @@ export class WalkController {
     if (ground === null) {
       this.vy -= GRAVITY * dt;
       this.feet.y += this.vy * dt;
-      if (this.feet.y < -12) {
+      if (this.feet.y < -16) {
         // fell out of the model: back to the last safe spot
         this.feet.copy(this.lastSafe);
         this.vy = 0;

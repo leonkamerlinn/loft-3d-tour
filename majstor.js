@@ -1,4 +1,4 @@
-import { PROJECT, ZONES, BOQ, PLANS } from './spec-data.js?v=7';
+import { PROJECT, ZONES, BOQ, PLANS } from './spec-data.js?v=8';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -221,7 +221,7 @@ function renderZones() {
       <article id="zona-${esc(z.code)}" class="m-zone-card">
         <div class="m-zone-head">
           <div>
-            <span class="m-kicker">ZONA ${esc(z.code)} / 11 · ${esc(z.floor)}</span>
+            <span class="m-kicker">ZONA ${esc(z.code)} / ${ZONES.length} · ${esc(z.floor)}</span>
             <h3>${esc(z.code)} — ${esc(z.name)}</h3>
           </div>
           <a class="m-zone-link" href="./index.html?interijer=${activePlanMode === 'current' ? 'postojece' : 'redizajn'}#stop-${z.stop}">Otvori u 3D šetnji ↗</a>

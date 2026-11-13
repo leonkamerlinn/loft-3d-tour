@@ -2,9 +2,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { WalkController, buildCollider, disposeCollider } from './walk.js?v=7';
-import { MeasureTool } from './measure.js?v=7';
-import { PROJECT, ZONES } from './spec-data.js?v=7';
+import { WalkController, buildCollider, disposeCollider } from './walk.js?v=8';
+import { MeasureTool } from './measure.js?v=8';
+import { PROJECT, ZONES } from './spec-data.js?v=8';
 
 // ---------------------------------------------------------------------------
 // Device profile
@@ -22,57 +22,97 @@ const QUALITY = IS_MOBILE
 const b2t = (xb, yb, zb) => new THREE.Vector3(xb, zb, -yb);
 
 const GROUND_FLOOR_Z = -2.999; // 0.00 m reference floor height in Blender metres
-const STOP_COUNT = 11;
+const STOP_COUNT = 15;
 
-// 11 room stops + corridor waypoints across both LiDAR scans (Room 1 South Loft + Room 2 Upper North Wing).
-// Every segment is clearance-checked against the Blender BVH (tour_preview.py): ≥ 0.17 m everywhere.
-// In the small north-wing rooms the path turns inside the room (e.g. vanity → bathtub) so that scrolling
-// on from a stop reveals the rest of the room instead of leaving after one cramped angle.
+// 15 room stops + corridor/stair waypoints across complete Po+Pr+Pk house + 3D Garden (Banfi 201A).
 const TOUR_NODES = [
-  { cam: [0.12, 0.36, -1.36], look: [-0.35, -4.2, -0.95] },     // 0: 01 Atrij
-  { cam: [-1.55, -0.42, -1.4], look: [-3.35, -2.35, -1.48] },   // 1
-  { cam: [-2.2, -1.45, -1.4], look: [-4.2, -3.9, -1.62] },      // 2: 02 Kuhinja (stepped back: whole kitchen run)
-  { cam: [-0.4, -2.55, -1.4], look: [-1.5, -4.2, -1.55] },      // 3: passes SOUTH of mezzanine pillar
-  { cam: [-0.08, -2.02, -1.4], look: [-1.45, -4.55, -1.48] },   // 4: 03 Blagovaonica
-  { cam: [-0.05, -2.3, -1.4], look: [-0.45, -4.75, -1.05] },    // 5
-  { cam: [0.05, -2.5, -1.4], look: [0.0, -4.85, -1.15] },       // 6: 04 Kamin
-  { cam: [0.45, -3.75, -1.4], look: [2.2, -2.9, -1.42] },       // 7
-  { cam: [0.68, -4.28, -1.4], look: [2.65, -1.95, -1.32] },     // 8: 05 Boravak
-  { cam: [2.88, -3.5, -1.38], look: [2.75, -0.75, -1.22] },     // 9
-  { cam: [2.85, -2.38, -1.35], look: [2.08, 0.38, -1.08] },     // 10: 06 Stepenište
-  { cam: [3.48, -0.35, -0.38], look: [0.85, -1.55, -0.15] },    // 11
-  { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 1.3] },       // 12: 07 Krovište (level gaze up into the trusses)
-  { cam: [0.22, 0.25, 1.08], look: [-2.85, -0.75, 0.62] },      // 13: top step -> open catwalk bridge & sunlit skylight
-  { cam: [-0.55, 0.24, 1.15], look: [-3.25, -0.95, 0.52] },     // 14: across Most galerije past North collar truss
-  { cam: [-1.05, -0.95, 1.14], look: [-3.35, -0.95, 0.45] },    // 15: 08 Galerija (L-desk, skylight & planters)
-  { cam: [-0.94, 0.95, 1.15], look: [0.15, 3.35, 0.95] },       // 16: through Gallery -> Room 2 doorway
-  { cam: [-0.85, 1.6, 1.16], look: [0.6, 3.95, 0.8] },          // 17: 09 Garderoba (chair, barrel, window, wardrobe)
-  { cam: [-0.95, 2.3, 1.16], look: [-2.3, 2.55, 0.95] },        // 18: turning to the bathroom door
-  { cam: [-1.51, 2.5, 1.18], look: [-2.55, 2.6, 0.9] },         // 19: through bathroom doorway
-  { cam: [-2.42, 2.45, 1.16], look: [-1.95, 4.3, 0.75] },       // 20: 10 Kupaonica (chest, window, WC, vanity, mirror)
-  { cam: [-2.25, 3.35, 1.16], look: [-2.95, 1.35, 0.45] },      // 21: turn to the corner bathtub & towel rail…
-  { cam: [-2.2, 3.25, 1.16], look: [-3.0, 1.4, 0.45] },         // 22: …and linger there for a moment
-  { cam: [-1.51, 2.5, 1.18], look: [0.65, 2.45, 0.95] },        // 23: exit bathroom doorway
-  { cam: [0.95, 1.82, 1.18], look: [1.95, 1.6, 0.95] },         // 24: clear corridor past study desk
-  { cam: [1.91, 1.52, 1.18], look: [3.65, 2.85, 0.85] },        // 25: through master bedroom doorway
-  { cam: [2.35, 1.95, 1.16], look: [4.35, 3.25, 0.62] },        // 26: bed & nightstand…
-  { cam: [2.65, 3.95, 1.16], look: [4.7, 1.7, 0.66] }           // 27: 11 Spavaća (NW corner: bed, oak console, sunflower)
+  { cam: [7.80, -8.20, -4.13], look: [-0.60, -1.20, -1.35] },    // 0: 01 Prilaz Banfi & Eksterijer (parking apron)
+  { cam: [1.50, -7.20, -4.13], look: [-4.50, -5.00, -2.50] },    // 1: apron heading west to exterior stair foot
+  { cam: [-5.15, -6.20, -4.13], look: [-5.15, -1.00, -1.80] },   // 2: foot of Vanjsko stubište
+  { cam: [-5.15, -1.25, -1.40], look: [-7.60, -2.10, -1.55] },   // 3: top of Vanjsko stubište turning W into 3D Vrt
+  { cam: [-6.80, -0.55, -1.40], look: [-9.50, -2.40, -1.55] },   // 4: garden stepping stones toward Pergola
+  { cam: [-9.35, -3.35, -1.40], look: [-5.20, -0.50, -1.45] },   // 5: 02 3D Vrt & Pergola (looking NE toward porch)
+  { cam: [-6.65, -0.55, -1.40], look: [-4.80, -0.10, -1.42] },   // 6: stepping stones back onto Ulazni trijem
+  { cam: [-5.15, -0.15, -1.40], look: [-1.80, -0.05, -1.45] },   // 7: 03 Ulazni trijem & Glavni ulaz
+  { cam: [-4.25, 0.10, -1.40], look: [-1.50, -0.15, -1.45] },    // 8: through open oak main door
+  { cam: [-1.85, -0.10, -1.40], look: [0.80, -2.60, -0.95] },    // 9: 04 Ulazni hodnik & Atrij
+  { cam: [-2.15, -1.35, -1.40], look: [-4.15, -3.20, -1.62] },   // 10: stepped into kitchen north aisle
+  { cam: [-1.35, -1.75, -1.40], look: [-4.15, -3.15, -1.65] },   // 11: 05 Kuhinja
+  { cam: [-0.90, -2.25, -1.40], look: [-1.86, -3.23, -1.65] },   // 12: west of mezzanine pillar
+  { cam: [-0.52, -2.55, -1.40], look: [-1.65, -3.75, -1.60] },   // 13: 06 Blagovaonica & Kamin
+  { cam: [-0.48, -3.88, -1.40], look: [0.40, -4.40, -1.55] },    // 14: aisle south of pillar & west of sofa
+  { cam: [0.45, -4.05, -1.40], look: [2.35, -2.35, -1.48] },     // 15: 07 Dnevni boravak
+  { cam: [2.26, -4.50, -1.40], look: [2.25, -5.65, -1.45] },     // 16: approach open patio door
+  { cam: [2.26, -5.62, -1.40], look: [-0.20, -5.62, -1.42] },    // 17: step out onto Balkon SE
+  { cam: [1.35, -5.62, -1.40], look: [-2.40, -5.20, -1.35] },    // 18: 08 Jugoistočni balkon
+  { cam: [2.26, -5.62, -1.40], look: [2.26, -4.10, -1.40] },     // 19: return through patio door
+  { cam: [2.26, -4.35, -1.40], look: [0.00, -3.95, -1.40] },     // 20: south living aisle
+  { cam: [-0.48, -3.88, -1.40], look: [-0.50, -1.00, -1.40] },   // 21: west of sofa
+  { cam: [-0.88, -0.45, -1.40], look: [0.08, 0.85, -1.40] },     // 22: head north to Predsoblje door
+  { cam: [0.08, 0.85, -1.40], look: [-0.25, 2.40, -1.45] },     // 23: through Loft -> Predsoblje NorthHall door
+  { cam: [-0.37, 2.25, -1.40], look: [-0.37, 3.20, -1.48] },    // 24: align with Soba 1 doorway (X in [-0.82, 0.08])
+  { cam: [-0.35, 2.92, -1.40], look: [-2.65, 4.15, -1.65] },    // 25: 09 Sjeverno krilo Pr (Soba 1, Predsoblje, Kup, Soba 2)
+  { cam: [-0.37, 2.25, -1.40], look: [-0.38, 1.38, -1.55] },    // 26: step back out of Soba 1 doorway
+  { cam: [-0.38, 1.38, -1.40], look: [-2.50, 1.38, -2.40] },    // 27: head of internal U-staircase (Pr -> Podrum)
+  { cam: [-1.95, 1.38, -2.10], look: [-3.30, 1.65, -2.85] },    // 28: descending upper flight W
+  { cam: [-3.28, 1.78, -2.765], look: [-1.20, 2.18, -3.80] },   // 29: U-stair mid-landing turn
+  { cam: [-1.65, 2.18, -3.55], look: [0.10, 2.18, -4.13] },     // 30: descending lower flight E
+  { cam: [-0.25, 2.18, -4.13], look: [-2.20, 4.20, -4.20] },    // 31: foot of U-staircase glancing into Vešeraj
+  { cam: [0.15, 1.73, -4.13], look: [2.20, 2.20, -4.18] },      // 32: approach Kotlovnica doorway (Y in [1.28, 2.18])
+  { cam: [1.35, 1.85, -4.13], look: [4.25, 3.85, -4.20] },      // 33: 10 Podrum: Vešeraj & Kotlovnica
+  { cam: [1.60, 0.86, -4.13], look: [1.60, -2.20, -4.18] },     // 34: through KotlovGar doorway (X in [1.15, 2.05])
+  { cam: [1.60, -1.50, -4.13], look: [1.50, -4.20, -4.22] },    // 35: Garaža NE aisle
+  { cam: [2.15, -3.65, -4.13], look: [-0.65, 0.50, -4.25] },    // 36: 11 Podrum: Garaža & Radna prostorija
+  { cam: [0.40, -0.45, -4.13], look: [-1.80, -0.10, -4.18] },    // 37: cross Garaža south of GarazaHall open door leaf
+  { cam: [-0.95, 0.37, -4.13], look: [-2.65, 0.37, -4.18] },    // 38: approach RadnaIn doorway (Y in [-0.08, 0.82])
+  { cam: [-2.55, 0.37, -4.13], look: [-3.55, -0.85, -4.22] },   // 39: through RadnaIn doorway
+  { cam: [-2.75, -0.85, -4.13], look: [-3.85, -0.55, -4.25] },  // 40: inside Radna prostorija
+  { cam: [-2.55, 0.37, -4.13], look: [-0.27, 0.37, -4.18] },    // 41: exit RadnaIn doorway along Y=0.37
+  { cam: [-0.27, 0.37, -4.13], look: [-0.27, 2.18, -4.13] },    // 42: align with GarazaHall doorway (X=-0.27)
+  { cam: [-0.27, 2.18, -4.13], look: [-2.60, 2.18, -3.20] },    // 43: through GarazaHall doorway back to U-stairs foot
+  { cam: [-3.28, 1.78, -2.765], look: [-1.20, 1.38, -2.00] },   // 44: mid-landing returning up to Pr
+  { cam: [-0.38, 1.38, -1.40], look: [0.08, 0.85, -1.40] },     // 45: top of U-staircase back in Predsoblje
+  { cam: [0.08, 0.85, -1.40], look: [-0.80, -0.80, -1.40] },    // 46: back through Predsoblje -> Atrij door
+  { cam: [-0.88, -0.45, -1.40], look: [-0.50, -3.60, -1.40] },  // 47: Atrij west aisle
+  { cam: [-0.48, -3.88, -1.40], look: [2.60, -3.60, -1.40] },   // 48: south of sofa heading east
+  { cam: [2.85, -2.38, -1.35], look: [1.50, 0.15, 0.95] },      // 49: 12 Krovna rešetka & Glavno L-stepenište
+  { cam: [3.58, -0.35, -0.38], look: [0.85, -1.55, -0.15] },    // 50: L-stair corner landing
+  { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 1.30] },      // 51: ascending open-riser upper flight under truss
+  { cam: [0.22, 0.25, 1.08], look: [-2.85, -0.75, 0.62] },      // 52: top step onto Most galerije
+  { cam: [-0.55, 0.24, 1.15], look: [-3.25, -0.95, 0.52] },     // 53: 13 Most galerije & Radni kutak
+  { cam: [-1.05, -0.95, 1.14], look: [-3.35, -0.95, 0.45] },    // 54: Galerija L-desk & skylight
+  { cam: [-0.94, 0.95, 1.15], look: [0.15, 3.35, 0.95] },       // 55: through Gallery -> Garderoba doorway
+  { cam: [-0.85, 1.60, 1.16], look: [0.60, 3.95, 0.80] },       // 56: Garderoba & radni kutak (Pk)
+  { cam: [-0.95, 2.30, 1.16], look: [-2.30, 2.55, 0.95] },      // 57: turn W to Kupaonica Pk door
+  { cam: [-1.51, 2.50, 1.18], look: [-2.55, 2.60, 0.90] },      // 58: through Kupaonica Pk doorway
+  { cam: [-2.42, 2.45, 1.16], look: [-1.95, 4.30, 0.75] },      // 59: 14 Kupaonica potkrovlja
+  { cam: [-2.25, 3.35, 1.16], look: [-2.95, 1.35, 0.45] },      // 60: turn toward corner bathtub
+  { cam: [-1.51, 2.50, 1.18], look: [0.65, 2.45, 0.95] },       // 61: exit Kupaonica Pk doorway
+  { cam: [0.85, 2.30, 1.18], look: [1.60, 1.65, 0.95] },        // 62: corridor north of StudyDesk & west of Wardrobe
+  { cam: [1.18, 1.52, 1.18], look: [2.20, 1.52, 0.95] },        // 63: align with Master Bedroom doorway
+  { cam: [1.91, 1.52, 1.18], look: [3.65, 2.85, 0.85] },        // 64: through Master Bedroom doorway
+  { cam: [2.35, 1.95, 1.16], look: [4.35, 3.25, 0.62] },        // 65: 15 Glavna spavaća soba (Pk)
+  { cam: [2.65, 3.95, 1.16], look: [4.70, 1.70, 0.66] }         // 66: NW bedroom corner overview
 ];
 
-const STOP_NODE_IDX = [0, 2, 4, 6, 8, 10, 12, 15, 17, 20, 27];
+const STOP_NODE_IDX = [0, 5, 7, 9, 11, 13, 15, 18, 25, 33, 36, 49, 53, 59, 65];
 // Per stop: horizontal field of view (wider in small rooms) and mouse-parallax strength
 const STOP_VIEW = [
-  { hfov: 90, parallax: 1.0 },   // 01 Atrij
-  { hfov: 96, parallax: 0.8 },   // 02 Kuhinja
-  { hfov: 90, parallax: 1.0 },   // 03 Blagovaonica
-  { hfov: 90, parallax: 1.0 },   // 04 Kamin
-  { hfov: 90, parallax: 1.0 },   // 05 Boravak
-  { hfov: 90, parallax: 0.9 },   // 06 Stepenište
-  { hfov: 92, parallax: 0.8 },   // 07 Krovište
-  { hfov: 96, parallax: 0.7 },   // 08 Galerija
-  { hfov: 100, parallax: 0.55 }, // 09 Garderoba
-  { hfov: 102, parallax: 0.5 },  // 10 Kupaonica
-  { hfov: 100, parallax: 0.55 }  // 11 Spavaća
+  { hfov: 88, parallax: 0.9 },   // 01 Eksterijer & Prilaz Banfi
+  { hfov: 92, parallax: 0.9 },   // 02 3D Vrt & Pergola
+  { hfov: 92, parallax: 0.9 },   // 03 Ulazni trijem & Glavni ulaz
+  { hfov: 90, parallax: 1.0 },   // 04 Ulazni hodnik & Atrij
+  { hfov: 96, parallax: 0.8 },   // 05 Kuhinja
+  { hfov: 90, parallax: 1.0 },   // 06 Blagovaonica & Kamin
+  { hfov: 90, parallax: 1.0 },   // 07 Dnevni boravak
+  { hfov: 94, parallax: 0.85 },  // 08 Jugoistočni balkon
+  { hfov: 96, parallax: 0.75 },  // 09 Sjeverno krilo Pr
+  { hfov: 96, parallax: 0.75 },  // 10 Podrum: Vešeraj & Kotlovnica
+  { hfov: 94, parallax: 0.8 },   // 11 Podrum: Garaža & Radna
+  { hfov: 92, parallax: 0.85 },  // 12 Krovna rešetka & Stepenište
+  { hfov: 96, parallax: 0.75 },  // 13 Most galerije & Radni kutak
+  { hfov: 102, parallax: 0.5 },  // 14 Kupaonica potkrovlja
+  { hfov: 98, parallax: 0.6 }    // 15 Glavna spavaća soba (Pk)
 ];
 const WALK_HFOV = 92;
 
@@ -204,7 +244,7 @@ scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 pmrem.dispose();
 scene.environmentIntensity = 0.24;
 
-const camera = new THREE.PerspectiveCamera(66, window.innerWidth / window.innerHeight, 0.05, 65);
+const camera = new THREE.PerspectiveCamera(66, window.innerWidth / window.innerHeight, 0.05, 150);
 
 /** Vertical FOV that gives the requested horizontal FOV, clamped so portrait phones don't go fisheye. */
 function verticalFovFor(hfovDeg) {
@@ -224,8 +264,8 @@ updateCameraFov();
 // Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
 const INTERIORS = {
-  current: { url: './assets/room_3d.glb?v=6', exposure: 1.08, name: 'postojeći interijer' },
-  redesign: { url: './assets/room_redesign.glb?v=6', exposure: 1.16, name: 'redizajn Japandi' }
+  current: { url: './assets/room_3d.glb?v=8', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb?v=8', exposure: 1.16, name: 'redizajn Japandi' }
 };
 let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
 
@@ -237,16 +277,17 @@ const managedLights = [];
 const hemiLight = new THREE.HemisphereLight(0xffe9cf, 0x2c241d, 0.42);
 scene.add(hemiLight);
 
-function registerLight(light, base, group) {
+function registerLight(light, base, group, zone = 'all') {
   light.userData.base = base;
   light.userData.group = group;
+  light.userData.zone = zone;
   managedLights.push(light);
   scene.add(light);
   if (light.target) scene.add(light.target);
   return light;
 }
 
-function addPoint(xb, yb, zb, color, intensity, distance = 9, castShadow = false, group = 'common') {
+function addPoint(xb, yb, zb, color, intensity, distance = 9, castShadow = false, group = 'common', zone = 'all') {
   const l = new THREE.PointLight(color, intensity, distance, 1.7);
   l.position.copy(b2t(xb, yb, zb));
   if (castShadow && QUALITY.shadows) {
@@ -255,93 +296,131 @@ function addPoint(xb, yb, zb, color, intensity, distance = 9, castShadow = false
     l.shadow.bias = -0.0008;
     l.shadow.radius = 3;
   }
-  return registerLight(l, intensity, group);
+  return registerLight(l, intensity, group, zone);
 }
 
-function addSpot(posB, targetB, color, intensity, angleDeg, penumbra = 0.45, dist = 8, group = 'common') {
+function addSpot(posB, targetB, color, intensity, angleDeg, penumbra = 0.45, dist = 8, group = 'common', zone = 'all') {
   const s = new THREE.SpotLight(color, intensity, dist, THREE.MathUtils.degToRad(angleDeg), penumbra, 1.6);
   s.position.copy(b2t(...posB));
   s.target.position.copy(b2t(...targetB));
-  return registerLight(s, intensity, group);
+  return registerLight(s, intensity, group, zone);
 }
 
-// Common: brick chimney up/down sconces (kept in both designs), kitchen ceiling, gallery
-addSpot([-0.44, -4.64, -1.32], [-0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5);
-addSpot([-0.44, -4.64, -1.43], [-0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5);
-addSpot([0.44, -4.64, -1.32], [0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5);
-addSpot([0.44, -4.64, -1.43], [0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5);
-addPoint(-3.1, -2.55, -0.65, 0xffe0ba, 3.6, 7.5);
-addPoint(-2.35, -0.6, 1.45, 0xffe2be, 4.8, 9.0);
-addPoint(-3.15, -0.9, 1.65, 0xedf6ff, 3.6, 7.5);
-addPoint(-0.08, 0.25, 1.35, 0xfff0dd, 2.2, 5.5);
-// Merged Room 2 (Upper North Wing): Garderoba/Study, Bathroom & Master Bedroom ceiling lights
-addPoint(0.15, 3.0, 1.72, 0xffe2be, 4.4, 7.5);
-addPoint(-2.15, 2.85, 1.95, 0xfff0da, 4.5, 7.0);
-addPoint(3.48, 3.35, 1.65, 0xffdeb4, 4.8, 8.5);
+// Common: Loft (South Pr + Truss), Upper North Wing, Prizemlje North Wing, Podrum, Exterior 3D Vrt
+addSpot([-0.44, -4.64, -1.32], [-0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5, 'common', 'loft');
+addSpot([-0.44, -4.64, -1.43], [-0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5, 'common', 'loft');
+addSpot([0.44, -4.64, -1.32], [0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5, 'common', 'loft');
+addSpot([0.44, -4.64, -1.43], [0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5, 'common', 'loft');
+addPoint(-3.1, -2.55, -0.65, 0xffe0ba, 3.6, 7.5, false, 'common', 'loft');
+addPoint(-2.35, -0.6, 1.45, 0xffe2be, 4.8, 9.0, false, 'common', 'loft');
+addPoint(-3.15, -0.9, 1.65, 0xedf6ff, 3.6, 7.5, false, 'common', 'loft');
+addPoint(-0.08, 0.25, 1.35, 0xfff0dd, 2.2, 5.5, false, 'common', 'loft');
+// Upper North Wing (Potkrovlje Pk)
+addPoint(0.15, 3.0, 1.72, 0xffe2be, 4.4, 7.5, false, 'common', 'upper_n');
+addPoint(-2.15, 2.85, 1.95, 0xfff0da, 4.5, 7.0, false, 'common', 'upper_n');
+addPoint(3.48, 3.35, 1.65, 0xffdeb4, 4.8, 8.5, false, 'common', 'upper_n');
+// Ground North Wing (Predsoblje, Soba 1 SZ, Kupaonica Pr, Soba 2 SI)
+addPoint(-0.30, 2.40, -0.75, 0xffe2be, 4.0, 7.5, false, 'common', 'ground_n');
+addPoint(-2.80, 3.85, -0.75, 0xffe0ba, 4.2, 7.5, false, 'common', 'ground_n');
+addPoint(0.42, 3.80, -0.75, 0xfff0dc, 3.6, 6.5, false, 'common', 'ground_n');
+addPoint(3.15, 3.45, -0.75, 0xffe0ba, 4.2, 7.5, false, 'common', 'ground_n');
+// Basement (Podrum: Veseraj, Kotlovnica, Garaza, Radna)
+addPoint(-2.20, 3.20, -3.55, 0xfff0dd, 3.8, 7.5, false, 'common', 'podrum');
+addPoint(2.50, 2.90, -3.55, 0xf2f7ff, 4.4, 8.5, false, 'common', 'podrum');
+addPoint(1.55, -2.20, -3.55, 0xf4f8ff, 5.4, 10.5, false, 'common', 'podrum');
+addPoint(-2.75, -2.40, -3.55, 0xffe3be, 4.2, 8.5, false, 'common', 'podrum');
+// Exterior (3D Vrt Pergola, Ulazni trijem, Driveway & Balkon)
+addPoint(-5.15, -0.10, -0.85, 0xffcf94, 4.2, 8.5, false, 'common', 'ext');
+addPoint(-9.45, -2.55, -0.75, 0xffc888, 5.2, 10.5, false, 'common', 'ext');
+addPoint(0.20, -5.65, -0.95, 0xffcf94, 3.4, 7.5, false, 'common', 'ext');
+addPoint(7.20, -2.50, -3.60, 0xffd5a0, 4.5, 13.0, false, 'common', 'ext');
 
 // Current interior: dining domes, opal globes, 4-way X sconce on the dark wood wall
-addPoint(-1.86, -3.55, -1.36, 0xffd29e, 5.2, 8.5, true, 'current');
-addPoint(-1.86, -2.88, -1.36, 0xffd29e, 5.2, 8.5, false, 'current');
-addPoint(1.35, -3.45, -0.55, 0xffdcb4, 4.4, 9.5, true, 'current');
-addPoint(2.25, -2.35, -0.35, 0xffdcb4, 3.8, 9.5, false, 'current');
-addPoint(1.15, -1.55, -0.75, 0xffdcb4, 3.4, 9.0, false, 'current');
-addSpot([4.11, -1.79, -0.89], [4.16, -2.85, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
-addSpot([4.11, -1.79, -0.81], [4.16, -2.85, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
-addSpot([4.11, -1.71, -0.89], [4.16, -0.65, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
-addSpot([4.11, -1.71, -0.81], [4.16, -0.65, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2, 'current');
+addPoint(-1.86, -3.55, -1.36, 0xffd29e, 5.2, 8.5, true, 'current', 'loft');
+addPoint(-1.86, -2.88, -1.36, 0xffd29e, 5.2, 8.5, false, 'current', 'loft');
+addPoint(1.35, -3.45, -0.55, 0xffdcb4, 4.4, 9.5, true, 'current', 'loft');
+addPoint(2.25, -2.35, -0.35, 0xffdcb4, 3.8, 9.5, false, 'current', 'loft');
+addPoint(1.15, -1.55, -0.75, 0xffdcb4, 3.4, 9.0, false, 'current', 'loft');
+addSpot([4.11, -1.79, -0.89], [4.16, -2.85, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2, 'current', 'loft');
+addSpot([4.11, -1.79, -0.81], [4.16, -2.85, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2, 'current', 'loft');
+addSpot([4.11, -1.71, -0.89], [4.16, -0.65, -1.95], 0xffca85, 8.0, 14, 0.4, 4.2, 'current', 'loft');
+addSpot([4.11, -1.71, -0.81], [4.16, -0.65, 0.25], 0xffca85, 8.0, 14, 0.4, 4.2, 'current', 'loft');
 
 // Redesign: Akari-style paper lanterns (warmer 2700 K), TV-bench LED wash, under-cabinet kitchen LED
-addPoint(-1.86, -3.23, -1.02, 0xffc790, 7.0, 9.0, true, 'redesign');
-addPoint(1.35, -3.45, -0.12, 0xffc790, 4.2, 9.5, true, 'redesign');
-addPoint(2.25, -2.35, 0.05, 0xffc790, 3.4, 9.5, false, 'redesign');
-addPoint(1.15, -1.55, -0.4, 0xffc790, 3.0, 9.0, false, 'redesign');
-addSpot([3.92, -3.0, -2.74], [3.7, -3.0, -3.0], 0xffc78a, 3.0, 70, 0.8, 1.6, 'redesign');
-addSpot([3.92, -4.0, -2.74], [3.7, -4.0, -3.0], 0xffc78a, 3.0, 70, 0.8, 1.6, 'redesign');
-addSpot([-3.95, -3.43, -1.48], [-3.95, -3.43, -2.02], 0xffd2a0, 4.0, 62, 0.7, 2.0, 'redesign');
+addPoint(-1.86, -3.23, -1.02, 0xffc790, 7.0, 9.0, true, 'redesign', 'loft');
+addPoint(1.35, -3.45, -0.12, 0xffc790, 4.2, 9.5, true, 'redesign', 'loft');
+addPoint(2.25, -2.35, 0.05, 0xffc790, 3.4, 9.5, false, 'redesign', 'loft');
+addPoint(1.15, -1.55, -0.4, 0xffc790, 3.0, 9.0, false, 'redesign', 'loft');
+addSpot([3.92, -3.0, -2.74], [3.7, -3.0, -3.0], 0xffc78a, 3.0, 70, 0.8, 1.6, 'redesign', 'loft');
+addSpot([3.92, -4.0, -2.74], [3.7, -4.0, -3.0], 0xffc78a, 3.0, 70, 0.8, 1.6, 'redesign', 'loft');
+addSpot([-3.95, -3.43, -1.48], [-3.95, -3.43, -2.02], 0xffd2a0, 4.0, 62, 0.7, 2.0, 'redesign', 'loft');
 
 // Secondary fills: skipped on phones to keep fragment shaders cheap
 if (QUALITY.extraFillLights) {
-  addPoint(-2.2, -1.05, -0.65, 0xffe0ba, 2.8, 7.0);
-  addPoint(0.12, 1.85, -1.15, 0xffe4c4, 3.2, 6.5);
-  addPoint(2.2, 0.1, -1.25, 0xffd9ad, 2.6, 6.5);
-  addPoint(0.25, 2.1, 1.55, 0xffe2be, 2.5, 7.0);
-  addPoint(-1.46, 3.42, 1.55, 0xeef6ff, 2.4, 4.5, false, 'current'); // square daylight LED clip on bathroom mirror
-  addPoint(-1.55, 3.65, 1.25, 0xffdcb0, 2.4, 4.5, false, 'redesign'); // bathroom mirror warm halo
-  addPoint(5.04, 2.22, 0.50, 0xffad60, 2.5, 4.6, false, 'current'); // copper-lined drum lamp on South tray table
-  addPoint(4.92, 1.38, 0.34, 0xff6e38, 1.8, 3.8, false, 'current'); // glowing Himalayan salt lamp on oak console
-  addPoint(5.05, 4.68, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign');
-  addPoint(5.05, 2.24, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign');
+  addPoint(-2.2, -1.05, -0.65, 0xffe0ba, 2.8, 7.0, false, 'common', 'loft');
+  addPoint(0.12, 1.85, -1.15, 0xffe4c4, 3.2, 6.5, false, 'common', 'ground_n');
+  addPoint(2.2, 0.1, -1.25, 0xffd9ad, 2.6, 6.5, false, 'common', 'loft');
+  addPoint(0.25, 2.1, 1.55, 0xffe2be, 2.5, 7.0, false, 'common', 'upper_n');
+  addPoint(-1.46, 3.42, 1.55, 0xeef6ff, 2.4, 4.5, false, 'current', 'upper_n');
+  addPoint(-1.55, 3.65, 1.25, 0xffdcb0, 2.4, 4.5, false, 'redesign', 'upper_n');
+  addPoint(5.04, 2.22, 0.50, 0xffad60, 2.5, 4.6, false, 'current', 'upper_n');
+  addPoint(4.92, 1.38, 0.34, 0xff6e38, 1.8, 3.8, false, 'current', 'upper_n');
+  addPoint(5.05, 4.68, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign', 'upper_n');
+  addPoint(5.05, 2.24, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign', 'upper_n');
 } else {
   hemiLight.intensity = 0.55; // compensate for the missing fills
 }
 
 const sunLight = new THREE.DirectionalLight(0xfff4e2, 0.0);
-sunLight.position.copy(b2t(-2.2, -9.5, 4.2));
-sunLight.target.position.copy(b2t(0.5, 0.0, -1.5));
+sunLight.position.copy(b2t(-5.5, -14.5, 9.5));
+sunLight.target.position.copy(b2t(-1.0, 0.0, -2.5));
 if (QUALITY.shadows) {
   sunLight.castShadow = true;
   sunLight.shadow.mapSize.set(2048, 2048);
-  Object.assign(sunLight.shadow.camera, { near: 1, far: 25, left: -8.5, right: 8.5, top: 8.5, bottom: -8.5 });
+  Object.assign(sunLight.shadow.camera, { near: 0.5, far: 48, left: -16, right: 16, top: 16, bottom: -16 });
   sunLight.shadow.bias = -0.0005;
 }
 scene.add(sunLight, sunLight.target);
 
 let isDaylight = false;
+let activeZoneKey = '';
+function activeZonesFor(camPos) {
+  const xb = camPos.x;
+  const yb = -camPos.z;
+  const eye = camPos.y - GROUND_FLOOR_Z;
+  if (camPos.y < -3.05) return ['podrum', 'ground_n', 'ext'];
+  if (xb < -4.55 || xb > 5.65 || yb < -5.35 || yb > 5.25) return ['ext', 'loft'];
+  if (camPos.y > 0.35 || eye > 2.2) return yb > 0.75 ? ['upper_n', 'loft'] : ['loft', 'upper_n'];
+  return yb > 0.75 ? ['ground_n', 'loft'] : ['loft', 'ground_n'];
+}
+function syncLightZone(camPos, force = false) {
+  const zones = activeZonesFor(camPos);
+  const key = `${zones.join(',')}:${activeInterior}`;
+  if (!force && key === activeZoneKey) return;
+  activeZoneKey = key;
+  managedLights.forEach((light) => {
+    const { group, zone } = light.userData;
+    const modeMatch = group === 'common' || group === activeInterior;
+    const zoneMatch = zone === 'all' || zones.includes(zone);
+    light.visible = modeMatch && zoneMatch;
+  });
+}
+
 const baseHemi = hemiLight.intensity;
 function applyLightingMode(day) {
   isDaylight = day;
-  scene.background.setHex(day ? 0xcfdbe6 : 0x0b0d13);
-  scene.environmentIntensity = day ? 0.82 : 0.24;
+  scene.background.setHex(day ? 0xbcd0e4 : 0x0b0d13);
+  scene.environmentIntensity = day ? 0.85 : 0.24;
   hemiLight.color.setHex(day ? 0xf4f8ff : 0xffe9cf);
   hemiLight.groundColor.setHex(day ? 0x8a7968 : 0x2c241d);
-  hemiLight.intensity = day ? 1.15 : baseHemi;
-  sunLight.intensity = day ? 2.8 : 0.0;
+  hemiLight.intensity = day ? 1.18 : baseHemi;
+  sunLight.intensity = day ? 2.85 : 0.0;
   renderer.toneMappingExposure = day ? 1.02 : INTERIORS[activeInterior].exposure;
   managedLights.forEach((light) => {
-    const { base, group } = light.userData;
-    light.visible = group === 'common' || group === activeInterior;
-    light.intensity = day ? base * 0.25 : base;
+    const { base } = light.userData;
+    light.intensity = day ? base * 0.28 : base;
   });
+  syncLightZone(camera.position, true);
   lightingIcon.textContent = day ? '☀' : '☾';
   lightingLabel.textContent = day ? 'Dan' : 'Večer';
   btnLighting.setAttribute('aria-pressed', String(day));
@@ -353,7 +432,11 @@ btnLighting.addEventListener('click', () => applyLightingMode(!isDaylight));
 // ---------------------------------------------------------------------------
 // Materials (per-interior colour grading lost in GLB export)
 // ---------------------------------------------------------------------------
-const GLASS_MATERIALS = ['Mat_Arch_Glass', 'Mat_Glass_Shelf', 'Mat_Frosted_Glass', 'Mat_R2_SmokedFrosted', 'Mat_R2_ReededFrosted', 'Mat_R2_ClearGlass'];
+const GLASS_MATERIALS = [
+  'Mat_Arch_Glass', 'Mat_Glass_Shelf', 'Mat_Frosted_Glass',
+  'Mat_R2_SmokedFrosted', 'Mat_R2_ReededFrosted', 'Mat_R2_ClearGlass',
+  'Mat_FH_Glass', 'Mat_FH_Frosted'
+];
 
 function tuneMaterial(mesh, m, interior) {
   const name = m.name || '';
@@ -361,8 +444,8 @@ function tuneMaterial(mesh, m, interior) {
     const isSmoked = name.includes('SmokedFrosted');
     const isFrosted = name.includes('Frosted');
     m.transparent = true;
-    m.opacity = isSmoked ? 0.84 : (isFrosted ? 0.58 : 0.24);
-    m.roughness = isFrosted ? 0.48 : 0.06;
+    m.opacity = isSmoked ? 0.84 : (isFrosted ? 0.56 : 0.24);
+    m.roughness = isFrosted ? 0.45 : 0.06;
     m.metalness = 0.08;
     m.depthWrite = false;
     mesh.castShadow = false; // glass must not block the sun / lamps
@@ -381,9 +464,13 @@ function tuneMaterial(mesh, m, interior) {
   } else if (name.includes('Mat_R2_CopperLining')) {
     m.emissive = new THREE.Color(0xff9442);
     m.emissiveIntensity = 1.5;
-  } else if (name.includes('Mat_R2_LEDDaylight')) {
+  } else if (name.includes('Mat_R2_LEDDaylight') || name.includes('Mat_FH_LEDCool')) {
     m.emissive = new THREE.Color(0xeaf5ff);
-    m.emissiveIntensity = 2.8;
+    m.emissiveIntensity = 2.6;
+  } else if (name.includes('Mat_FH_LEDWarm') || name.includes('Mat_R3Fix_LEDWarm')) {
+    m.emissive = new THREE.Color(0xffcb92);
+    m.emissiveIntensity = 2.2;
+    mesh.castShadow = false;
   } else if (name.includes('Mat_R2_GlossWhite')) {
     m.roughness = 0.08;
     m.metalness = 0.02;
@@ -391,10 +478,10 @@ function tuneMaterial(mesh, m, interior) {
     m.color.setRGB(0.02, 0.02, 0.025);
     m.roughness = 0.08;
     m.metalness = 0.35;
-  } else if (name.includes('Mat_R2_Mirror')) {
+  } else if (name.includes('Mat_R2_Mirror') || name.includes('Mat_FH_Mirror')) {
     m.roughness = 0.02;
     m.metalness = 0.98;
-  } else if (name.includes('Mat_R2_SanitaryCeramic')) {
+  } else if (name.includes('Mat_R2_SanitaryCeramic') || name.includes('Mat_FH_Sanitary')) {
     m.roughness = 0.10;
     m.metalness = 0.02;
   } else if (interior === 'current') {
@@ -1114,16 +1201,35 @@ setupMinimapCanvas();
 const MAP_W = 210;
 const MAP_H = 240;
 
-function worldToMinimap(xb, yb) {
-  const pad = 14;
-  const u = (xb + 4.65) / 10.45;
-  const v = 1.0 - (yb + 5.3) / 10.6; // North (+Y Blender) at the top
+const MINIMAP_BOUNDS = {
+  ext:        { xMin: -13.5, xMax: 11.2, yMin: -12.0, yMax: 11.5 },
+  podrum:     { xMin: -6.3,  xMax: 5.8,  yMin: -6.3,  yMax: 5.3 },
+  prizemlje:  { xMin: -12.0, xMax: 6.0,  yMin: -6.8,  yMax: 5.5 },
+  potkrovlje: { xMin: -4.8,  xMax: 5.9,  yMin: -5.3,  yMax: 5.3 }
+};
+
+function minimapModeFor(camPos) {
+  const xb = camPos.x;
+  const yb = -camPos.z;
+  if (camPos.y < -3.05) {
+    return (xb < -6.3 || xb > 5.8 || yb < -6.3 || yb > 5.3) ? 'ext' : 'podrum';
+  }
+  if (xb < -4.55 || xb > 5.65 || yb < -5.35 || yb > 5.25) {
+    return (yb > -5.5 && xb > -12.0 && xb < 6.0 && camPos.y >= -3.05 && camPos.y <= 0.35) ? 'prizemlje' : 'ext';
+  }
+  return camPos.y > 0.35 ? 'potkrovlje' : 'prizemlje';
+}
+
+function worldToMinimap(xb, yb, bounds = MINIMAP_BOUNDS.prizemlje) {
+  const pad = 12;
+  const u = (xb - bounds.xMin) / (bounds.xMax - bounds.xMin);
+  const v = 1.0 - (yb - bounds.yMin) / (bounds.yMax - bounds.yMin); // North (+Y Blender) at the top
   return [pad + u * (MAP_W - pad * 2), pad + v * (MAP_H - pad * 2)];
 }
 
-function drawRectPlan(x0, y0, x1, y1, fill, stroke = null) {
-  const [px0, py0] = worldToMinimap(x0, y1);
-  const [px1, py1] = worldToMinimap(x1, y0);
+function drawRectPlan(x0, y0, x1, y1, fill, stroke = null, bounds = MINIMAP_BOUNDS.prizemlje) {
+  const [px0, py0] = worldToMinimap(x0, y1, bounds);
+  const [px1, py1] = worldToMinimap(x1, y0, bounds);
   mctx.fillStyle = fill;
   mctx.fillRect(px0, py0, px1 - px0, py1 - py0);
   if (stroke) {
@@ -1133,75 +1239,64 @@ function drawRectPlan(x0, y0, x1, y1, fill, stroke = null) {
   }
 }
 
+let lastMinimapMode = 'prizemlje';
 function renderMinimap(camPos, lookPos, activeStop) {
   const xb = camPos.x;
   const yb = -camPos.z;
-  const isUpper = camPos.y > 0.1;
+  const mode = minimapModeFor(camPos);
+  lastMinimapMode = mode;
+  const B = MINIMAP_BOUNDS[mode];
   mctx.clearRect(0, 0, MAP_W, MAP_H);
 
-  // South Loft (Room 1)
-  drawRectPlan(-4.35, -5.0, 4.25, 0.85, 'rgba(255,244,228,0.06)', 'rgba(255,238,214,0.28)');
-
-  const a = isUpper ? 0.12 : 0.26;
-  drawRectPlan(-4.34, -5.0, -3.65, -1.16, `rgba(224,169,109,${a})`); // kitchen
-  if (activeInterior === 'redesign') {
-    const [tcx, tcy] = worldToMinimap(-1.86, -3.23);
-    const [tex] = worldToMinimap(-1.86 + 0.68, -3.23);
-    mctx.beginPath();
-    mctx.arc(tcx, tcy, tex - tcx, 0, Math.PI * 2);
-    mctx.fillStyle = `rgba(224,169,109,${a + 0.08})`;
-    mctx.fill(); // round travertine table
+  if (mode === 'ext') {
+    drawRectPlan(-13.5, 9.6, 11.2, 11.5, 'rgba(130,138,148,0.34)', 'rgba(255,255,255,0.2)', B); // Banfi road
+    drawRectPlan(6.7, -9.5, 9.6, 9.6, 'rgba(220,210,196,0.24)', 'rgba(255,255,255,0.18)', B);   // East driveway
+    drawRectPlan(-4.5, -9.5, 6.7, -5.1, 'rgba(220,210,196,0.22)', 'rgba(255,255,255,0.16)', B);  // Parking apron
+    drawRectPlan(-12.2, -4.8, -7.6, -0.4, 'rgba(130,185,120,0.24)', 'rgba(224,169,109,0.5)', B); // 3D Vrt Pergola
+    drawRectPlan(-6.0, -6.2, -4.4, 0.95, 'rgba(224,169,109,0.26)', 'rgba(224,169,109,0.55)', B); // Trijem + Ext stairs
+    drawRectPlan(-4.4, -5.1, 4.3, 0.95, 'rgba(255,244,228,0.14)', 'rgba(255,238,214,0.45)', B);  // South volume
+    drawRectPlan(-3.8, 0.95, 5.55, 5.1, 'rgba(255,244,228,0.12)', 'rgba(255,238,214,0.42)', B);  // North volume
+  } else if (mode === 'podrum') {
+    drawRectPlan(-6.0, -6.2, -4.4, -1.2, 'rgba(224,169,109,0.22)', 'rgba(224,169,109,0.45)', B); // Ext stairs
+    drawRectPlan(-4.35, -5.0, -1.45, -0.4, 'rgba(224,169,109,0.16)', 'rgba(255,238,214,0.38)', B); // Radna
+    drawRectPlan(-0.45, -5.0, 4.25, 0.85, 'rgba(255,244,228,0.08)', 'rgba(255,238,214,0.38)', B);  // Garaza
+    drawRectPlan(-3.75, 0.95, 0.45, 2.35, 'rgba(224,169,109,0.22)', 'rgba(255,238,214,0.42)', B);  // U-stubiste + hodnik
+    drawRectPlan(-3.75, 2.35, 0.45, 4.95, 'rgba(160,210,235,0.14)', 'rgba(255,238,214,0.38)', B);  // Veseraj
+    drawRectPlan(0.45, 0.95, 5.45, 4.95, 'rgba(160,210,235,0.16)', 'rgba(255,238,214,0.38)', B);   // Kotlovnica
+  } else if (mode === 'prizemlje') {
+    drawRectPlan(-11.4, -4.6, -8.0, -0.4, 'rgba(130,185,120,0.20)', 'rgba(224,169,109,0.45)', B); // 3D Vrt Pergola
+    drawRectPlan(-6.0, -6.1, -4.4, 0.95, 'rgba(224,169,109,0.22)', 'rgba(224,169,109,0.52)', B);  // Trijem + Vanjsko stubiste
+    drawRectPlan(-4.35, -5.0, 4.25, 0.85, 'rgba(255,244,228,0.07)', 'rgba(255,238,214,0.32)', B);  // South Loft
+    drawRectPlan(-2.95, -6.1, 2.95, -5.0, 'rgba(224,169,109,0.16)', 'rgba(224,169,109,0.45)', B);  // Balkon SE
+    drawRectPlan(-4.34, -5.0, -3.65, -1.16, 'rgba(224,169,109,0.28)', null, B); // kitchen
+    drawRectPlan(-0.68, -5.0, 0.68, -4.7, 'rgba(201,123,80,0.55)', null, B); // chimney
+    drawRectPlan(3.1, -2.1, 4.15, 0.72, 'rgba(224,169,109,0.24)', null, B); // stairs lower
+    drawRectPlan(-3.78, 0.95, -1.15, 4.95, 'rgba(255,244,228,0.06)', 'rgba(255,238,214,0.30)', B); // Soba 1 SZ
+    drawRectPlan(-1.15, 0.95, 1.45, 2.65, 'rgba(224,169,109,0.14)', 'rgba(255,238,214,0.28)', B);  // Predsoblje + U-stair
+    drawRectPlan(-1.15, 2.65, 1.45, 4.95, 'rgba(160,210,235,0.16)', 'rgba(255,238,214,0.30)', B);  // Kupaonica Pr
+    drawRectPlan(1.45, 0.95, 5.54, 4.95, 'rgba(255,244,228,0.06)', 'rgba(255,238,214,0.30)', B);   // Soba 2 SI
   } else {
-    drawRectPlan(-2.38, -4.2, -1.34, -2.27, `rgba(224,169,109,${a + 0.08})`); // dining table
-  }
-  drawRectPlan(-0.68, -5.0, 0.68, -4.7, 'rgba(201,123,80,0.55)'); // chimney
-  drawRectPlan(0.0, -2.2, 2.7, -1.2, `rgba(200,200,210,${a})`); // sofa N
-  drawRectPlan(-0.1, -3.6, 0.95, -1.9, `rgba(200,200,210,${a})`); // sofa W
-  drawRectPlan(3.65, -4.75, 4.2, -2.38, `rgba(255,255,255,${a})`); // TV console
-  drawRectPlan(3.1, -2.1, 4.15, 0.72, 'rgba(224,169,109,0.24)'); // stairs lower
-  drawRectPlan(0.1, -0.25, 3.1, 0.72, 'rgba(224,169,109,0.24)'); // stairs upper
-
-  // Upper Gallery (Room 1 + Catwalk Bridge from Room 3)
-  drawRectPlan(
-    -4.32, -2.1, -0.28, 0.85,
-    isUpper ? 'rgba(224,169,109,0.18)' : 'rgba(255,255,255,0.02)',
-    isUpper ? 'rgba(224,169,109,0.68)' : 'rgba(255,255,255,0.12)'
-  );
-  drawRectPlan(
-    -0.28, -0.24, 0.15, 0.76,
-    isUpper ? 'rgba(224,169,109,0.18)' : 'rgba(255,255,255,0.02)',
-    isUpper ? 'rgba(224,169,109,0.68)' : 'rgba(255,255,255,0.12)'
-  );
-  if (isUpper) {
-    drawRectPlan(-3.95, -1.53, -3.07, -0.74, 'rgba(224,169,109,0.42)');
-    drawRectPlan(-3.00, -1.65, -2.38, 0.14, 'rgba(224,169,109,0.42)');
-  }
-
-  // Merged Room 2 (Upper North Wing: Kupaonica + Garderoba/Ured + Glavna spavaća soba)
-  const r2Fill = isUpper ? 'rgba(224,169,109,0.14)' : 'rgba(255,244,228,0.04)';
-  const r2Stroke = isUpper ? 'rgba(224,169,109,0.72)' : 'rgba(255,238,214,0.20)';
-  drawRectPlan(-3.78, 0.96, -1.45, 4.98, r2Fill, r2Stroke); // 10 Kupaonica
-  drawRectPlan(-1.45, 0.96, 1.91, 4.98, r2Fill, r2Stroke);  // 09 Garderoba & Ured
-  drawRectPlan(1.91, 0.96, 5.54, 4.98, r2Fill, r2Stroke);   // 11 Glavna spavaća soba
-  if (isUpper) {
-    drawRectPlan(-3.60, 1.18, -1.80, 1.99, 'rgba(160,210,235,0.38)'); // bathtub
-    drawRectPlan(-1.80, 3.15, -1.32, 4.15, 'rgba(224,169,109,0.42)'); // vanity
-    drawRectPlan(1.28, 2.17, 1.85, 4.82, 'rgba(224,169,109,0.42)');   // 2.65m wardrobe
-    drawRectPlan(-0.46, 1.18, 0.78, 1.76, 'rgba(224,169,109,0.38)');  // study desk
-    drawRectPlan(3.15, 2.52, 5.39, 4.45, 'rgba(224,169,109,0.46)');   // king bed
-    drawRectPlan(2.97, 1.18, 5.28, 1.74, 'rgba(255,255,255,0.28)');   // bedroom dresser
+    drawRectPlan(-4.35, -5.0, 4.25, 0.85, 'rgba(255,244,228,0.04)', 'rgba(255,238,214,0.18)', B);  // South void
+    drawRectPlan(-4.32, -2.1, -0.28, 0.85, 'rgba(224,169,109,0.20)', 'rgba(224,169,109,0.70)', B); // Galerija
+    drawRectPlan(-0.28, -0.24, 0.15, 0.76, 'rgba(224,169,109,0.20)', 'rgba(224,169,109,0.70)', B); // Catwalk
+    drawRectPlan(0.1, -0.25, 3.1, 0.72, 'rgba(224,169,109,0.24)', null, B); // stairs upper
+    drawRectPlan(-3.78, 0.96, -1.45, 4.98, 'rgba(224,169,109,0.14)', 'rgba(224,169,109,0.72)', B); // Kupaonica Pk
+    drawRectPlan(-1.45, 0.96, 1.91, 4.98, 'rgba(224,169,109,0.14)', 'rgba(224,169,109,0.72)', B);  // Garderoba
+    drawRectPlan(1.91, 0.96, 5.54, 4.98, 'rgba(224,169,109,0.14)', 'rgba(224,169,109,0.72)', B);   // Spavaca Pk
+    drawRectPlan(3.15, 2.52, 5.39, 4.45, 'rgba(224,169,109,0.44)', null, B); // king bed
   }
 
   STOP_POSES.forEach((st, idx) => {
-    const [px, py] = worldToMinimap(st.cam.x, -st.cam.z);
+    const [px, py] = worldToMinimap(st.cam.x, -st.cam.z, B);
+    if (px < 0 || px > MAP_W || py < 0 || py > MAP_H) return;
     mctx.beginPath();
-    mctx.arc(px, py, idx === activeStop ? 5.2 : 3.4, 0, Math.PI * 2);
+    mctx.arc(px, py, idx === activeStop ? 5.2 : 3.2, 0, Math.PI * 2);
     mctx.fillStyle = idx === activeStop ? '#e0a96d' : 'rgba(255,255,255,0.38)';
     mctx.fill();
   });
 
-  const [cx, cy] = worldToMinimap(xb, yb);
-  const [tx, ty] = worldToMinimap(lookPos.x, -lookPos.z);
+  const [cx, cy] = worldToMinimap(xb, yb, B);
+  const [tx, ty] = worldToMinimap(lookPos.x, -lookPos.z, B);
   const angle = Math.atan2(ty - cy, tx - cx);
   const fovHalf = Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.aspect);
   mctx.beginPath();
@@ -1226,10 +1321,11 @@ minimapCanvas.addEventListener('click', (e) => {
   const rect = minimapCanvas.getBoundingClientRect();
   const mx = ((e.clientX - rect.left) / rect.width) * MAP_W;
   const my = ((e.clientY - rect.top) / rect.height) * MAP_H;
+  const B = MINIMAP_BOUNDS[lastMinimapMode] || MINIMAP_BOUNDS.prizemlje;
   let bestIdx = 0;
   let bestDist = Infinity;
   STOP_POSES.forEach((st, idx) => {
-    const [px, py] = worldToMinimap(st.cam.x, -st.cam.z);
+    const [px, py] = worldToMinimap(st.cam.x, -st.cam.z, B);
     const d = Math.hypot(mx - px, my - py);
     if (d < bestDist) {
       bestDist = d;
@@ -1298,7 +1394,7 @@ function updateHud(activeStop) {
     }
   }
   const eye = camera.position.y - GROUND_FLOOR_Z;
-  const elev = `+${eye.toFixed(2)} m`;
+  const elev = `${eye >= 0 ? '+' : ''}${eye.toFixed(2)} m`;
   if (elev !== hudCache.elev) elevReadout.textContent = hudCache.elev = elev;
   const pct = Math.round(currentScrollT * 100);
   if (pct !== hudCache.pct) {
@@ -1306,13 +1402,26 @@ function updateHud(activeStop) {
     scrollPctEl.textContent = `${pct}%`;
     railFill.style.height = `${pct}%`;
   }
-  const floor = -camera.position.z > 0.95 && eye > 3.2
-    ? 'SJEVERNO KRILO • KAT (+2.73 m)'
-    : eye > 3.6
-      ? 'GALERIJA / KAT (+2.74 m)'
-      : eye > 2.2
-        ? 'STEPENIŠTE (USPON)'
-        : 'PRIZEMLJE (0.00 m)';
+  const xb = camera.position.x;
+  const yb = -camera.position.z;
+  let floor;
+  if (camera.position.y < -3.05) {
+    floor = (xb < -4.55 || xb > 5.65 || yb < -5.35 || yb > 5.25)
+      ? 'VRT & PARCELA (-2.73 m)'
+      : 'PODRUM (-2.73 m)';
+  } else if (xb < -4.55 || xb > 5.65 || yb < -5.35 || yb > 5.25) {
+    floor = 'VRT & PARCELA (±0.00 m)';
+  } else if (yb > 0.95 && eye > 3.2) {
+    floor = 'POTKROVLJE (+2.73 m)';
+  } else if (eye > 3.6) {
+    floor = 'GALERIJA / POTKROVLJE (+2.73 m)';
+  } else if (eye > 2.2) {
+    floor = 'STEPENIŠTE (USPON)';
+  } else if (yb > 0.95) {
+    floor = 'SJEVERNO KRILO • PRIZEMLJE (0.00 m)';
+  } else {
+    floor = 'PRIZEMLJE (0.00 m)';
+  }
   if (floor !== hudCache.floor) floorBadge.textContent = hudCache.floor = floor;
 }
 
@@ -1381,6 +1490,7 @@ function animate(now = performance.now()) {
     measure.updateLabels(camera, window.innerWidth, window.innerHeight);
   }
 
+  syncLightZone(camera.position);
   updateHud(activeStop);
   // (offsetParent is always null for position:fixed elements, so visibility is tracked explicitly)
   if (!mobileLayoutMQ.matches || minimapCard.classList.contains('open')) {
