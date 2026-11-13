@@ -17,9 +17,9 @@ Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.
 | Kuhinja | beton siva + antracit | kadulja mat + hrast + travertin |
 | Blagovaonica | hrastov stol, baršunaste stolice | okrugli travertinski stol Ø 136 cm, hrast + bouclé |
 | Boravak | siva chesterfield L-garnitura | krem bouclé modularna garnitura, mid-century fotelja |
-| Garderoba & ured (Room 2) | 5-krilni bijeli ormar (2.65 m), hrastov stol | hrastove fronte s LED rasvjetom, bouclé & travertin |
-| Kupaonica (Room 2) | kamena keramika, kada 1.68 m, krom miješalice | mat travertin, brušena mjed, halo LED ogledalo |
-| Glavna spavaća soba (Room 2) | tapecirani sivi krevet (1.93 × 2.24 m), opalne kugle | lebdeći hrastov krevet, bouclé, lan i papirnate lampe |
+| Garderoba & ured (Room 2) | 5-krilni bijeli sjajni ormar + hrast letvice, kožna *Butterfly* fotelja, bačva-stolić *LEGENDS 1872*, crni radni stol | hrastove fronte s LED rasvjetom, bouclé & travertin |
+| Kupaonica (Room 2) | pješčano-bež i sive pločice, polukružna kutna kada, rustik-hrast ormarić, okruglo ogledalo Ø 94 cm | mat travertin, brušena mjed, halo LED ogledalo |
+| Glavna spavaća soba (Room 2) | smeđe-sivi krevet s bijelom ladicom i oker prekrivačem, otvorena hrastova konzola (2.31 m), solna lampa | lebdeći hrastov krevet, bouclé, lan i papirnate lampe |
 | Rasvjeta | kupole i opalne kugle | papirnate lampe (Akari), LED trake, 2700 K |
 
 Prekidač **Postojeće / Redizajn** nalazi se u gornjoj traci. Kartice se mijenjaju ovisno o interijeru, a gumb **⇆ Prije / poslije** otvara klizač s Cycles renderima iz identične kamere.

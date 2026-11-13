@@ -41,13 +41,13 @@ const TOUR_NODES = [
   { cam: [0.05, -0.75, 0.8], look: [-2.6, -1.0, 0.6] },         // 13: passes under tie beam, over railing
   { cam: [-0.75, -1.0, 1.12], look: [-3.4, -0.95, 0.15] },      // 14: 08 Galerija
   { cam: [-0.94, 0.95, 1.15], look: [0.15, 3.35, 0.95] },       // 15: through Gallery -> Room 2 doorway
-  { cam: [-0.68, 2.55, 1.18], look: [0.85, 3.65, 0.88] },       // 16: 09 Garderoba & Ured (Room 2)
+  { cam: [-0.58, 2.22, 1.16], look: [0.35, 3.85, 0.76] },       // 16: 09 Garderoba & Ured (Room 2)
   { cam: [-1.51, 2.50, 1.18], look: [-2.55, 2.35, 0.82] },      // 17: through bathroom doorway
-  { cam: [-2.42, 2.48, 1.16], look: [-1.75, 4.15, 0.82] },      // 18: 10 Kupaonica (Room 2)
+  { cam: [-2.52, 2.38, 1.16], look: [-1.95, 4.15, 0.78] },      // 18: 10 Kupaonica (Room 2)
   { cam: [-1.51, 2.50, 1.18], look: [0.65, 2.45, 0.95] },       // 19: exit bathroom doorway
   { cam: [0.95, 1.82, 1.18], look: [1.95, 1.60, 0.95] },        // 20: clear corridor past study desk
   { cam: [1.91, 1.52, 1.18], look: [3.65, 2.85, 0.85] },        // 21: through master bedroom doorway
-  { cam: [2.42, 1.95, 1.18], look: [4.45, 3.45, 0.68] }         // 22: 11 Glavna spavaća soba (Room 2)
+  { cam: [2.38, 1.92, 1.16], look: [4.35, 3.25, 0.62] }         // 22: 11 Glavna spavaća soba (Room 2)
 ];
 
 const STOP_NODE_IDX = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 22];
@@ -148,8 +148,8 @@ controls.maxPolarAngle = Math.PI * 0.92;
 // Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
 const INTERIORS = {
-  current: { url: './assets/room_3d.glb?v=2', exposure: 1.08, name: 'postojeći interijer' },
-  redesign: { url: './assets/room_redesign.glb?v=2', exposure: 1.16, name: 'redizajn Japandi' }
+  current: { url: './assets/room_3d.glb?v=3', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb?v=3', exposure: 1.16, name: 'redizajn Japandi' }
 };
 let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
 
@@ -227,9 +227,10 @@ if (QUALITY.extraFillLights) {
   addPoint(0.12, 1.85, -1.15, 0xffe4c4, 3.2, 6.5);
   addPoint(2.2, 0.1, -1.25, 0xffd9ad, 2.6, 6.5);
   addPoint(0.25, 2.1, 1.55, 0xffe2be, 2.5, 7.0);
-  addPoint(-1.55, 3.65, 1.25, 0xffdcb0, 2.2, 4.5); // bathroom mirror halo fill
-  addPoint(5.05, 4.68, 0.56, 0xffdcb4, 2.2, 4.5, false, 'current');
-  addPoint(5.05, 2.24, 0.56, 0xffdcb4, 2.2, 4.5, false, 'current');
+  addPoint(-1.46, 3.42, 1.55, 0xeef6ff, 2.4, 4.5, false, 'current'); // square daylight LED clip on bathroom mirror
+  addPoint(-1.55, 3.65, 1.25, 0xffdcb0, 2.4, 4.5, false, 'redesign'); // bathroom mirror warm halo
+  addPoint(5.04, 2.22, 0.50, 0xffad60, 2.5, 4.6, false, 'current'); // copper-lined drum lamp on South tray table
+  addPoint(4.92, 1.38, 0.34, 0xff6e38, 1.8, 3.8, false, 'current'); // glowing Himalayan salt lamp on oak console
   addPoint(5.05, 4.68, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign');
   addPoint(5.05, 2.24, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign');
 } else {
@@ -274,15 +275,17 @@ btnLighting.addEventListener('click', () => applyLightingMode(!isDaylight));
 // ---------------------------------------------------------------------------
 // Materials (per-interior colour grading lost in GLB export)
 // ---------------------------------------------------------------------------
-const GLASS_MATERIALS = ['Mat_Arch_Glass', 'Mat_Glass_Shelf', 'Mat_Frosted_Glass'];
+const GLASS_MATERIALS = ['Mat_Arch_Glass', 'Mat_Glass_Shelf', 'Mat_Frosted_Glass', 'Mat_R2_SmokedFrosted', 'Mat_R2_ReededFrosted', 'Mat_R2_ClearGlass'];
 
 function tuneMaterial(mesh, m, interior) {
   const name = m.name || '';
   if (GLASS_MATERIALS.some((g) => name.includes(g))) {
+    const isSmoked = name.includes('SmokedFrosted');
+    const isFrosted = name.includes('Frosted');
     m.transparent = true;
-    m.opacity = name.includes('Frosted') ? 0.55 : 0.24;
-    m.roughness = name.includes('Frosted') ? 0.6 : 0.06;
-    m.metalness = 0.1;
+    m.opacity = isSmoked ? 0.84 : (isFrosted ? 0.58 : 0.24);
+    m.roughness = isFrosted ? 0.48 : 0.06;
+    m.metalness = 0.08;
     m.depthWrite = false;
     mesh.castShadow = false; // glass must not block the sun / lamps
     return;
@@ -294,6 +297,18 @@ function tuneMaterial(mesh, m, interior) {
   } else if (name.includes('Mat_Blue_LED')) {
     m.emissive = new THREE.Color(0x2ea8ff);
     m.emissiveIntensity = 2.4;
+  } else if (name.includes('Mat_R2_SaltCrystal')) {
+    m.emissive = new THREE.Color(0xff5e24);
+    m.emissiveIntensity = 2.0;
+  } else if (name.includes('Mat_R2_CopperLining')) {
+    m.emissive = new THREE.Color(0xff9442);
+    m.emissiveIntensity = 1.5;
+  } else if (name.includes('Mat_R2_LEDDaylight')) {
+    m.emissive = new THREE.Color(0xeaf5ff);
+    m.emissiveIntensity = 2.8;
+  } else if (name.includes('Mat_R2_GlossWhite')) {
+    m.roughness = 0.08;
+    m.metalness = 0.02;
   } else if (name.includes('Mat_TV_Screen')) {
     m.color.setRGB(0.02, 0.02, 0.025);
     m.roughness = 0.08;

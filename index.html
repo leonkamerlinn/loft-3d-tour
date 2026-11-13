@@ -10,7 +10,7 @@
     document.documentElement.dataset.interior =
       new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
   </script>
-  <link rel="stylesheet" href="./styles.css?v=2" />
+  <link rel="stylesheet" href="./styles.css?v=3" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
     {
@@ -382,17 +382,20 @@
         </div>
         <h2>Garderoba, radni stol &amp; kutak za čitanje</h2>
         <p>
-          Ulaskom kroz vrata s galerije otvara se središnja prostorija novog <strong>Room 2</strong> LiDAR skena (<strong>3.42 × 3.92 m</strong>): peterokrilni ugradbeni ormar dužine 2.65 m, radni stol uz južni zid te fotelja s klub-stolićem ispod sjevernog prozora.
+          Kroz dvokrilna hrastova vrata sa zatamnjenim pjeskarenim staklom otvara se središnja soba sjevernog krila (<strong>3.42 × 3.92 m</strong>): peterokrilni bijeli ugradbeni ormar visokog sjaja (2.65 m) s bočnim hrastovim letvicama, prošivena konjak kožna <em>Butterfly</em> fotelja uz bačva-stolić <em>„LEGENDS 1872”</em> te crni radni stol s ladičarom i visokim ogledalom.
         </p>
         <div class="spec-grid">
-          <div><span>Garderoba</span><strong>2.65 × 2.05 m</strong></div>
-          <div><span>Raspored</span><strong>Predsoblje u 3 zone</strong></div>
+          <div><span>Garderoba</span><strong>Bijeli sjaj + hrast letvice</strong></div>
+          <div><span>Kutak</span><strong>Kožna Butterfly &amp; bačva</strong></div>
         </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_study.jpg" data-after="./assets/redesign_study.jpg" data-title="Garderoba i radna soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        <button type="button" class="compare-btn" data-photo="./assets/photo_study.jpg" data-render="./assets/render_study.jpg" data-title="Garderoba i kutak s leptir-foteljom (IMG_6477) — stvarna fotografija vs. Cycles render">
+          Usporedi fotografiju i Cycles render
+        </button>
+        <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_study.jpg" data-after="./assets/redesign_study.jpg" data-title="Garderoba i radna soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
         <div class="variant v-redesign">
         <div class="card-meta"><span class="step-num">09 / 11</span><span class="elev-tag">REDIZAJN • ROOM 2</span></div>
-        <h2> Garderoba u hrastu i lounge kutak</h2>
+        <h2>Garderoba u hrastu i lounge kutak</h2>
         <p>Peterokrilni ormar dobiva tople hrastove fronte sa skrivenom LED linijom pri stropu, pod se nastavlja u parketu riblja kost, a uz prozor je bouclé fotelja s niskim travertinskim stolićem i vunenim tepihom.</p>
         <div class="spec-grid">
           <div><span>Fronte ormara</span><strong>Svijetli hrast + LED</strong></div>
@@ -411,15 +414,18 @@
           <span class="step-num">10 / 11</span>
           <span class="elev-tag">ROOM 2 • ZAPADNA SOBA</span>
         </div>
-        <h2>Kupaonica s ugradbenom kadom</h2>
+        <h2>Kupaonica s kutnom kadom i okruglim ogledalom</h2>
         <p>
-          Zapadna prostorija novog skena (<strong>2.57 × 3.92 m</strong>) pod kosim krovom s nadozidom visine 1.47 m sadrži ugradbenu kadu dužine 1.68 m sa staklenom stijenom i kišnim tušem, konzolni umivaonik s LED ogledalom, viseću WC školjku i ormarić za rublje.
+          Zapadna kupaonica (<strong>2.57 × 3.92 m</strong>) pod kosinom krova kombinira pješčano-bež podnu i sivu kamenu zidnu keramiku: polukružnu kutnu bijelu kadu s kromiranom zidnom miješalicom i bijelim ljestvastim radijatorom, lebdeći ormarić u rustikalnom hrastu s okruglim ogledalom Ø 94 cm i LED lampom, ugradbeni WC te bijelu komodu s tri ladice.
         </p>
         <div class="spec-grid">
-          <div><span>Kada</span><strong>1.68 × 0.83 m + tuš</strong></div>
-          <div><span>Obloge</span><strong>Kamena keramika</strong></div>
+          <div><span>Kada &amp; grijanje</span><strong>Polukružna kutna + ljestve</strong></div>
+          <div><span>Umivaonik</span><strong>Rustik hrast &amp; Ø 94 cm</strong></div>
         </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_bathroom.jpg" data-after="./assets/redesign_bathroom.jpg" data-title="Kupaonica u potkrovlju (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        <button type="button" class="compare-btn" data-photo="./assets/photo_bathroom.jpg" data-render="./assets/render_bathroom.jpg" data-title="Kupaonica u potkrovlju (IMG_6481) — stvarna fotografija vs. Cycles render">
+          Usporedi fotografiju i Cycles render
+        </button>
+        <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_bathroom.jpg" data-after="./assets/redesign_bathroom.jpg" data-title="Kupaonica u potkrovlju (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
         <div class="variant v-redesign">
         <div class="card-meta"><span class="step-num">10 / 11</span><span class="elev-tag">REDIZAJN • SPA KUPAONICA</span></div>
@@ -444,13 +450,16 @@
         </div>
         <h2>Glavna spavaća soba u potkrovlju</h2>
         <p>
-          Istočna spavaća soba (<strong>3.63 × 3.92 m</strong>) zaokružuje tlocrt kuće: prostrani bračni krevet (<strong>1.93 × 2.24 m</strong>) s tapeciranim uzglavljem pod kosinom krova, dva noćna ormarića s opalnim kuglama, duga komoda od 2.31 m i fotelja uz prozor.
+          Istočna spavaća soba (<strong>3.63 × 3.92 m</strong>) zaokružuje tlocrt kuće: bračni krevet u smeđe-sivoj tkanini s izvlačnom bijelom ladicom za posteljinu i zlatno-oker prekrivačem, crni stolić sa stolnom lampom bakrene unutrašnjosti, otvorena hrastova polica-konzola (2.31 m) sa slikom suncokreta i himalajskom solnom lampom te kožna <em>Butterfly</em> fotelja u kutu.
         </p>
         <div class="spec-grid">
-          <div><span>Krevet</span><strong>1.93 × 2.24 m</strong></div>
-          <div><span>Komoda</span><strong>2.31 × 0.59 m</strong></div>
+          <div><span>Krevet</span><strong>Tkanina + bijela ladica</strong></div>
+          <div><span>Konzola</span><strong>Otvoreni hrast 2.31 m</strong></div>
         </div>
-        <button type="button" class="compare-btn ba-btn" data-before="./assets/render_bedroom.jpg" data-after="./assets/redesign_bedroom.jpg" data-title="Glavna spavaća soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
+        <button type="button" class="compare-btn" data-photo="./assets/photo_bedroom.jpg" data-render="./assets/render_bedroom.jpg" data-title="Glavna spavaća soba (IMG_6496) — stvarna fotografija vs. Cycles render">
+          Usporedi fotografiju i Cycles render
+        </button>
+        <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_bedroom.jpg" data-after="./assets/redesign_bedroom.jpg" data-title="Glavna spavaća soba (Room 2) — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
         <div class="variant v-redesign">
         <div class="card-meta"><span class="step-num">11 / 11</span><span class="elev-tag">REDIZAJN • SPAVAĆA SOBA</span></div>
@@ -512,6 +521,6 @@
     </div>
   </div>
 
-  <script type="module" src="./app.js?v=2"></script>
+  <script type="module" src="./app.js?v=3"></script>
 </body>
 </html>
