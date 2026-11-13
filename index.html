@@ -10,7 +10,7 @@
     document.documentElement.dataset.interior =
       new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
   </script>
-  <link rel="stylesheet" href="./styles.css?v=8" />
+  <link rel="stylesheet" href="./styles.css?v=10" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
     {
@@ -210,7 +210,7 @@
           </div>
           <h2>Vanjsko stubište &amp; natkriveni ulazni trijem</h2>
           <p>
-            Od donjeg parkirnog platoa (<strong>-2.73 m</strong>) uspinje se vanjsko stubište od 16 gazišta s čelično-staklenom ogradom na natkriveni drveni ulazni trijem (kotirano <strong>0.00 m</strong>), odakle se kroz otvorena hrastova vrata (<strong>106 × 216 cm</strong>) ulazi ravno u kuću.
+            Od donjeg parkirnog platoa (<strong>-2.73 m</strong>) uspinje se vanjsko stubište od 16 gazišta s čelično-staklenom ogradom na ulazni trijem (kotirano <strong>0.00 m</strong>) natkriven kosom nadstrešnicom od crijepa (35°) s toplim cedrovim podgledom ispred glavnih vrata (<strong>106 × 216 cm</strong>).
           </p>
           <div class="spec-grid">
             <div><span>Uspon stubišta</span><strong>16 stuba (-2.73 → 0.00 m)</strong></div>
@@ -222,7 +222,7 @@
           <h2>Cedrov podgled trijema &amp; kamena gazišta</h2>
           <p>Protuklizna plamena kamena gazišta s LED linijom ispod prepusta, topli letvičasti podgled nadstrešnice, mat antracit okovi i reprezentativni ulazni portal.</p>
           <div class="spec-grid">
-            <div><span>Nadstrešnica</span><strong>Cedrov letvičasti podgled</strong></div>
+            <div><span>Nadstrešnica</span><strong>Kosa 35° crijep + cedar</strong></div>
             <div><span>Ograda</span><strong>Laminirano staklo + antracit</strong></div>
           </div>
           <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg" data-after="./assets/redesign_entrance.jpg" data-title="Ulazni trijem i stubište — postojeće vs. redizajn">⇆ Prije / poslije</button>
@@ -487,13 +487,13 @@
             <span class="step-num">12 / 15</span>
             <span class="elev-tag">USPON NA KAT • 0.00 → +2.74 m</span>
           </div>
-          <h2>Otvoreno L-stepenište &amp; krovne grede sa sajlama</h2>
+          <h2>Otvoreno L-stepenište &amp; krovište dvostruke stolice</h2>
           <p>
-            Glavno otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela (d = 50 mm, bez zatvorene visine) penje se ispod podignutih uzdužnih krovnih greda s crnim čeličnim čvornim okovima i dvjema napetim sajlama sa 8 usmjerenih LED spotova.
+            Glavno otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela (d = 50 mm, bez zatvorene visine) i kontinuiranim rukohvatima spojenim u ogradu galerije penje se ispod drvene dvostruke stolice s tankim 6 mm mat crnim čeličnim pločicama i dvjema napetim sajlama sa 8 LED spotova.
           </p>
           <div class="spec-grid">
             <div><span>Stepenište</span><strong>14 lebdećih gazišta bez čela</strong></div>
-            <div><span>Krovište</span><strong>Povišene grede + 2× sajle</strong></div>
+            <div><span>Krovište</span><strong>Dvostruka stolica + 2× sajle</strong></div>
           </div>
           <button type="button" class="compare-btn" data-photo="./assets/photo_truss.jpg" data-render="./assets/render_truss.jpg" data-title="Krovna rešetka i sajle rasvjete (IMG_6527) — stvarna fotografija vs. Cycles render">
             Usporedi fotografiju i Cycles render
@@ -502,8 +502,8 @@
         </div>
         <div class="variant v-redesign">
           <div class="card-meta"><span class="step-num">12 / 15</span><span class="elev-tag">REDIZAJN • KROVIŠTE</span></div>
-          <h2>Ebonizirane krovne grede &amp; skulpturalno stepenište</h2>
-          <p>Sve hrastove rešetke i podignute uzdužne grede moče se u duboki ebonizirani ton na toplom bijelom kosom stropu; napete sajle i crni čvorovi ostaju kao precizan grafički detalj iznad boravka.</p>
+          <h2>Ebonizirana dvostruka stolica &amp; skulpturalno stepenište</h2>
+          <p>Konstrukcija dvostruke stolice, podrožnice i nazidnice moče se u duboki ebonizirani ton na toplom bijelom kosom stropu; napete sajle i 6 mm mat crne vijčane pločice ostaju kao precizan grafički detalj iznad boravka.</p>
           <div class="spec-grid">
             <div><span>Grede &amp; okviri</span><strong>Ebonizirani hrast</strong></div>
             <div><span>Visilice</span><strong>3× Akari papir, 2700 K</strong></div>
@@ -678,6 +678,6 @@
     </div>
   </aside>
 
-  <script type="module" src="./app.js?v=8"></script>
+  <script type="module" src="./app.js?v=10"></script>
 </body>
 </html>

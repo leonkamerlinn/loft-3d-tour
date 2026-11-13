@@ -1,4 +1,4 @@
-import { PROJECT, ZONES, BOQ, PLANS } from './spec-data.js?v=8';
+import { PROJECT, ZONES, BOQ, PLANS } from './spec-data.js?v=10';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

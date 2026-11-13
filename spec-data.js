@@ -171,11 +171,11 @@ export const ZONES = [
       kneeWall_m: null,
       floorArea_m2: 8.0,
       wallArea_m2: 14.0,
-      note: '16 gazišta vanjskog stubišta (-2.73 → 0.00 m) s južnim podestom, staklenom ogradom i natkrivenim drvenim ulaznim trijemom ispred otvorenih glavnih vrata (106 × 216 cm).'
+      note: '16 gazišta vanjskog stubišta (-2.73 → 0.00 m) s južnim podestom, staklenom ogradom i kosom nadstrešnicom nagiba 35° s pokrovom od crijepa ispred otvorenih glavnih vrata (106 × 216 cm).'
     },
     existing: [
       'Vanjsko armiranobetonsko stubište uz zapadnu fasadu (X ∈ [-5.90, -4.45 m]) sa 16 kamenih stuba od južnog platoa (-2.73 m) na podest trijema (0.00 m).',
-      'Natkrivena ulazna nadstrešnica s toplim cedrovim letvicama podgleda i čeličnom konstrukcijom, zaštitna staklena ograda i glavna hrastova ulazna vrata 106 × 216 cm.'
+      'Kosa ulazna nadstrešnica nagiba 35° s pokrovom od tamnog crijepa, drvenim rogovima, toplim cedrovim letvicama podgleda, zaštitnom staklenom ogradom i glavnim hrastovim vratima 106 × 216 cm.'
     ],
     redesign: {
       summary: 'Reprezentativni ulaz: protuklizna gazišta od plamenog granita ili debelog travertina R11, staklena ograda bez gornjih profila s antracit stupićima, letvičasti cedrov podgled s integriranim ulaznim spotovima i čisto obrađen ulazni portal.',
@@ -538,12 +538,12 @@ export const ZONES = [
       kneeWall_m: null,
       floorArea_m2: 33.8,
       wallArea_m2: 88.0,
-      note: 'Unutarnje dvokrako U-stepenište (16 stuba po 17.06 cm), donji predprostor, Vešeraj (11.1 m²) i Kotlovnica (16.5 m²) s dva sjeverna prozora u engleskim šahtovima.'
+      note: 'Unutarnje dvokrako U-stepenište (16 stuba po 17.06 cm), donji predprostor, Vešeraj (11.1 m²) i Kotlovnica (16.5 m²) s dva sjeverna prozora u engleskim šahtovima i vanjskim vratima 80 × 220 cm.'
     },
     existing: [
       'Dvokrako U-stepenište od hrastovih gazišta s međupodestom (-1.365 m) i obostrano montiranim zidnim rukohvatima od prizemlja (0.00 m) do podruma (-2.73 m).',
       'Vešeraj na sjeverozapadu s perilicom, sušilicom, sudoperom od nehrđajućeg čelika i radnom pločom ispod sjevernog nadsvjetla 160 × 70 cm.',
-      'Kotlovnica na sjeveroistoku s jedinicom dizalice topline, bojlerom/puferom 500 L, ekspanzijskom posudom i razdjelnikom podnog grijanja.'
+      'Kotlovnica na sjeveroistoku s vanjskim vratima 80 × 220 cm (JI izlaz suterena), jedinicom dizalice topline, bojlerom/puferom 500 L, ekspanzijskom posudom i razdjelnikom podnog grijanja.'
     ],
     redesign: {
       summary: 'Čist i izdržljiv tehničko-gospodarski trakt: protuklizni tehnički porculan R10 na cijelom podu i soklu, uljeni hrastovi gazišni pragovi U-stubišta, perive zidne boje, radna ploha vešeraja i organizirana LED rasvjeta 4000 K.',
@@ -644,18 +644,18 @@ export const ZONES = [
       kneeWall_m: null,
       floorArea_m2: 4.3,
       wallArea_m2: 69.8,
-      note: 'Otvoreno L-stepenište (14 lebdećih gazišta bez čela, d = 50 mm, otvorena visina) + podignute uzdužne krovne grede s crnim čvorovima i dvjema napetim sajlama rasvjete (8 spotova).'
+      note: 'Otvoreno L-stepenište (14 lebdećih gazišta bez čela, d = 50 mm, otvorena visina) s kontinuiranim rukohvatima u ogradu galerije + krovište sustava dvostruke stolice s tankim 6 mm čeličnim vezama i dvjema napetim sajlama rasvjete (8 spotova).'
     },
     existing: [
-      'Otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela i bez zatvorene visine (d = 50 mm) na središnjem/bočnom crnom čeličnom nosaču s otvorenim kutnim ukosom, 5 crnih sajli ograde, 2 zidna rukohvata i komodom s vinotekom ispod kraka.',
-      'Masivne hrastove rešetke (Truss_0, Truss_1, visoki sjeverni okvir bez prepreke na ulazu mosta) te podignute uzdužne krovne grede (+4.38 m) s crnim mat čeličnim okovima.',
-      'Dvije paralelne napete čelične sajle s 8 bijelih usmjerenih LED spotova u gornjoj zoni krovišta + klima na sjevernom zabatu.'
+      'Otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela i bez zatvorene visine (d = 50 mm) na središnjem/bočnom crnom čeličnom nosaču, s 5 crnih sajli ograde te zidnim i stubišnim rukohvatom kontinuirano spojenim u hrastov rukohvat galerije, plus komoda s vinotekom ispod kraka.',
+      'Krovište sustava dvostruke stolice s kontinuiranim podrožnicama, nazidnicama, kosim podupiračima i zapadnim galerijskim stupom (bez središnjih popova i bez blokade krovnih prozora), spojeno tankim 6 mm mat crnim vijčanim čeličnim pločicama.',
+      'Dvije paralelne napete dvostruke sajle s 8 bijelih usmjerenih LED spotova u gornjoj zoni krovišta + klima na sjevernom zabatu.'
     ],
     redesign: {
-      summary: 'Skulpturalni vrhunac atrija: otvorena gazišta stepeništa se mat ulje i ostaju prozračna bez zatvorenih čela, dok se sve rešetke, podignute uzdužne grede i okviri kose stolarije moče u duboki ebonizirani hrast uz topli bijeli strop.',
+      summary: 'Skulpturalni vrhunac atrija: otvorena gazišta stepeništa se mat ulje i ostaju prozračna bez zatvorenih čela s kontinuiranim rukohvatima prema mostu galerije, dok se drvena konstrukcija dvostruke stolice, podrožnice i okviri kose stolarije moče u duboki ebonizirani hrast uz tanke 6 mm mat crne čelične pločice i topli bijeli strop.',
       finishes: [
-        { element: '14 lebdećih gazišta bez čela + otvoreni podest i rukohvati', material: 'Masivni hrast — brušenje i mat protuklizno uljenje R10', spec: 'Gazišta 98 × 28 × 5 cm bez zatvorene visine + komoda s vinotekom', qty: 6.2, unit: 'm²', note: 'Raditi naizmjenično radi održavanja prohodnosti' },
-        { element: '3× krovne rešetke + 2× podignute uzdužne grede + podrožnice', material: 'Ebonizirani hrast (mat lazura RAL 9005/8022)', spec: 'Lagano brušenje P120 + 2 sloja polutransparentne mat lazure + crni čvorovi', qty: 30.0, unit: 'm²', note: 'Visina podignutih uzdužnih greda +4.38 m — izvođenje sa skele' },
+        { element: '14 lebdećih gazišta bez čela + otvoreni podest i kontinuirani rukohvati', material: 'Masivni hrast — brušenje i mat protuklizno uljenje R10', spec: 'Gazišta 98 × 28 × 5 cm bez zatvorene visine + spoj u gornju letvu ograde galerije + komoda s vinotekom', qty: 6.2, unit: 'm²', note: 'Raditi naizmjenično radi održavanja prohodnosti' },
+        { element: 'Konstrukcija dvostruke stolice (2 sklopa vezova, podrožnice i nazidnice)', material: 'Ebonizirani hrast (mat lazura RAL 9005/8022)', spec: 'Lagano brušenje P120 + 2 sloja polutransparentne mat lazure + 6 mm mat crne čelične vezne pločice s vijcima', qty: 30.0, unit: 'm²', note: 'Rad na podrožnicama i vezovima dvostruke stolice — izvođenje sa skele' },
         { element: 'Kosi strop krovišta i sjeverni zabat', material: 'Mat vapnena/disperzijska boja (NCS S 0502-Y)', spec: '2 visoko pokrivna sloja na kosim plohama do sljemena +6.19 m', qty: 58.0, unit: 'm²', note: 'Zadržati postojeće napete sajle rasvjete ili ih privremeno skinuti pa vratiti' }
       ],
       furniture: [
@@ -663,7 +663,7 @@ export const ZONES = [
         { item: 'Unutarnja jedinica klime (servis i maskiranje)', dims: '86 × 27 × 28 cm', material: 'Postojeća jedinica na sjevernom zabatu (h = +4.52 m)', position: 'Centrirana iznad vrata galerije', note: 'Očistiti prije završnog bojenja zabata' }
       ],
       lighting: [
-        { item: 'Sustav napetih čeličnih sajli s 8× usmjerenih LED spotova', spec: '2 paralelne dvostruke sajle duž osi atrija (X = -1.65 i +2.38 m, h = +4.35 m), 8× 7 W 2700 K dimabilnih spotova', qty: 8, mount: 'Zidna sidra od sjevernog zabata do južne kosine', circuit: 'Postojeći transformator i prekidač uz boravak/galeriju' },
+        { item: 'Sustav napetih dvostrukih sajli s 8× usmjerenih LED spotova', spec: '2 paralelne dvostruke sajle duž krovnih polja (X = ±2.05 m), 8× 7 W 2700 K dimabilnih spotova', qty: 8, mount: 'Zidna sidra od sjevernog zabata do južne kosine', circuit: 'Postojeći transformator i prekidač uz boravak/galeriju' },
         { item: 'Podgazišno/zidno usponsko svjetlo stepenica (opcija)', spec: '3× ugradbena 2 W LED 2700 K', qty: 3, mount: 'Sjeverni zid na h = 25 cm iznad gazišta', circuit: 'Izmjenični prekidač prizemlje ↔ galerija' }
       ],
       electrical: [
@@ -673,13 +673,13 @@ export const ZONES = [
       sequence: [
         'Postaviti modularnu aluminijsku skelu u središtu atrija uz zaštitu poda i stepenica.',
         'Otkopčati/zaštititi obje napete sajle rasvjete, obojiti kosi strop i zabate toplom bijelom bojom.',
-        'Pobrusiti i ebonizirati sve rešetke, podrožnice i podignute uzdužne grede te obnoviti mat crne čvorove.',
+        'Pobrusiti i ebonizirati konstrukciju dvostruke stolice, podrožnice i nazidnice te obnoviti 6 mm mat crne vijčane pločice.',
         'Vratiti napete sajle s 2700 K spotovima, demontirati skelu i završno mat uljiti lebdeća gazišta stepenica.'
       ]
     },
     checks: [
-      'Provjeriti zategnutost čeličnih zateznih sajli rasvjete (X = -1.65 i +2.38 m) i sajli ograde stepeništa.',
-      'Sjeverni okvir rešetke bez niske vezne grede na Y = +0.66 m osigurava slobodan prolaz > 2.05 m na vrh stepenica.'
+      'Provjeriti zategnutost dvostrukih čeličnih sajli rasvjete (X = ±2.05 m), sajli ograde stepeništa i kontinuirani spoj rukohvata u galeriju.',
+      'Sjeverni vez dvostruke stolice (Y ≈ +0.65 m) bez središnjeg popa i s prekinutim istočnim podupiračem na vodoravnom pragu osigurava slobodan prolaz > 2.05 m na vrh stepenica i čist otvor krovnog prozora.'
     ]
   },
   {
@@ -875,7 +875,7 @@ export const BOQ = [
   { category: 'Zidovi i stropovi', item: 'Demontaža tamnih dasaka na istočnom zidu + akustični zid od hrastovih letvica', spec: 'Uklanjanje dasaka i montaža letvica 27 × 19 mm na crnom PET filcu (+8 %)', qty: 24.8, unit: 'm²', zones: ['07', '12'] },
 
   // Stolarija i krovište
-  { category: 'Stolarija i krovište', item: 'Brušenje i ebonizirano lazurno močenje 3 rešetke, podrožnica i podignutih greda', spec: 'Ton RAL 9005/8022 mat + osvježenje crnih čeličnih čvornih okova', qty: 30.0, unit: 'm²', zones: ['12'] },
+  { category: 'Stolarija i krovište', item: 'Brušenje i ebonizirano lazurno močenje konstrukcije dvostruke stolice i podrožnica', spec: 'Ton RAL 9005/8022 mat + 6 mm mat crne čelične vezne pločice s vijcima', qty: 30.0, unit: 'm²', zones: ['12'] },
   { category: 'Stolarija i krovište', item: 'Ebonizirana lazura na rukohvatu galerije i sjevernim dovratnicima', spec: 'Rukohvat 7.0 m + dovratnici R2_D1 i Pr', qty: 1, unit: 'kpl', zones: ['04', '12', '13'] },
   { category: 'Stolarija i krovište', item: 'Brušenje i protuklizno mat uljenje 14 lebdećih gazišta L-stepenica + komode', spec: 'Otvorena gazišta bez čela + hrastova komoda s vinotekom', qty: 1, unit: 'kpl', zones: ['12'] },
 
@@ -917,7 +917,7 @@ export const PLANS = [
     floor: 'Situacija & 3D Vrt',
     interior: 'redesign',
     title: 'Situacija parcele i 3D Vrt (prilaz Banfi, 2P, pergola) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_situacija_redizajn.png?v=8',
+    image: './assets/plan_situacija_redizajn.png?v=10',
     widthPx: 1920,
     heightPx: 1680,
     world: { xMin: -16.5, xMax: 17.9, yMin: -16.05, yMax: 14.05 },
@@ -938,7 +938,7 @@ export const PLANS = [
     floor: 'Podrum (-2.73 m)',
     interior: 'redesign',
     title: 'Podrum — Po (kota -2.73 m: Garaža, Radna, Vešeraj, Kotlovnica) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_podrum_redizajn.png?v=8',
+    image: './assets/plan_podrum_redizajn.png?v=10',
     widthPx: 1600,
     heightPx: 1480,
     world: { xMin: -7.0, xMax: 6.6, yMin: -6.49, yMax: 6.09 },
@@ -962,7 +962,7 @@ export const PLANS = [
     floor: 'Prizemlje (0.00 m)',
     interior: 'redesign',
     title: 'Prizemlje — Pr (kota 0.00 m: 3D Vrt, Trijem, Loft + Sjeverno krilo) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_prizemlje_redizajn.png?v=8',
+    image: './assets/plan_prizemlje_redizajn.png?v=10',
     widthPx: 1860,
     heightPx: 1340,
     world: { xMin: -12.3, xMax: 6.3, yMin: -7.2, yMax: 6.2 },
@@ -991,7 +991,7 @@ export const PLANS = [
     floor: 'Potkrovlje (+2.73 m)',
     interior: 'redesign',
     title: 'Potkrovlje — Pk (kota +2.73 / +2.74 m: Galerija, Most, Kupaonica, Spavaća) — Redizajn ✦ Japandi Calm',
-    image: './assets/plan_kat_redizajn.png?v=8',
+    image: './assets/plan_kat_redizajn.png?v=10',
     widthPx: 1600,
     heightPx: 1520,
     world: { xMin: -5.1, xMax: 6.3, yMin: -5.465, yMax: 5.365 },
@@ -1016,7 +1016,7 @@ export const PLANS = [
     floor: 'Situacija & 3D Vrt',
     interior: 'current',
     title: 'Situacija parcele i 3D Vrt (prilaz Banfi, 2P, pergola) — Postojeće stanje (1:1)',
-    image: './assets/plan_situacija_postojece.png?v=8',
+    image: './assets/plan_situacija_postojece.png?v=10',
     widthPx: 1920,
     heightPx: 1680,
     world: { xMin: -16.5, xMax: 17.9, yMin: -16.05, yMax: 14.05 },
@@ -1037,7 +1037,7 @@ export const PLANS = [
     floor: 'Podrum (-2.73 m)',
     interior: 'current',
     title: 'Podrum — Po (kota -2.73 m: Garaža, Radna, Vešeraj, Kotlovnica) — Postojeće stanje (1:1)',
-    image: './assets/plan_podrum_postojece.png?v=8',
+    image: './assets/plan_podrum_postojece.png?v=10',
     widthPx: 1600,
     heightPx: 1480,
     world: { xMin: -7.0, xMax: 6.6, yMin: -6.49, yMax: 6.09 },
@@ -1061,7 +1061,7 @@ export const PLANS = [
     floor: 'Prizemlje (0.00 m)',
     interior: 'current',
     title: 'Prizemlje — Pr (kota 0.00 m: 3D Vrt, Trijem, Loft + Sjeverno krilo) — Postojeće stanje (LiDAR 1:1)',
-    image: './assets/plan_prizemlje_postojece.png?v=8',
+    image: './assets/plan_prizemlje_postojece.png?v=10',
     widthPx: 1860,
     heightPx: 1340,
     world: { xMin: -12.3, xMax: 6.3, yMin: -7.2, yMax: 6.2 },
@@ -1090,7 +1090,7 @@ export const PLANS = [
     floor: 'Potkrovlje (+2.73 m)',
     interior: 'current',
     title: 'Potkrovlje — Pk (kota +2.73 / +2.74 m: Galerija, Most, Kupaonica, Spavaća) — Postojeće stanje (LiDAR 1:1)',
-    image: './assets/plan_kat_postojece.png?v=8',
+    image: './assets/plan_kat_postojece.png?v=10',
     widthPx: 1600,
     heightPx: 1520,
     world: { xMin: -5.1, xMax: 6.3, yMin: -5.465, yMax: 5.365 },

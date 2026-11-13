@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { WalkController, buildCollider, disposeCollider } from './walk.js?v=8';
-import { MeasureTool } from './measure.js?v=8';
-import { PROJECT, ZONES } from './spec-data.js?v=8';
+import { WalkController, buildCollider, disposeCollider } from './walk.js?v=10';
+import { MeasureTool } from './measure.js?v=10';
+import { PROJECT, ZONES } from './spec-data.js?v=10';
 
 // ---------------------------------------------------------------------------
 // Device profile
@@ -75,7 +76,7 @@ const TOUR_NODES = [
   { cam: [0.08, 0.85, -1.40], look: [-0.80, -0.80, -1.40] },    // 46: back through Predsoblje -> Atrij door
   { cam: [-0.88, -0.45, -1.40], look: [-0.50, -3.60, -1.40] },  // 47: Atrij west aisle
   { cam: [-0.48, -3.88, -1.40], look: [2.60, -3.60, -1.40] },   // 48: south of sofa heading east
-  { cam: [2.85, -2.38, -1.35], look: [1.50, 0.15, 0.95] },      // 49: 12 Krovna rešetka & Glavno L-stepenište
+  { cam: [2.85, -2.38, -1.35], look: [0.45, -0.35, 1.55] },      // 49: 12 Krovna rešetka & Glavno L-stepenište
   { cam: [3.58, -0.35, -0.38], look: [0.85, -1.55, -0.15] },    // 50: L-stair corner landing
   { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 1.30] },      // 51: ascending open-riser upper flight under truss
   { cam: [0.22, 0.25, 1.08], look: [-2.85, -0.75, 0.62] },      // 52: top step onto Most galerije
@@ -264,8 +265,8 @@ updateCameraFov();
 // Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
 const INTERIORS = {
-  current: { url: './assets/room_3d.glb?v=8', exposure: 1.08, name: 'postojeći interijer' },
-  redesign: { url: './assets/room_redesign.glb?v=8', exposure: 1.16, name: 'redizajn Japandi' }
+  current: { url: './assets/room_3d.glb?v=10', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb?v=10', exposure: 1.16, name: 'redizajn Japandi' }
 };
 let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
 
@@ -526,7 +527,10 @@ function tuneMaterial(mesh, m, interior) {
 // ---------------------------------------------------------------------------
 // Model loading / switching
 // ---------------------------------------------------------------------------
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('./node_modules/three/examples/jsm/libs/draco/gltf/');
 const gltfLoader = new GLTFLoader();
+gltfLoader.setDRACOLoader(dracoLoader);
 gltfLoader.setMeshoptDecoder(MeshoptDecoder);
 
 const models = { current: null, redesign: null };

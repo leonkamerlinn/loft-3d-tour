@@ -23,12 +23,13 @@ const MIME_TYPES = {
   '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
-  '.csv': 'text/csv; charset=utf-8'
+  '.csv': 'text/csv; charset=utf-8',
+  '.wasm': 'application/wasm'
 };
 
-// .glb is included: meshopt-compressed geometry is designed to be gzipped on top (≈ -22 % here).
-const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.csv', '.gltf', '.glb']);
-const LONG_CACHE = new Set(['.glb', '.jpg', '.jpeg', '.png', '.webp']);
+// .glb/.wasm are included: Draco/meshopt buffers compress further with gzip transfer encoding.
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.csv', '.gltf', '.glb', '.wasm']);
+const LONG_CACHE = new Set(['.glb', '.jpg', '.jpeg', '.png', '.webp', '.wasm']);
 
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
