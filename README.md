@@ -3,9 +3,9 @@
 **Live (Google Cloud Run):** https://loft-3d-tour-370434332956.europe-west1.run.app
 **Izravno na redizajn:** https://loft-3d-tour-370434332956.europe-west1.run.app/?interijer=redizajn
 
-Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`8.89 × 10.23 × 6.19 m`) u mjerilu **1:1**, rekonstruiran iz Apple LiDAR RoomPlan skena (`room.usdz`) i referentnih fotografija u Blenderu te prikazan u stvarnom vremenu pomoću **Three.js (WebGL)**.
+Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`10.09 × 10.18 × 6.19 m`) u mjerilu **1:1**, rekonstruiran spajanjem dvaju Apple LiDAR RoomPlan skenova (`room.usdz` + `Room 2/room.usdz`) i referentnih fotografija u Blenderu te prikazan u stvarnom vremenu pomoću **Three.js (WebGL)**.
 
-## Dva interijera, ista arhitektura
+## Dva interijera, ista arhitektura (11 povezanih zona)
 
 | | Postojeće | Redizajn ✦ Japandi Calm |
 |---|---|---|
@@ -17,12 +17,15 @@ Interaktivna 3D web-stranica za šetnju kroz dvoetažni interijer (`8.89 × 10.2
 | Kuhinja | beton siva + antracit | kadulja mat + hrast + travertin |
 | Blagovaonica | hrastov stol, baršunaste stolice | okrugli travertinski stol Ø 136 cm, hrast + bouclé |
 | Boravak | siva chesterfield L-garnitura | krem bouclé modularna garnitura, mid-century fotelja |
+| Garderoba & ured (Room 2) | 5-krilni bijeli ormar (2.65 m), hrastov stol | hrastove fronte s LED rasvjetom, bouclé & travertin |
+| Kupaonica (Room 2) | kamena keramika, kada 1.68 m, krom miješalice | mat travertin, brušena mjed, halo LED ogledalo |
+| Glavna spavaća soba (Room 2) | tapecirani sivi krevet (1.93 × 2.24 m), opalne kugle | lebdeći hrastov krevet, bouclé, lan i papirnate lampe |
 | Rasvjeta | kupole i opalne kugle | papirnate lampe (Akari), LED trake, 2700 K |
 
 Prekidač **Postojeće / Redizajn** nalazi se u gornjoj traci. Kartice se mijenjaju ovisno o interijeru, a gumb **⇆ Prije / poslije** otvara klizač s Cycles renderima iz identične kamere.
 
 ## Značajke
-- Scroll-vođena kamera kroz 8 zona i uspon na galeriju (cijela putanja provjerena raycastom u Blenderu)
+- Scroll-vođena kamera kroz **11 zona** — prizemlje, uspon na galeriju i prolaz kroz vrata u 3 nove sobe sjevernog krila (**Room 2**: garderoba/ured, kupaonica i glavna spavaća soba; cijela putanja provjerena BVH raycastom u Blenderu)
 - 360° slobodni pogled, večernji / dnevni ambijent, interaktivni tlocrt
 - Prilagođeno mobitelima (na mobitelu je u GPU memoriji samo aktivni interijer)
 

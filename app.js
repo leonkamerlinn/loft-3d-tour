@@ -20,31 +20,46 @@ const QUALITY = IS_MOBILE
 const b2t = (xb, yb, zb) => new THREE.Vector3(xb, zb, -yb);
 
 const GROUND_FLOOR_Z = -2.999; // 0.00 m reference floor height in Blender metres
-const STOP_COUNT = 8;
+const STOP_COUNT = 11;
 
-// 8 room stops (even indices) + 7 corridor midpoints (odd indices).
-// CatmullRomCurve3.getPoint(t) is parameterised by control-point index, so t = k / 7 lands exactly
-// on stop k. The whole curve (not just the nodes) was ray-cast sampled in Blender in both interiors:
-// minimum clearance 0.10 m, above the 0.06 m near plane.
+// 11 room stops + corridor waypoints across both LiDAR scans (Room 1 South Loft + Room 2 Upper North Wing).
+// Ray-cast / BVH verified in Blender across both interiors (minimum clearance > 0.10 m everywhere).
 const TOUR_NODES = [
-  { cam: [0.12, 0.36, -1.36], look: [-0.35, -4.2, -0.95] }, // 01 Atrij
-  { cam: [-1.55, -0.42, -1.4], look: [-3.35, -2.35, -1.48] },
-  { cam: [-2.82, -1.72, -1.4], look: [-4.05, -3.75, -1.55] }, // 02 Kuhinja
-  { cam: [-0.4, -2.55, -1.4], look: [-1.5, -4.2, -1.55] }, // passes SOUTH of the mezzanine corner pillar
-  { cam: [-0.08, -2.02, -1.4], look: [-1.45, -4.55, -1.48] }, // 03 Blagovaonica (IMG_6449)
-  { cam: [-0.05, -2.3, -1.4], look: [-0.45, -4.75, -1.05] },
-  { cam: [0.05, -2.5, -1.4], look: [0.0, -4.85, -1.15] }, // 04 Kamin
-  { cam: [0.45, -3.75, -1.4], look: [2.2, -2.9, -1.42] },
-  { cam: [0.68, -4.28, -1.4], look: [2.65, -1.95, -1.32] }, // 05 Boravak (IMG_6452 / 6453)
-  { cam: [2.88, -3.5, -1.38], look: [2.75, -0.75, -1.22] },
-  { cam: [2.85, -2.38, -1.35], look: [2.08, 0.38, -1.08] }, // 06 Stepenište
-  { cam: [3.48, -0.35, -0.38], look: [0.85, -1.55, -0.15] },
-  { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 0.28] }, // 07 Krovište
-  { cam: [0.05, -0.75, 0.8], look: [-2.6, -1.0, 0.6] }, // passes under tie beam, over railing
-  { cam: [-0.75, -1.0, 1.12], look: [-3.4, -0.95, 0.15] } // 08 Galerija (between trusses)
+  { cam: [0.12, 0.36, -1.36], look: [-0.35, -4.2, -0.95] },     // 0: 01 Atrij
+  { cam: [-1.55, -0.42, -1.4], look: [-3.35, -2.35, -1.48] },   // 1
+  { cam: [-2.82, -1.72, -1.4], look: [-4.05, -3.75, -1.55] },   // 2: 02 Kuhinja
+  { cam: [-0.4, -2.55, -1.4], look: [-1.5, -4.2, -1.55] },      // 3: passes SOUTH of mezzanine pillar
+  { cam: [-0.08, -2.02, -1.4], look: [-1.45, -4.55, -1.48] },   // 4: 03 Blagovaonica
+  { cam: [-0.05, -2.3, -1.4], look: [-0.45, -4.75, -1.05] },    // 5
+  { cam: [0.05, -2.5, -1.4], look: [0.0, -4.85, -1.15] },       // 6: 04 Kamin
+  { cam: [0.45, -3.75, -1.4], look: [2.2, -2.9, -1.42] },       // 7
+  { cam: [0.68, -4.28, -1.4], look: [2.65, -1.95, -1.32] },     // 8: 05 Boravak
+  { cam: [2.88, -3.5, -1.38], look: [2.75, -0.75, -1.22] },     // 9
+  { cam: [2.85, -2.38, -1.35], look: [2.08, 0.38, -1.08] },     // 10: 06 Stepenište
+  { cam: [3.48, -0.35, -0.38], look: [0.85, -1.55, -0.15] },    // 11
+  { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 0.28] },      // 12: 07 Krovište
+  { cam: [0.05, -0.75, 0.8], look: [-2.6, -1.0, 0.6] },         // 13: passes under tie beam, over railing
+  { cam: [-0.75, -1.0, 1.12], look: [-3.4, -0.95, 0.15] },      // 14: 08 Galerija
+  { cam: [-0.94, 0.95, 1.15], look: [0.15, 3.35, 0.95] },       // 15: through Gallery -> Room 2 doorway
+  { cam: [-0.68, 2.55, 1.18], look: [0.85, 3.65, 0.88] },       // 16: 09 Garderoba & Ured (Room 2)
+  { cam: [-1.51, 2.50, 1.18], look: [-2.55, 2.35, 0.82] },      // 17: through bathroom doorway
+  { cam: [-2.42, 2.48, 1.16], look: [-1.75, 4.15, 0.82] },      // 18: 10 Kupaonica (Room 2)
+  { cam: [-1.51, 2.50, 1.18], look: [0.65, 2.45, 0.95] },       // 19: exit bathroom doorway
+  { cam: [0.95, 1.82, 1.18], look: [1.95, 1.60, 0.95] },        // 20: clear corridor past study desk
+  { cam: [1.91, 1.52, 1.18], look: [3.65, 2.85, 0.85] },        // 21: through master bedroom doorway
+  { cam: [2.42, 1.95, 1.18], look: [4.45, 3.45, 0.68] }         // 22: 11 Glavna spavaća soba (Room 2)
 ];
 
-const STOP_BLENDER_COORDS = TOUR_NODES.filter((_, i) => i % 2 === 0);
+const STOP_NODE_IDX = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 22];
+const STOP_BLENDER_COORDS = STOP_NODE_IDX.map((idx) => TOUR_NODES[idx]);
+
+function scrollTToCurveU(t) {
+  const s = THREE.MathUtils.clamp(t, 0, 1) * (STOP_COUNT - 1);
+  const k = Math.min(STOP_COUNT - 2, Math.floor(s));
+  const f = s - k;
+  const idx = STOP_NODE_IDX[k] + f * (STOP_NODE_IDX[k + 1] - STOP_NODE_IDX[k]);
+  return idx / (TOUR_NODES.length - 1);
+}
 
 const camCurve = new THREE.CatmullRomCurve3(TOUR_NODES.map((n) => b2t(...n.cam)), false, 'catmullrom', 0.38);
 const lookCurve = new THREE.CatmullRomCurve3(TOUR_NODES.map((n) => b2t(...n.look)), false, 'catmullrom', 0.38);
@@ -133,8 +148,8 @@ controls.maxPolarAngle = Math.PI * 0.92;
 // Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
 const INTERIORS = {
-  current: { url: './assets/room_3d.glb', exposure: 1.08, name: 'postojeći interijer' },
-  redesign: { url: './assets/room_redesign.glb', exposure: 1.16, name: 'redizajn Japandi' }
+  current: { url: './assets/room_3d.glb?v=2', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb?v=2', exposure: 1.16, name: 'redizajn Japandi' }
 };
 let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
 
@@ -181,6 +196,10 @@ addSpot([0.44, -4.64, -1.32], [0.44, -4.73, 0.35], 0xffcf96, 6.5, 36, 0.55, 4.5)
 addSpot([0.44, -4.64, -1.43], [0.44, -4.73, -2.95], 0xffcf96, 6.5, 36, 0.55, 4.5);
 addPoint(-3.1, -2.55, -0.65, 0xffe0ba, 3.6, 7.5);
 addPoint(-2.35, -0.6, 1.45, 0xffe2be, 4.8, 9.0);
+// Merged Room 2 (Upper North Wing): Garderoba/Study, Bathroom & Master Bedroom ceiling lights
+addPoint(0.15, 3.0, 1.72, 0xffe2be, 4.4, 7.5);
+addPoint(-2.15, 2.85, 1.95, 0xfff0da, 4.5, 7.0);
+addPoint(3.48, 3.35, 1.65, 0xffdeb4, 4.8, 8.5);
 
 // Current interior: dining domes, opal globes, 4-way X sconce on the dark wood wall
 addPoint(-1.86, -3.55, -1.36, 0xffd29e, 5.2, 8.5, true, 'current');
@@ -208,17 +227,22 @@ if (QUALITY.extraFillLights) {
   addPoint(0.12, 1.85, -1.15, 0xffe4c4, 3.2, 6.5);
   addPoint(2.2, 0.1, -1.25, 0xffd9ad, 2.6, 6.5);
   addPoint(0.25, 2.1, 1.55, 0xffe2be, 2.5, 7.0);
+  addPoint(-1.55, 3.65, 1.25, 0xffdcb0, 2.2, 4.5); // bathroom mirror halo fill
+  addPoint(5.05, 4.68, 0.56, 0xffdcb4, 2.2, 4.5, false, 'current');
+  addPoint(5.05, 2.24, 0.56, 0xffdcb4, 2.2, 4.5, false, 'current');
+  addPoint(5.05, 4.68, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign');
+  addPoint(5.05, 2.24, 0.56, 0xffc790, 2.6, 4.8, false, 'redesign');
 } else {
   hemiLight.intensity = 0.55; // compensate for the missing fills
 }
 
 const sunLight = new THREE.DirectionalLight(0xfff4e2, 0.0);
 sunLight.position.copy(b2t(-2.2, -9.5, 4.2));
-sunLight.target.position.copy(b2t(0.0, -1.5, -2.2));
+sunLight.target.position.copy(b2t(0.5, 0.0, -1.5));
 if (QUALITY.shadows) {
   sunLight.castShadow = true;
   sunLight.shadow.mapSize.set(2048, 2048);
-  Object.assign(sunLight.shadow.camera, { near: 1, far: 22, left: -7, right: 7, top: 7, bottom: -7 });
+  Object.assign(sunLight.shadow.camera, { near: 1, far: 25, left: -8.5, right: 8.5, top: 8.5, bottom: -8.5 });
   sunLight.shadow.bias = -0.0005;
 }
 scene.add(sunLight, sunLight.target);
@@ -274,6 +298,12 @@ function tuneMaterial(mesh, m, interior) {
     m.color.setRGB(0.02, 0.02, 0.025);
     m.roughness = 0.08;
     m.metalness = 0.35;
+  } else if (name.includes('Mat_R2_Mirror')) {
+    m.roughness = 0.02;
+    m.metalness = 0.98;
+  } else if (name.includes('Mat_R2_SanitaryCeramic')) {
+    m.roughness = 0.10;
+    m.metalness = 0.02;
   } else if (interior === 'current') {
     if (name.includes('Mat_Sofa_GreyFabric')) {
       m.color.setRGB(0.28, 0.28, 0.3);
@@ -535,8 +565,9 @@ function setFreeMode(enable) {
   modeLabel.textContent = enable ? 'Aktivni 360°' : '360° pogled';
 
   if (enable) {
-    const camPos = camCurve.getPoint(currentScrollT);
-    const dir = lookCurve.getPoint(currentScrollT).sub(camPos).normalize();
+    const u = scrollTToCurveU(currentScrollT);
+    const camPos = camCurve.getPoint(u);
+    const dir = lookCurve.getPoint(u).sub(camPos).normalize();
     camera.position.copy(camPos);
     controls.target.copy(camPos).addScaledVector(dir, 1.85);
     controls.connect(canvas); // takes over touch/mouse input only now
@@ -640,9 +671,9 @@ const MAP_W = 210;
 const MAP_H = 240;
 
 function worldToMinimap(xb, yb) {
-  const pad = 16;
-  const u = (xb + 4.5) / 9.0;
-  const v = 1.0 - (yb + 5.2) / 10.4; // North (+Y Blender) at the top
+  const pad = 14;
+  const u = (xb + 4.65) / 10.45;
+  const v = 1.0 - (yb + 5.3) / 10.6; // North (+Y Blender) at the top
   return [pad + u * (MAP_W - pad * 2), pad + v * (MAP_H - pad * 2)];
 }
 
@@ -664,8 +695,8 @@ function renderMinimap(camPos, lookPos, activeStop) {
   const isUpper = camPos.y > 0.1;
   mctx.clearRect(0, 0, MAP_W, MAP_H);
 
+  // South Loft (Room 1)
   drawRectPlan(-4.35, -5.0, 4.25, 0.85, 'rgba(255,244,228,0.06)', 'rgba(255,238,214,0.28)');
-  drawRectPlan(-1.3, 0.85, 2.0, 5.0, 'rgba(255,244,228,0.04)', 'rgba(255,238,214,0.18)');
 
   const a = isUpper ? 0.12 : 0.26;
   drawRectPlan(-4.34, -5.0, -3.65, -1.16, `rgba(224,169,109,${a})`); // kitchen
@@ -685,12 +716,29 @@ function renderMinimap(camPos, lookPos, activeStop) {
   drawRectPlan(3.65, -4.75, 4.2, -2.38, `rgba(255,255,255,${a})`); // TV console
   drawRectPlan(3.1, -2.1, 4.15, 0.72, 'rgba(224,169,109,0.24)'); // stairs lower
   drawRectPlan(0.1, -0.25, 3.1, 0.72, 'rgba(224,169,109,0.24)'); // stairs upper
+
+  // Upper Gallery (Room 1)
   drawRectPlan(
     -4.32, -2.1, -0.28, 0.85,
-    isUpper ? 'rgba(224,169,109,0.20)' : 'rgba(255,255,255,0.02)',
-    isUpper ? 'rgba(224,169,109,0.75)' : 'rgba(255,255,255,0.12)'
+    isUpper ? 'rgba(224,169,109,0.18)' : 'rgba(255,255,255,0.02)',
+    isUpper ? 'rgba(224,169,109,0.68)' : 'rgba(255,255,255,0.12)'
   );
-  if (isUpper) drawRectPlan(-3.95, -1.65, -2.38, 0.14, 'rgba(224,169,109,0.45)'); // desk
+  if (isUpper) drawRectPlan(-3.95, -1.65, -2.38, 0.14, 'rgba(224,169,109,0.42)'); // gallery desk
+
+  // Merged Room 2 (Upper North Wing: Kupaonica + Garderoba/Ured + Glavna spavaća soba)
+  const r2Fill = isUpper ? 'rgba(224,169,109,0.14)' : 'rgba(255,244,228,0.04)';
+  const r2Stroke = isUpper ? 'rgba(224,169,109,0.72)' : 'rgba(255,238,214,0.20)';
+  drawRectPlan(-3.78, 0.96, -1.45, 4.98, r2Fill, r2Stroke); // 10 Kupaonica
+  drawRectPlan(-1.45, 0.96, 1.91, 4.98, r2Fill, r2Stroke);  // 09 Garderoba & Ured
+  drawRectPlan(1.91, 0.96, 5.54, 4.98, r2Fill, r2Stroke);   // 11 Glavna spavaća soba
+  if (isUpper) {
+    drawRectPlan(-3.60, 1.18, -1.80, 1.99, 'rgba(160,210,235,0.38)'); // bathtub
+    drawRectPlan(-1.80, 3.15, -1.32, 4.15, 'rgba(224,169,109,0.42)'); // vanity
+    drawRectPlan(1.28, 2.17, 1.85, 4.82, 'rgba(224,169,109,0.42)');   // 2.65m wardrobe
+    drawRectPlan(-0.46, 1.18, 0.78, 1.76, 'rgba(224,169,109,0.38)');  // study desk
+    drawRectPlan(3.15, 2.52, 5.39, 4.45, 'rgba(224,169,109,0.46)');   // king bed
+    drawRectPlan(2.97, 1.18, 5.28, 1.74, 'rgba(255,255,255,0.28)');   // bedroom dresser
+  }
 
   STOP_BLENDER_COORDS.forEach((st, idx) => {
     const [px, py] = worldToMinimap(st.cam[0], st.cam[1]);
@@ -802,7 +850,13 @@ function updateHud(activeStop) {
     scrollPctEl.textContent = `${pct}%`;
     railFill.style.height = `${pct}%`;
   }
-  const floor = eye > 3.6 ? 'GALERIJA / KAT (+2.74 m)' : eye > 2.2 ? 'STEPENIŠTE (USPON)' : 'PRIZEMLJE (0.00 m)';
+  const floor = -camera.position.z > 0.95 && eye > 3.2
+    ? 'SJEVERNO KRILO • KAT (+2.73 m)'
+    : eye > 3.6
+      ? 'GALERIJA / KAT (+2.74 m)'
+      : eye > 2.2
+        ? 'STEPENIŠTE (USPON)'
+        : 'PRIZEMLJE (0.00 m)';
   if (floor !== hudCache.floor) floorBadge.textContent = hudCache.floor = floor;
 }
 
@@ -833,8 +887,9 @@ function animate() {
   renderRequested = false;
 
   if (!isFreeMode) {
-    const camPos = camCurve.getPoint(currentScrollT);
-    const baseLook = lookCurve.getPoint(currentScrollT);
+    const curveU = scrollTToCurveU(currentScrollT);
+    const camPos = camCurve.getPoint(curveU);
+    const baseLook = lookCurve.getPoint(curveU);
     tmpFwd.copy(baseLook).sub(camPos).normalize();
     tmpRight.crossVectors(tmpFwd, UP).normalize();
     tmpLook.copy(baseLook)
