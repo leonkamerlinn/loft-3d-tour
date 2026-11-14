@@ -10,7 +10,7 @@
     document.documentElement.dataset.interior =
       new URLSearchParams(location.search).get('interijer') === 'redizajn' ? 'redesign' : 'current';
   </script>
-  <link rel="stylesheet" href="./styles.css?v=10" />
+  <link rel="stylesheet" href="./styles.css?v=13" />
   <link rel="modulepreload" href="./node_modules/three/build/three.module.js" />
   <script type="importmap">
     {
@@ -195,7 +195,7 @@
             <div><span>Opločenje</span><strong>Mat travertin &amp; šljunak</strong></div>
             <div><span>Ambijent</span><strong>Stupići 2700 K</strong></div>
           </div>
-          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg" data-after="./assets/redesign_entrance.jpg" data-title="3D Vrt, pergola i ulaz — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg?v=13" data-after="./assets/redesign_entrance.jpg?v=13" data-title="3D Vrt, pergola i ulaz — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
@@ -210,22 +210,22 @@
           </div>
           <h2>Vanjsko stubište &amp; natkriveni ulazni trijem</h2>
           <p>
-            Od donjeg parkirnog platoa (<strong>-2.73 m</strong>) uspinje se vanjsko stubište od 16 gazišta s čelično-staklenom ogradom na ulazni trijem (kotirano <strong>0.00 m</strong>) natkriven kosom nadstrešnicom od crijepa (35°) s toplim cedrovim podgledom ispred glavnih vrata (<strong>106 × 216 cm</strong>).
+            Od donjeg parkirnog platoa (<strong>-2.73 m</strong>) uspinje se vanjsko stubište od 16 gazišta s čelično-staklenom ogradom na ulazni trijem (kotirano <strong>0.00 m</strong>) natkriven kosom nadstrešnicom od crijepa (35°) ispred vodoravno profiliranih <strong>mahagonij glavnih vrata</strong> s vertikalnim staklenim izrezom (<strong>106 × 216 cm</strong>).
           </p>
           <div class="spec-grid">
             <div><span>Uspon stubišta</span><strong>16 stuba (-2.73 → 0.00 m)</strong></div>
-            <div><span>Glavni ulaz</span><strong>106 × 216 cm • otvoren</strong></div>
+            <div><span>Glavna vrata</span><strong>Mahagonij + usko staklo</strong></div>
           </div>
         </div>
         <div class="variant v-redesign">
           <div class="card-meta"><span class="step-num">03 / 15</span><span class="elev-tag">REDIZAJN • ULAZNI TRIJEM</span></div>
           <h2>Cedrov podgled trijema &amp; kamena gazišta</h2>
-          <p>Protuklizna plamena kamena gazišta s LED linijom ispod prepusta, topli letvičasti podgled nadstrešnice, mat antracit okovi i reprezentativni ulazni portal.</p>
+          <p>Protuklizna plamena kamena gazišta s LED linijom ispod prepusta, topli letvičasti podgled nadstrešnice, mat antracit okovi i ebonizirana ulazna vrata s vertikalnim ostakljenjem.</p>
           <div class="spec-grid">
             <div><span>Nadstrešnica</span><strong>Kosa 35° crijep + cedar</strong></div>
             <div><span>Ograda</span><strong>Laminirano staklo + antracit</strong></div>
           </div>
-          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg" data-after="./assets/redesign_entrance.jpg" data-title="Ulazni trijem i stubište — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_entrance.jpg?v=13" data-after="./assets/redesign_entrance.jpg?v=13" data-title="Ulazni trijem i stubište — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
@@ -238,24 +238,28 @@
             <span class="step-num">04 / 15</span>
             <span class="elev-tag">PRIZEMLJE • +0.00 m</span>
           </div>
-          <h2>Ulazni hodnik &amp; dvoetažni atrij</h2>
+          <h2>Ulazni hodnik, staklena stijena &amp; atrij</h2>
           <p>
-            Ulaskom kroz otvorena vrata otvara se reprezentativni <strong>1:1 dvoetažni atrij</strong> visine sljemena <strong>+6.19 m</strong>. Sjeverni hodnik spaja predsoblje za podrum i prizemne sobe, dok se prema jugu otvaraju kuhinja, blagovaonica i dnevni boravak.
+            Ulazni hodnik s hrastovim podom ima veliko ogledalo u srebrnom okviru na sjeveru i uvučenu hrastovo-bijelu garderobnu nišu s klupicom i ladicama za obuću na jugu. Kroz <strong>bezokvirnu mutnu staklenu stijenu s 5 prozirnih linija</strong> uz središnji stup izlazi se u atrij prema komodi s <em>Whirlpool</em> vinotekom, trokutastoj polici za vino i čeličnom zubčastom stepeništu.
           </p>
           <div class="spec-grid">
-            <div><span>Visina sljemena</span><strong>+6.19 m</strong></div>
-            <div><span>Spojevi</span><strong>Pr jug + Pr sjever + Po</strong></div>
+            <div><span>Staklena stijena</span><strong>Mutno staklo • 5 linija</strong></div>
+            <div><span>Pod stepenicama</span><strong>Whirlpool vinoteka + X-polica</strong></div>
           </div>
+          <button type="button" class="compare-btn" data-photo="./assets/photo_vestibule.jpg?v=13" data-render="./assets/render_vestibule.jpg?v=13" data-title="Ulazni hodnik, staklena stijena i vinoteka (IMG_6543) — stvarna fotografija vs. Cycles render">
+            Usporedi fotografiju i Cycles render
+          </button>
+          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_vestibule.jpg?v=13" data-after="./assets/redesign_vestibule.jpg?v=13" data-title="Ulazni hodnik i atrij — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
         <div class="variant v-redesign">
-          <div class="card-meta"><span class="step-num">04 / 15</span><span class="elev-tag">REDIZAJN • ATRIJ</span></div>
-          <h2>Vapneni štuk, riblja kost &amp; ebonizirani okviri</h2>
-          <p>Pod ulaza nastavlja se u troslojnom hrastovom parketu sloga riblja kost, zidovi dobivaju meki mineralni vapneni štuk, a dovratnici prema sjevernom krilu tamni ebonizirani akcent.</p>
+          <div class="card-meta"><span class="step-num">04 / 15</span><span class="elev-tag">REDIZAJN • ULAZ &amp; ATRIJ</span></div>
+          <h2>Vapneni štuk, riblja kost &amp; ugradbena niša</h2>
+          <p>Pod ulaznog hodnika i atrija nastavlja se u hrastovom parketu riblja kost uz ugradbenu hrastovu garderobnu nišu, bezokvirnu mutnu staklenu pregradu s 5 linija, tamna vrata sjevernog hodnika i vinoteku pod stepenicama.</p>
           <div class="spec-grid">
-            <div><span>Pod</span><strong>Hrast riblja kost</strong></div>
-            <div><span>Zidovi</span><strong>Vapneni štuk NCS S 1505-Y30R</strong></div>
+            <div><span>Pod &amp; niša</span><strong>Hrast riblja kost + klupica</strong></div>
+            <div><span>Pregrada</span><strong>Bezokvirno mutno staklo</strong></div>
           </div>
-          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_dining.jpg" data-after="./assets/redesign_dining.jpg" data-title="Dvoetažni atrij — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_vestibule.jpg?v=13" data-after="./assets/redesign_vestibule.jpg?v=13" data-title="Ulazni hodnik i atrij — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
@@ -479,7 +483,7 @@
       </article>
     </section>
 
-    <!-- 12 L-stepenište i krovna rešetka sa sajlama -->
+    <!-- 12 L-stepenište i središnje krovište dvostruke stolice -->
     <section class="story-section" data-index="11">
       <article class="room-card side-left">
         <div class="variant v-current">
@@ -489,26 +493,26 @@
           </div>
           <h2>Otvoreno L-stepenište &amp; krovište dvostruke stolice</h2>
           <p>
-            Glavno otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela (d = 50 mm, bez zatvorene visine) i kontinuiranim rukohvatima spojenim u ogradu galerije penje se ispod drvene dvostruke stolice s tankim 6 mm mat crnim čeličnim pločicama i dvjema napetim sajlama sa 8 LED spotova.
+            Glavno otvoreno L-stepenište s lebdećim hrastovim gazištima bez čela (d = 50 mm, bez zatvorene visine) i kontinuiranim rukohvatima spojenim u ogradu galerije penje se uz glatki bijeli sjeverni zid ispod središnje drvene dvostruke stolice uz južni rub galerije (bez donjeg stupa, s kosnicima uz kosi strop, dvjema uzdužnim podrožnicama P1, istočnom nazidnicom, 6 mm mat crnim U-nosačima i kutnim K-pločicama te 3 bijele viseće kugle s rozetama).
           </p>
           <div class="spec-grid">
             <div><span>Stepenište</span><strong>14 lebdećih gazišta bez čela</strong></div>
-            <div><span>Krovište</span><strong>Dvostruka stolica + 2× sajle</strong></div>
+            <div><span>Krovište</span><strong>Središnja stolica + 2× P1 + okovi</strong></div>
           </div>
-          <button type="button" class="compare-btn" data-photo="./assets/photo_truss.jpg" data-render="./assets/render_truss.jpg" data-title="Krovna rešetka i sajle rasvjete (IMG_6527) — stvarna fotografija vs. Cycles render">
+          <button type="button" class="compare-btn" data-photo="./assets/photo_truss.jpg?v=13" data-render="./assets/render_truss.jpg?v=13" data-title="Drveno krovište i čelični okovi (IMG_6421) — stvarna fotografija vs. Cycles render">
             Usporedi fotografiju i Cycles render
           </button>
-          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_truss.jpg" data-after="./assets/redesign_truss.jpg" data-title="Krovište i stepenište — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <button type="button" class="compare-btn ba-btn outline" data-before="./assets/render_truss.jpg?v=13" data-after="./assets/redesign_truss.jpg?v=13" data-title="Krovište i stepenište — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
         <div class="variant v-redesign">
           <div class="card-meta"><span class="step-num">12 / 15</span><span class="elev-tag">REDIZAJN • KROVIŠTE</span></div>
           <h2>Ebonizirana dvostruka stolica &amp; skulpturalno stepenište</h2>
-          <p>Konstrukcija dvostruke stolice, podrožnice i nazidnice moče se u duboki ebonizirani ton na toplom bijelom kosom stropu; napete sajle i 6 mm mat crne vijčane pločice ostaju kao precizan grafički detalj iznad boravka.</p>
+          <p>Središnja konstrukcija dvostruke stolice uz rub galerije, obje uzdužne podrožnice P1 do glatkog bijelog sjevernog zida i istočna nazidnica moče se u duboki ebonizirani ton na toplom bijelom kosom stropu, uz 6 mm mat crne U-nosače i kutne K-pločice kao precizan grafički detalj iznad boravka.</p>
           <div class="spec-grid">
             <div><span>Grede &amp; okviri</span><strong>Ebonizirani hrast</strong></div>
             <div><span>Visilice</span><strong>3× Akari papir, 2700 K</strong></div>
           </div>
-          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_truss.jpg" data-after="./assets/redesign_truss.jpg" data-title="Krovište i stepenište — postojeće vs. redizajn">⇆ Prije / poslije</button>
+          <button type="button" class="compare-btn ba-btn" data-before="./assets/render_truss.jpg?v=13" data-after="./assets/redesign_truss.jpg?v=13" data-title="Krovište i stepenište — postojeće vs. redizajn">⇆ Prije / poslije</button>
         </div>
       </article>
     </section>
@@ -678,6 +682,6 @@
     </div>
   </aside>
 
-  <script type="module" src="./app.js?v=10"></script>
+  <script type="module" src="./app.js?v=13"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { WalkController, buildCollider, disposeCollider } from './walk.js?v=10';
-import { MeasureTool } from './measure.js?v=10';
-import { PROJECT, ZONES } from './spec-data.js?v=10';
+import { WalkController, buildCollider, disposeCollider } from './walk.js?v=13';
+import { MeasureTool } from './measure.js?v=13';
+import { PROJECT, ZONES } from './spec-data.js?v=13';
 
 // ---------------------------------------------------------------------------
 // Device profile
@@ -33,23 +33,23 @@ const TOUR_NODES = [
   { cam: [-5.15, -1.25, -1.40], look: [-7.60, -2.10, -1.55] },   // 3: top of Vanjsko stubište turning W into 3D Vrt
   { cam: [-6.80, -0.55, -1.40], look: [-9.50, -2.40, -1.55] },   // 4: garden stepping stones toward Pergola
   { cam: [-9.35, -3.35, -1.40], look: [-5.20, -0.50, -1.45] },   // 5: 02 3D Vrt & Pergola (looking NE toward porch)
-  { cam: [-6.65, -0.55, -1.40], look: [-4.80, -0.10, -1.42] },   // 6: stepping stones back onto Ulazni trijem
-  { cam: [-5.15, -0.15, -1.40], look: [-1.80, -0.05, -1.45] },   // 7: 03 Ulazni trijem & Glavni ulaz
-  { cam: [-4.25, 0.10, -1.40], look: [-1.50, -0.15, -1.45] },    // 8: through open oak main door
-  { cam: [-1.85, -0.10, -1.40], look: [0.80, -2.60, -0.95] },    // 9: 04 Ulazni hodnik & Atrij
-  { cam: [-2.15, -1.35, -1.40], look: [-4.15, -3.20, -1.62] },   // 10: stepped into kitchen north aisle
-  { cam: [-1.35, -1.75, -1.40], look: [-4.15, -3.15, -1.65] },   // 11: 05 Kuhinja
-  { cam: [-0.90, -2.25, -1.40], look: [-1.86, -3.23, -1.65] },   // 12: west of mezzanine pillar
-  { cam: [-0.52, -2.55, -1.40], look: [-1.65, -3.75, -1.60] },   // 13: 06 Blagovaonica & Kamin
-  { cam: [-0.48, -3.88, -1.40], look: [0.40, -4.40, -1.55] },    // 14: aisle south of pillar & west of sofa
-  { cam: [0.45, -4.05, -1.40], look: [2.35, -2.35, -1.48] },     // 15: 07 Dnevni boravak
-  { cam: [2.26, -4.50, -1.40], look: [2.25, -5.65, -1.45] },     // 16: approach open patio door
-  { cam: [2.26, -5.62, -1.40], look: [-0.20, -5.62, -1.42] },    // 17: step out onto Balkon SE
-  { cam: [1.35, -5.62, -1.40], look: [-2.40, -5.20, -1.35] },    // 18: 08 Jugoistočni balkon
-  { cam: [2.26, -5.62, -1.40], look: [2.26, -4.10, -1.40] },     // 19: return through patio door
-  { cam: [2.26, -4.35, -1.40], look: [0.00, -3.95, -1.40] },     // 20: south living aisle
-  { cam: [-0.48, -3.88, -1.40], look: [-0.50, -1.00, -1.40] },   // 21: west of sofa
-  { cam: [-0.88, -0.45, -1.40], look: [0.08, 0.85, -1.40] },     // 22: head north to Predsoblje door
+  { cam: [-6.65, -0.55, -1.40], look: [-4.80, 0.15, -1.42] },     // 6: stepping stones back onto Ulazni trijem
+  { cam: [-5.15, 0.18, -1.40], look: [-1.80, 0.15, -1.48] },      // 7: 03 Ulazni trijem & Glavni ulaz
+  { cam: [-3.10, 0.18, -1.40], look: [-0.45, 0.10, -1.48] },      // 8: inside Ulazni hodnik (mirror, coat niche & frosted glass)
+  { cam: [0.08, 0.24, -1.40], look: [2.25, -0.45, -1.45] },       // 9: 04 Ulazni hodnik & Atrij (through open 5-stripe glass door)
+  { cam: [0.08, -1.62, -1.40], look: [-2.80, -2.10, -1.60] },     // 10: south past Central Pier into kitchen overhang
+  { cam: [-1.25, -1.65, -1.40], look: [-4.15, -2.85, -1.65] },    // 11: 05 Kuhinja
+  { cam: [-0.45, -1.95, -1.40], look: [-1.86, -3.23, -1.65] },    // 12: east of dining table
+  { cam: [-0.45, -2.65, -1.40], look: [-1.65, -3.75, -1.60] },    // 13: 06 Blagovaonica & Kamin
+  { cam: [-0.38, -3.88, -1.40], look: [0.45, -4.40, -1.55] },     // 14: aisle south of pillar & west of sofa
+  { cam: [0.55, -4.05, -1.40], look: [2.45, -2.35, -1.48] },      // 15: 07 Dnevni boravak
+  { cam: [2.26, -4.50, -1.40], look: [2.25, -5.65, -1.45] },      // 16: approach open patio door
+  { cam: [2.26, -5.62, -1.40], look: [-0.20, -5.62, -1.42] },     // 17: step out onto Balkon SE
+  { cam: [1.35, -5.62, -1.40], look: [-2.40, -5.20, -1.35] },     // 18: 08 Jugoistočni balkon
+  { cam: [2.26, -5.62, -1.40], look: [2.26, -4.10, -1.40] },      // 19: return through patio door
+  { cam: [2.26, -4.35, -1.40], look: [0.08, -3.95, -1.40] },      // 20: south living aisle
+  { cam: [0.08, -3.88, -1.40], look: [0.08, -1.00, -1.40] },      // 21: west of sofa aligned with Atrium aisle
+  { cam: [0.08, -0.45, -1.40], look: [0.08, 0.85, -1.40] },       // 22: head north along Central Pier East face to Predsoblje door
   { cam: [0.08, 0.85, -1.40], look: [-0.25, 2.40, -1.45] },     // 23: through Loft -> Predsoblje NorthHall door
   { cam: [-0.37, 2.25, -1.40], look: [-0.37, 3.20, -1.48] },    // 24: align with Soba 1 doorway (X in [-0.82, 0.08])
   { cam: [-0.35, 2.92, -1.40], look: [-2.65, 4.15, -1.65] },    // 25: 09 Sjeverno krilo Pr (Soba 1, Predsoblje, Kup, Soba 2)
@@ -73,9 +73,9 @@ const TOUR_NODES = [
   { cam: [-0.27, 2.18, -4.13], look: [-2.60, 2.18, -3.20] },    // 43: through GarazaHall doorway back to U-stairs foot
   { cam: [-3.28, 1.78, -2.765], look: [-1.20, 1.38, -2.00] },   // 44: mid-landing returning up to Pr
   { cam: [-0.38, 1.38, -1.40], look: [0.08, 0.85, -1.40] },     // 45: top of U-staircase back in Predsoblje
-  { cam: [0.08, 0.85, -1.40], look: [-0.80, -0.80, -1.40] },    // 46: back through Predsoblje -> Atrij door
-  { cam: [-0.88, -0.45, -1.40], look: [-0.50, -3.60, -1.40] },  // 47: Atrij west aisle
-  { cam: [-0.48, -3.88, -1.40], look: [2.60, -3.60, -1.40] },   // 48: south of sofa heading east
+  { cam: [0.08, 0.85, -1.40], look: [0.08, -0.80, -1.40] },     // 46: back through Predsoblje -> Atrij door
+  { cam: [0.08, -0.45, -1.40], look: [0.08, -3.60, -1.40] },     // 47: Atrij aisle east of Central Pier
+  { cam: [0.08, -3.88, -1.40], look: [2.60, -3.60, -1.40] },     // 48: south of sofa heading east
   { cam: [2.85, -2.38, -1.35], look: [0.45, -0.35, 1.55] },      // 49: 12 Krovna rešetka & Glavno L-stepenište
   { cam: [3.58, -0.35, -0.38], look: [0.85, -1.55, -0.15] },    // 50: L-stair corner landing
   { cam: [1.52, 0.22, 0.48], look: [-0.95, -3.15, 1.30] },      // 51: ascending open-riser upper flight under truss
@@ -265,8 +265,8 @@ updateCameraFov();
 // Interiors: "current" = 1:1 reconstruction, "redesign" = Japandi concept (same architecture)
 // ---------------------------------------------------------------------------
 const INTERIORS = {
-  current: { url: './assets/room_3d.glb?v=10', exposure: 1.08, name: 'postojeći interijer' },
-  redesign: { url: './assets/room_redesign.glb?v=10', exposure: 1.16, name: 'redizajn Japandi' }
+  current: { url: './assets/room_3d.glb?v=13', exposure: 1.08, name: 'postojeći interijer' },
+  redesign: { url: './assets/room_redesign.glb?v=13', exposure: 1.16, name: 'redizajn Japandi' }
 };
 let activeInterior = document.documentElement.dataset.interior === 'redesign' ? 'redesign' : 'current';
 
@@ -435,6 +435,7 @@ btnLighting.addEventListener('click', () => applyLightingMode(!isDaylight));
 // ---------------------------------------------------------------------------
 const GLASS_MATERIALS = [
   'Mat_Arch_Glass', 'Mat_Glass_Shelf', 'Mat_Frosted_Glass',
+  'Mat_ENT_FrostedGlass', 'Mat_ENT_SmokedGlass', 'Mat_ENT_ClearGlass',
   'Mat_R2_SmokedFrosted', 'Mat_R2_ReededFrosted', 'Mat_R2_ClearGlass',
   'Mat_FH_Glass', 'Mat_FH_Frosted'
 ];
@@ -442,11 +443,11 @@ const GLASS_MATERIALS = [
 function tuneMaterial(mesh, m, interior) {
   const name = m.name || '';
   if (GLASS_MATERIALS.some((g) => name.includes(g))) {
-    const isSmoked = name.includes('SmokedFrosted');
+    const isSmoked = name.includes('Smoked');
     const isFrosted = name.includes('Frosted');
     m.transparent = true;
-    m.opacity = isSmoked ? 0.84 : (isFrosted ? 0.56 : 0.24);
-    m.roughness = isFrosted ? 0.45 : 0.06;
+    m.opacity = isSmoked ? 0.62 : (isFrosted ? 0.58 : 0.24);
+    m.roughness = isFrosted ? 0.42 : 0.06;
     m.metalness = 0.08;
     m.depthWrite = false;
     mesh.castShadow = false; // glass must not block the sun / lamps
@@ -456,7 +457,7 @@ function tuneMaterial(mesh, m, interior) {
     m.alphaTest = 0.42;
     m.transparent = false;
     m.side = THREE.DoubleSide;
-  } else if (name.includes('Mat_Blue_LED')) {
+  } else if (name.includes('Mat_Blue_LED') || name.includes('Mat_ENT_LEDBlue')) {
     m.emissive = new THREE.Color(0x2ea8ff);
     m.emissiveIntensity = 2.4;
   } else if (name.includes('Mat_R2_SaltCrystal')) {
@@ -468,7 +469,7 @@ function tuneMaterial(mesh, m, interior) {
   } else if (name.includes('Mat_R2_LEDDaylight') || name.includes('Mat_FH_LEDCool')) {
     m.emissive = new THREE.Color(0xeaf5ff);
     m.emissiveIntensity = 2.6;
-  } else if (name.includes('Mat_FH_LEDWarm') || name.includes('Mat_R3Fix_LEDWarm')) {
+  } else if (name.includes('Mat_FH_LEDWarm') || name.includes('Mat_R3Fix_LEDWarm') || name.includes('Mat_ENT_LEDWarm')) {
     m.emissive = new THREE.Color(0xffcb92);
     m.emissiveIntensity = 2.2;
     mesh.castShadow = false;
@@ -479,7 +480,7 @@ function tuneMaterial(mesh, m, interior) {
     m.color.setRGB(0.02, 0.02, 0.025);
     m.roughness = 0.08;
     m.metalness = 0.35;
-  } else if (name.includes('Mat_R2_Mirror') || name.includes('Mat_FH_Mirror')) {
+  } else if (name.includes('Mat_R2_Mirror') || name.includes('Mat_FH_Mirror') || name.includes('Mat_ENT_Mirror')) {
     m.roughness = 0.02;
     m.metalness = 0.98;
   } else if (name.includes('Mat_R2_SanitaryCeramic') || name.includes('Mat_FH_Sanitary')) {
